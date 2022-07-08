@@ -1,0 +1,75 @@
+:host {
+    display: block;
+    /* background-color: brown; */
+}
+
+.topContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.langSelector {
+    display: block;
+}
+
+.langSelector a {
+    display: inline-block;
+    margin: 0 8px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.langSelector a.active {
+    font-weight: bold;
+}
+
+.bottomContainer {
+    background-color: var(--dark-color);
+}
+
+.logo {
+    height: 60px;
+    margin: 5px 16px;
+}
+
+input {
+    width: 350px;
+}
+
+fa-icon.find {
+    margin: 0 5px 0 0;
+}
+
+.cabinetIcon, .cartIcon {
+    color: white;
+    background-color: var(--dark-color);
+    border: 0;
+    margin: 0 16px;
+    border-radius: 3px;
+    padding: 2px 16px;
+}
+.cabinetIcon:hover, .cartIcon:hover {
+    background-color: var(--dark-color-hover);
+}
+
+.cartIcon {
+    position: relative;
+}
+
+.cartTotalCounter {
+    background-color: yellow;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    top: 10%;
+    right: 25%;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    padding: 0%;
+    line-height: 100%;
+}

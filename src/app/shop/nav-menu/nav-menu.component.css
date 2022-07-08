@@ -1,0 +1,24 @@
+:host {
+    background-color: white;
+    font-size: 14px;
+}
+
+:host-context(app-top-bar) {
+    /* font-weight: bold; */
+}
+
+:host-context(app-top-bar) p {
+    color: blueviolet;
+}
+
+a {
+    /* text-decoration: none; */
+    color: var(--main-color);
+}
+
+
+ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 16px;
+  }
