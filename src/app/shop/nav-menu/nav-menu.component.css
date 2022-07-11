@@ -21,4 +21,8 @@ ul li {
     list-style: none;
     display: inline-block;
     margin: 0 16px;
-  }
+}
+
+.active {
+    color: red;
+}
