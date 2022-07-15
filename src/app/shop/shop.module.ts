@@ -13,6 +13,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaymentComponent } from './payment/payment.component';
 import { CatalogSidebarComponent } from './catalog-sidebar/catalog-sidebar.component';
 import { CatalogSubmenuComponent } from './catalog-submenu/catalog-submenu.component';
+import { ServicePagesComponent } from './service-pages/service-pages.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CatalogSubmenuComponent } from './catalog-submenu/catalog-submenu.compo
     AboutComponent,
     PaymentComponent,
     CatalogSidebarComponent,
-    CatalogSubmenuComponent
+    CatalogSubmenuComponent,
+    ServicePagesComponent
   ],
   imports: [
     CommonModule,
