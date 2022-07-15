@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  test!: string;
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    // const t = this.route.url.subscribe(url => {
+    //      this.test = url.join('');
+    //    })
+    // console.log('-----------');
+    
+    // console.log(this.test);
+
   }
 
 }

@@ -10,6 +10,9 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { AboutComponent } from './about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaymentComponent } from './payment/payment.component';
+import { CatalogSidebarComponent } from './catalog-sidebar/catalog-sidebar.component';
+import { CatalogSubmenuComponent } from './catalog-submenu/catalog-submenu.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TopBarComponent,
     NavMenuComponent,
     CatalogComponent,
-    AboutComponent
+    AboutComponent,
+    PaymentComponent,
+    CatalogSidebarComponent,
+    CatalogSubmenuComponent
   ],
   imports: [
     CommonModule,

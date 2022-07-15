@@ -1,5 +1,5 @@
 <div class="topContainer">
-    <app-nav-menu></app-nav-menu>
+    <app-nav-menu class="topBarNavigation"></app-nav-menu>
     <div class="langSelector">
         <a type="button" (click)="selectLanguage('ru-RU')" [ngClass]="(language == 'ru-RU') ? 'active' : ''">Рус</a>
         <a type="button" (click)="selectLanguage('uk-UK')" [ngClass]="(language == 'uk-UK') ? 'active' : ''">Укр</a>
@@ -9,7 +9,10 @@
     <a routerLink=""><img src="../../../assets/logo(на сайт)_white.webp" class="logo"></a>
     <ng-container>
         <input class="find" [(ngModel)]="findString">
-        <button (click)="onFind()" [disabled]="!findString"><fa-icon class="find" [icon]="faMagnifyingGlass"></fa-icon>Find</button>
+        <button (click)="onFind()" [disabled]="!findString">
+            <fa-icon class="find" [icon]="faMagnifyingGlass"></fa-icon>
+            Find
+        </button>
     </ng-container>
     <button class="cabinetIcon" (click)="onCabinetClick()">
         <fa-icon [icon]="cabinetIcon"></fa-icon>

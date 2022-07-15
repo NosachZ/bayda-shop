@@ -1,28 +1,48 @@
-:host {
+/* topbar menu */
+:host(.topBarNavigation) {
     background-color: white;
     font-size: 14px;
 }
 
-:host-context(app-top-bar) {
-    /* font-weight: bold; */
-}
-
-:host-context(app-top-bar) p {
-    color: blueviolet;
-}
-
-a {
-    /* text-decoration: none; */
-    color: var(--main-color);
-}
-
-
-ul li {
+:host(.topBarNavigation) ul li {
     list-style: none;
     display: inline-block;
     margin: 0 16px;
 }
 
-.active {
-    color: red;
+:host(.topBarNavigation) a {
+    display: block;
+    width: 100%;
+    color: var(--main-color);
+}
+
+/* sidebar menu */
+
+:host(.sideBarNavigation) {
+    font-size: 18px;
+    position: absolute;
+    width: 250px;
+    background-color: white;
+    box-shadow: 0 0 6px rgb(142, 142, 142);
+    height: 100%;
+}
+
+:host(.sideBarNavigation) a {
+    color: var(--main-color);
+}
+
+:host(.sideBarNavigation) ul li {
+    list-style: none;
+    display: block;
+}
+
+:host(.sideBarNavigation) a {
+    display: block;
+    padding: 20px 16px;
+    width: 100%;
+    color: black;
+}
+
+:host(.sideBarNavigation) .active {
+    background-color: lightgray;
 }
