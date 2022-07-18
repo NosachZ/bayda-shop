@@ -1,5 +1,7 @@
-<div class="submenuWrapper" *ngFor="let item of categories1l">
+<div class="shaddowing"></div>
+
+<div class="submenuWrapper" *ngFor="let item of categories1level">
     <p>{{item.title}}</p>
     <fa-icon *ngIf="item.hasChild" class="submenuArrow" [icon]="faAngleRight"></fa-icon>
-    <app-catalog-submenu *ngIf="item.hasChild" [parent]="item" tabindex="0"></app-catalog-submenu>
+    <app-catalog-submenu *ngIf="item.hasChild" [parent]="item.id" tabindex="0"></app-catalog-submenu>
 </div>

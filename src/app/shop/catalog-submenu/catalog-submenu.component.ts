@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { categories, Category, Model, Instance, Attribute, AttributeValue } from 'src/app/products';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { HttpRequestsService } from 'src/app/http-requests.service';
 
 @Component({
   selector: 'app-catalog-submenu',
@@ -9,15 +10,15 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 })
 export class CatalogSubmenuComponent implements OnInit {
 
-  @Input() parent!: Category;
+  @Input() parent!: number;
   faAngleRight = faAngleRight;
   
   childs!: Category[];
 
-  constructor() { }
+  constructor(private http: HttpRequestsService) { }
 
   ngOnInit(): void {
-    this.childs = categories.filter(item => item.parent?.id === this.parent.id);
+    this.childs = this.http.getCategories(this.parent);
   }
 
 }

@@ -20,10 +20,7 @@
 
 :host(.sideBarNavigation) {
     font-size: 18px;
-    position: absolute;
-    width: 250px;
     background-color: white;
-    box-shadow: 0 0 6px rgb(142, 142, 142);
     height: 100%;
 }
 
