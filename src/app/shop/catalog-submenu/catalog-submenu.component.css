@@ -1,8 +1,5 @@
 :host {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 200px;
+    display: block;
     min-width: 200px;
     font-size: 18px;
     background-color: white;
@@ -10,10 +7,17 @@
     height: 100%;
 }
 
+:host(.submenu) {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 200px;
+}
+
 .submenuWrapper {
     display: flex;
     align-items: center;
-    /* position: relative; */
+    cursor: pointer;
 }
 
 p {
@@ -22,20 +26,20 @@ p {
     color: black;
 }
 
-.submenuWrapper:hover {
-    background-color: lightgray;
-}
-
-.submenuWrapper:hover app-catalog-submenu {
-    display: block;
-}
-
 .submenuArrow {
     color: darkgray;
     margin-right: 26px;
 }
 
-.submenuWrapper:hover .submenuArrow {
+.submenuWrapper:hover {
+    background-color: lightgray;
+}
+
+.submenuWrapper:hover > app-catalog-submenu {
+    display: block;
+}
+
+.submenuWrapper:hover > .submenuArrow {
     color: black;
     margin-left: 16px;
     margin-right: 10px;

@@ -1,6 +1,5 @@
 :host {
     font-size: 18px;
-    /* position: absolute; */
     position: relative;
     width: 200px;
     background-color: white;
@@ -8,37 +7,6 @@
     height: 100%;
     flex-grow: 0;
     flex-shrink: 0;
-    /* z-index: 100; */
-}
-.submenuWrapper {
-    display: flex;
-    align-items: center;
-    /* position: relative; */
-}
-
-p {
-    padding: 20px 16px;
-    width: 100%;
-    color: black;
-}
-
-.submenuWrapper:hover {
-    background-color: lightgray;
-}
-
-.submenuWrapper:hover app-catalog-submenu {
-    display: block;
-}
-
-.submenuArrow {
-    color: darkgray;
-    margin-right: 26px;
-}
-
-.submenuWrapper:hover .submenuArrow {
-    color: black;
-    margin-left: 16px;
-    margin-right: 10px;
 }
 
 .shaddowing {
@@ -47,11 +15,11 @@ p {
     top: 0;
     left: 200px;
     z-index: -1;
-    width: 100vw;
+    width: calc(100vw - 200px);
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-:host:hover .shaddowing {
+.wrapper:hover .shaddowing {
     display: block;
 }

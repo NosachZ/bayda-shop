@@ -1,5 +1,8 @@
-<div class="submenuWrapper" *ngFor="let item of childs">
-    <p>{{item.title}}</p>
+<div class="submenuWrapper" *ngFor="let item of childs" (click)="onCategoryClick(item.title)" >
+    <p>
+        {{item.title}}
+        ({{item.id}})
+    </p>
     <fa-icon *ngIf="item.hasChild" class="submenuArrow" [icon]="faAngleRight"></fa-icon>
-    <app-catalog-submenu *ngIf="item.hasChild" [parent]="item.id" tabindex="0"></app-catalog-submenu>
+    <app-catalog-submenu class="submenu" *ngIf="item.hasChild" [parent]="item.id" tabindex="0"></app-catalog-submenu>
 </div>

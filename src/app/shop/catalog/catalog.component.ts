@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CatalogService } from 'src/app/catalog.service';
 
 @Component({
   selector: 'app-catalog',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogComponent implements OnInit {
 
-  constructor() { }
+  selectedCategory!: string;
+
+  constructor(private catalog: CatalogService) { }
 
   ngOnInit(): void {
+    this.selectedCategory = this.catalog.selectedCategory;
   }
+
+  
 
 }
