@@ -1,20 +1,20 @@
 export interface Category {
-    id: number;
-    title: string;
-    parent: number | null;
-    attributes: Set<Attribute> | null;
-    hasChild: boolean;
+    id: number,
+    title?: string,
+    parentId?: number | null,
+    attributes?: Set<Attribute> | null,
+    hasChild?: boolean,
+    children?: Set<Category>,
 }
 
 export interface Model {
-    id: number;
-    title: string;
-    description: string[];
-    images: string[]; //filenames for example
-    category: number[];
-    price: number;
-    vendor: string;
-    values: Set<AttributeValue>;
+    id: number,
+    title?: string,
+    description?: string[],
+    images?: string[], //filenames for example
+    category?: Category[],
+    vendor?: string,
+    values?: Set<AttributeValue>,
 }
 
 export interface Instance {

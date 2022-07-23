@@ -14,12 +14,9 @@ export class CatalogSidebarComponent implements OnInit {
 
   faAngleRight = faAngleRight;
 
-  categories1level!: Category[];
-
   constructor(private http: HttpRequestsService) { }
 
   ngOnInit(): void {
-    this.categories1level = this.http.getCategories(null);
   }
 
 }

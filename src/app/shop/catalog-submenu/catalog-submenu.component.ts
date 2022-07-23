@@ -11,22 +11,32 @@ import { CatalogService } from 'src/app/catalog.service';
 })
 export class CatalogSubmenuComponent implements OnInit {
 
-  @Input() parent!: number | null;
+  @Input() parentId!: number | null;
   faAngleRight = faAngleRight;
   
-  childs!: Category[];
+  childs: Category[] = [];
+  error: any;
+
 
   constructor(
     private http: HttpRequestsService,
     private catalog: CatalogService) { }
 
   ngOnInit(): void {
-    this.childs = this.http.getCategories(this.parent);
+    this.http.getChildCategories(this.parentId).subscribe({
+      next: (data: Category[]) => {
+        this.childs = data;
+        //temporary post-processing while backend is absent
+        this.childs = this.childs.filter(item => item.parentId == this.parentId)
+      }, // success path
+      error: error => this.error = error, // error path
+    });
+    if (this.error) console.error(this.error);
   }
 
-  onCategoryClick(category: string) {
+  onCategoryClick(event: MouseEvent, category: Category) {
     this.catalog.selectCategory(category);
-    alert(category);
+    event.stopPropagation();
   }
 
 }

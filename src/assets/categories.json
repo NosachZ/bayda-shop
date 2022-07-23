@@ -1,0 +1,436 @@
+[
+    {
+        "id": 1,
+        "title": "Снаряжение",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 2,
+        "title": "Одежда",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 3,
+        "title": "Обувь",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 4,
+        "title": "Аксессуары",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 5,
+        "title": "Бивак",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 6,
+        "title": "Зимний спорт",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 7,
+        "title": "Товары общего назначения",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 8,
+        "title": "Акции",
+        "parentId": null,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 9,
+        "title": "Веревки",
+        "parentId": 1,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 10,
+        "title": "Железо",
+        "parentId": 1,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 11,
+        "title": "Каски",
+        "parentId": 1,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 12,
+        "title": "Ледовое снаряжение",
+        "parentId": 1,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 13,
+        "title": "Головные уборы",
+        "parentId": 2,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 14,
+        "title": "Жилеты",
+        "parentId": 2,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 15,
+        "title": "Носки",
+        "parentId": 2,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 16,
+        "title": "Термобелье",
+        "parentId": 2,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 17,
+        "title": "Штаны",
+        "parentId": 2,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 18,
+        "title": "Ботинки",
+        "parentId": 3,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 19,
+        "title": "Кроссовки",
+        "parentId": 3,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 20,
+        "title": "Сандалии",
+        "parentId": 3,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 21,
+        "title": "Скальники",
+        "parentId": 3,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 22,
+        "title": "Брелоки",
+        "parentId": 4,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 23,
+        "title": "Замки для багажа",
+        "parentId": 4,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 24,
+        "title": "Зонты",
+        "parentId": 4,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 25,
+        "title": "Стяжки/стропы",
+        "parentId": 4,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 26,
+        "title": "Фурнитура",
+        "parentId": 4,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 27,
+        "title": "Палатки",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 28,
+        "title": "Тенты",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 29,
+        "title": "Рюкзаки",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 30,
+        "title": "Спльные мешки",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 31,
+        "title": "Коврики",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 32,
+        "title": "Посуда",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 33,
+        "title": "Мебель",
+        "parentId": 5,
+        "attributes": null,
+        "hasChild": true
+    },
+    {
+        "id": 34,
+        "title": "Горнолыжные маски",
+        "parentId": 6,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 35,
+        "title": "Горнолыжные шлемы",
+        "parentId": 6,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 36,
+        "title": "Снегоступы",
+        "parentId": 6,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 37,
+        "title": "Чехлы для лыж/сноубордов",
+        "parentId": 6,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 38,
+        "title": "Гамаки",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 39,
+        "title": "Гермоупаковки",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 40,
+        "title": "Компрессионные мешки/чехлы",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 41,
+        "title": "Косметички/кошельки",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 42,
+        "title": "Средства гигиены/полотенца",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 43,
+        "title": "Сумки",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 44,
+        "title": "Фонари",
+        "parentId": 7,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 45,
+        "title": "Балаклавы/маски/подшлемники",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 46,
+        "title": "Кепки/панамы",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 47,
+        "title": "Мультифункциональные",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 48,
+        "title": "Повязки на голову",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 49,
+        "title": "Повязки на шею",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 50,
+        "title": "Шапки",
+        "parentId": 13,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 51,
+        "title": "Горнолыжные штаны",
+        "parentId": 17,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 52,
+        "title": "Утепленные штаны",
+        "parentId": 17,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 53,
+        "title": "Мембранные штаны",
+        "parentId": 17,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 54,
+        "title": "Треккинговые/городские штаны",
+        "parentId": 17,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 55,
+        "title": "Кемпинговые",
+        "parentId": 27,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 56,
+        "title": "Треккинговые",
+        "parentId": 27,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 57,
+        "title": "Кастрюли/котлы",
+        "parentId": 32,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 58,
+        "title": "Миски",
+        "parentId": 32,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 59,
+        "title": "Термокружки",
+        "parentId": 32,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 60,
+        "title": "Термоса",
+        "parentId": 32,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 61,
+        "title": "Кресло",
+        "parentId": 33,
+        "attributes": null,
+        "hasChild": false
+    },
+    {
+        "id": 62,
+        "title": "Стол",
+        "parentId": 33,
+        "attributes": null,
+        "hasChild": false
+    }
+]

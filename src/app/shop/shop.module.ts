@@ -14,6 +14,9 @@ import { PaymentComponent } from './payment/payment.component';
 import { CatalogSidebarComponent } from './catalog-sidebar/catalog-sidebar.component';
 import { CatalogSubmenuComponent } from './catalog-submenu/catalog-submenu.component';
 import { ServicePagesComponent } from './service-pages/service-pages.component';
+import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
+import { StringFilterComponent } from './filters-templates/string-filter/string-filter.component';
+import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import { ServicePagesComponent } from './service-pages/service-pages.component';
     PaymentComponent,
     CatalogSidebarComponent,
     CatalogSubmenuComponent,
-    ServicePagesComponent
+    ServicePagesComponent,
+    BooleanFilterComponent,
+    StringFilterComponent,
+    NumberFilterComponent
   ],
   imports: [
     CommonModule,
