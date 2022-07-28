@@ -1,4 +1,4 @@
-<div class="submenuWrapper" *ngFor="let item of childs" (click)="onCategoryClick($event, item)" tabindex="0">
+<div class="submenuWrapper" *ngFor="let item of childs | async" (click)="onCategoryClick($event, item)" tabindex="0">
     <p>
         {{item.title}}
         ({{item.id}})

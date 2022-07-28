@@ -3,9 +3,19 @@
 </aside>
 
 <div class="container">
-    <p>{{selectedCategory?.title}}</p>
+    <div *ngIf="categoryChain">
+        <fa-icon icon="house"></fa-icon>
+        <!-- <div *ngFor="let item of categoryChain | async">{{item.title}}</div> -->
+        <span *ngFor="let item of categoryChain | async">
+            <span>/</span>
+            <span>{{item.title}}</span>
+        </span>
+    </div>
+    
+    
+    <!-- <p>{{selectedCategory?.title}}</p> -->
 
-    <!-- <div *ngFor="let item of categories">{{item.id}}</div> -->
+    <!-- <div *ngFor="let item of categoryChain | async">{{item.title}}</div> -->
     <p>catalog works!</p>
     <p>catalog works!</p>
     <p>catalog works!</p>
