@@ -1,8 +1,16 @@
-import { Injectable } from '@angular/core';
-import { categories, Category, Model, Instance, Attribute, AttributeValue } from 'src/app/products';
+import { Injectable, Type } from '@angular/core';
+import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { HttpRequestsService } from './http-requests.service';
 import { map, Observable } from 'rxjs';
+import { BooleanFilterComponent } from './shop/filters-templates/boolean-filter/boolean-filter.component';
+import { NumberFilterComponent } from './shop/filters-templates/number-filter/number-filter.component';
+import { StringFilterComponent } from './shop/filters-templates/string-filter/string-filter.component';
 
+type FilterTypes = BooleanFilterComponent | NumberFilterComponent | StringFilterComponent;
+
+class Filter {
+  constructor (component: Type<FilterTypes>, attr: Attribute, attrValues: Set<AttributeValue>) {}
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +18,16 @@ import { map, Observable } from 'rxjs';
 export class CatalogService {
 
   selectedCategory: Category | null = null;
-  // categoryChain: Category[] = [];
   categoryChain: Observable<Category[]> | null = null;
+  attributeSet: Observable<Set<Attribute>> | null = null;
+  attrFilterSet: Filter | null = null;
 
   constructor(private httpRequest: HttpRequestsService) { }
 
   catalogInit() {
     this.selectedCategory = null;
     this.categoryChain = null;
+    this.attributeSet = null;
   }
 
   getChildCategories(parentId: number | null): Observable<Category[]> {
@@ -27,23 +37,15 @@ export class CatalogService {
   selectCategory(category: Category) {
     this.selectedCategory = category;
     this.categoryChain = this.httpRequest.getCategoryChain(category);
-    // this.getCategoryChain();
+    this.categoryChain.subscribe(data => {
+      this.attributeSet = this.httpRequest.getAttributeSet(data);
+      // this.attributeSet.subscribe(attr => console.log(attr));
+    });
+    
+    // this.categoryChain.subscribe(data => {console.log(data)});
+
   }
 
-  /*getCategoryChain() {
-    this.categoryChain.length = 0;
-    let curCategory: Category;
-    if (this.selectedCategory) {
-      curCategory = this.selectedCategory;
-      while (curCategory.parentId) {
-        let parent = this.httpRequest.getParentCategory(curCategory.parentId);
-        if (parent) { curCategory = parent };
-        this.categoryChain?.push(curCategory);
-      }
-    }
-    this.categoryChain.forEach(element => {
-      alert(element.title);
-    });
-  }*/
+  
   
 }

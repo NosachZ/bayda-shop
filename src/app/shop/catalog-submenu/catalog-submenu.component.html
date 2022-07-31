@@ -3,6 +3,7 @@
         {{item.title}}
         ({{item.id}})
     </p>
-    <fa-icon *ngIf="item.hasChild" class="submenuArrow" [icon]="faAngleRight"></fa-icon>
+    <!-- <fa-icon *ngIf="item.hasChild" class="submenuArrow" [icon]="faAngleRight"></fa-icon> -->
+    <fa-icon *ngIf="item.hasChild" class="submenuArrow" icon="angle-right"></fa-icon>
     <app-catalog-submenu class="submenu" *ngIf="item.hasChild" [parentId]="item.id"></app-catalog-submenu>
 </div>

@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Наличие",
+        "categoriesId": [1,2,3,4,5,6,7,8],
+        "strType": "boolean"
+    },
+    {
+        "id": 2,
+        "name": "Бренд",
+        "categoriesId": [1,2,3,4,5,6,7,8],
+        "strType": "string"
+    },
+    {
+        "id": 3,
+        "name": "Цена",
+        "categoriesId": [1,2,3,4,5,6,7,8],
+        "strType": "number"
+    },
+    {
+        "id": 4,
+        "name": "Количество мест",
+        "categoriesId": [27],
+        "strType": "string"
+    },
+    {
+        "id": 5,
+        "name": "Количество входов",
+        "categoriesId": [27],
+        "strType": "string"
+    },    
+    {
+        "id": 6,
+        "name": "Материал дуг",
+        "categoriesId": [27],
+        "strType": "string"
+    },    
+    {
+        "id": 7,
+        "name": "Расположение дуг",
+        "categoriesId": [27],
+        "strType": "string"
+    },    
+    {
+        "id": 8,
+        "name": "Вес",
+        "categoriesId": [27],
+        "strType": "string"
+    }
+]

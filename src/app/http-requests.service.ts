@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { categories, Category, Model, Instance, Attribute, AttributeValue } from 'src/app/products';
+import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 
 
 
@@ -11,26 +11,43 @@ import { categories, Category, Model, Instance, Attribute, AttributeValue } from
 })
 export class HttpRequestsService {
 
-  categoriesURL = '/assets/categories.json';
+  backendURL = '/API/********************';
+  categoryURL = '/assets/backend-emul/categories.json';
+  attributeURL = '/assets/backend-emul/attributes.json';
+
   error: any;
 
 
   constructor(private http: HttpClient) { }
 
   // -------temp-----------
-  // getSubCategories() {
-  //   const options = { params: new HttpParams().set('parentId', 5) };
-  //   return this.http.get<Category[]>(this.categoriesURL, options);
-  // }
+  getAttributeSet(categoryChain: Category[]) {
+    let chainCategoriesId: number[] = [];
+    for (let item of categoryChain) {
+      chainCategoriesId.push(item.id);
+    }
 
-  // getAllCategories() {
-  //   return this.http.get<Category[]>(this.categoriesURL);
-  // }
+    let options = { params: new HttpParams().set('getAttributeSet', chainCategoriesId.join(',')) };
 
-  // getParentCategory(parentId: number) {
-  //   let parent = categories.find(item => item.id == parentId)
-  //   return parent ? parent : null;
-  // }
+    // return for backend request
+    // return this.http.get<Set<Attribute>>(this.backendURL, options);
+
+    // return for local request (with filter)
+    return this.http.get<Set<Attribute>>(this.attributeURL, options).pipe(map(data => {
+      let chainAttributeSet: Set<Attribute> = new Set<Attribute>([]);
+      data = new Set(data);
+      for (let item of data) {
+        item.categoriesId = new Set(item.categoriesId);
+      }
+      
+      for (let category of chainCategoriesId) {
+        for (let attr of data) {
+          if (attr.categoriesId.has(category)) chainAttributeSet.add(attr);
+        }
+      }
+      return chainAttributeSet;
+    }));
+  }
 
   // --------------work------
   getChildCategories(parentId: number | null) {
@@ -42,19 +59,19 @@ export class HttpRequestsService {
     }
 
     // return for backend request
-    // return this.http.get<Category[]>(this.categoriesURL, options);
+    // return this.http.get<Category[]>(this.backendURL, options);
 
     // return for local request (with filter)
-    return this.http.get<Category[]>(this.categoriesURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
+    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
   }
 
   getCategoryChain(selected: Category): Observable<Category[]> {
     let options = { params: new HttpParams().set('getCategoryChain', selected.id) };
     // return for backend request
-    // return this.http.get<Category[]>(this.categoriesURL, options);
+    // return this.http.get<Category[]>(this.backendURL, options);
 
     // return for local request (with filter)
-    return this.http.get<Category[]>(this.categoriesURL, options).pipe(map(data => {
+    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => {
       let categoryChain: Category[] = [selected];
       let curCategory: Category;
       curCategory = selected;

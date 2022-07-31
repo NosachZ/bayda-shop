@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { categories, Category, Model, Instance, Attribute, AttributeValue } from 'src/app/products';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { HttpRequestsService } from 'src/app/http-requests.service';
 import { CatalogService } from 'src/app/catalog.service';
 import { map, Observable } from 'rxjs';
@@ -13,10 +12,7 @@ import { map, Observable } from 'rxjs';
 export class CatalogSubmenuComponent implements OnInit {
 
   @Input() parentId!: number | null;
-  faAngleRight = faAngleRight;
   
-  // childs: Category[] = [];
-  // childs: Observable<Category[]> = this.http.getChildCategories(this.parentId).pipe(map(data => data.filter(item => item.parentId == this.parentId)));
   childs!: Observable<Category[]>;
 
 
@@ -26,19 +22,6 @@ export class CatalogSubmenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.childs = this.catalog.getChildCategories(this.parentId);
-    /*this.http.getChildCategories(this.parentId).subscribe({
-      next: (data: Category[]) => {
-        // *************
-        // this.childs = data;
-        //temporary post-processing while backend is absent
-        // this.childs = this.childs.filter(item => item.parentId == this.parentId)
-        // *************
-        // data = data.filter(item => item.parentId == this.parentId);        
-        // this.childs = data;
-      }, // success path
-      error: error => this.error = error, // error path
-    });
-    if (this.error) console.error(this.error);*/
   }
 
   onCategoryClick(event: MouseEvent, category: Category) {

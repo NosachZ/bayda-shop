@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { categories, Category, Model, Instance, Attribute, AttributeValue } from 'src/app/products';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { HttpRequestsService } from 'src/app/http-requests.service';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { CatalogService } from 'src/app/catalog.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -10,13 +9,18 @@ import { CatalogService } from 'src/app/catalog.service';
   templateUrl: './catalog-sidebar.component.html',
   styleUrls: ['./catalog-sidebar.component.css']
 })
-export class CatalogSidebarComponent implements OnInit {
+export class CatalogSidebarComponent implements OnInit, DoCheck {
 
-  faAngleRight = faAngleRight;
+  attributeSet!: Observable<Set<Attribute>> | null;
 
-  constructor(private http: HttpRequestsService) { }
-
-  ngOnInit(): void {
+  constructor(private catalog: CatalogService) { 
   }
 
+  ngOnInit(): void {
+    // this.attributeSet?.subscribe(attr => console.log(attr));
+  }
+
+  ngDoCheck(): void {
+    this.attributeSet = this.catalog.attributeSet;
+  }
 }

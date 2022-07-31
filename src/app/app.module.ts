@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShopModule } from './shop/shop.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, faUserLock } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -27,5 +27,10 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
 export class AppModule { 
   constructor(iconLibrary: FaIconLibrary) {
     iconLibrary.addIcons(faHouse);
+    iconLibrary.addIcons(faAngleRight);
+    iconLibrary.addIcons(faMagnifyingGlass);
+    iconLibrary.addIcons(faUserLock);
+    iconLibrary.addIcons(faUserGear);
+    iconLibrary.addIcons(faCartShopping);
   }
 }

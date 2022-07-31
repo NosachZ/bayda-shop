@@ -10,15 +10,16 @@
     <ng-container>
         <input class="find" [(ngModel)]="findString">
         <button (click)="onFind()" [disabled]="!findString">
-            <fa-icon class="find" [icon]="faMagnifyingGlass"></fa-icon>
+            <fa-icon class="find" icon="magnifying-glass"></fa-icon>
             Find
         </button>
     </ng-container>
     <button class="cabinetIcon" (click)="onCabinetClick()">
-        <fa-icon [icon]="cabinetIcon"></fa-icon>
+        <fa-icon *ngIf="!isAuthorised" icon="user-lock"></fa-icon>
+        <fa-icon *ngIf="isAuthorised" icon="user-gear"></fa-icon>
     </button>
     <button class="cartIcon" (click)="onCartClick()">
-        <fa-icon [icon]="faCartShopping"></fa-icon>
+        <fa-icon icon="cart-shopping"></fa-icon>
         <span class="cartTotalCounter">{{cartTotalCounter}}</span>
     </button>
 </div>

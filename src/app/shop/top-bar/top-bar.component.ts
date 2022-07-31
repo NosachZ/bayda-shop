@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { LocaleService } from 'src/app/locale.service';
 import { CartService } from 'src/app/cart.service';
-import { faMagnifyingGlass, faUserLock, faUserGear, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faUserLock, faUserGear, faCartShopping, IconName } from '@fortawesome/free-solid-svg-icons';
 import { CatalogService } from 'src/app/catalog.service';
 
 
@@ -16,11 +16,7 @@ export class TopBarComponent implements OnInit {
   findString: string = '';
   cartTotalCounter: number = this.cart.getTotal();
   
-  faMagnifyingGlass = faMagnifyingGlass;
-  faUserLock = faUserLock;
-  faUserGear = faUserGear;
-  cabinetIcon = faUserLock;
-  faCartShopping = faCartShopping;
+  isAuthorised: boolean = false;
 
   constructor(
     private locale: LocaleService,
@@ -47,7 +43,7 @@ export class TopBarComponent implements OnInit {
   }
 
   onCabinetClick() {
-    this.cabinetIcon = (this.cabinetIcon == this.faUserLock) ? this.faUserGear : this.faUserLock;
+    this.isAuthorised = !this.isAuthorised;
     alert("Cabinet is under construction!");
   }
 
