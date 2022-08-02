@@ -30,7 +30,7 @@ export interface Attribute {
     name: string;
     categoriesId: Set<number>;
     strType: "string" | "number" | "boolean";
-    // attrValues: string[] | {min: number, max: number} | string
+    attrAcceptableValues?: string[] | {min: number, max: number} | string
 }
 
 export interface AttributeValue {

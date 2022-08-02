@@ -6,6 +6,12 @@ import { BooleanFilterComponent } from './shop/filters-templates/boolean-filter/
 import { NumberFilterComponent } from './shop/filters-templates/number-filter/number-filter.component';
 import { StringFilterComponent } from './shop/filters-templates/string-filter/string-filter.component';
 
+export interface SelectedCategoryComplex {
+  selectedCategory: Category | null;
+  categoryChain: Category[] | null; //chain from root to selected category
+  attributeSet: Set<Attribute> | null; //union of attribute Sets from categoryChain with filled field "attrAcceptableValues"
+}
+
 type FilterTypes = BooleanFilterComponent | NumberFilterComponent | StringFilterComponent;
 
 class Filter {

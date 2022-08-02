@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
+import { SelectedCategoryComplex } from './catalog.service';
 
 
 
@@ -49,22 +50,6 @@ export class HttpRequestsService {
     }));
   }
 
-  // --------------work------
-  getChildCategories(parentId: number | null) {
-    let options;
-    if (parentId) {
-      options = { params: new HttpParams().set('getChildCategories', parentId) };
-    } else {
-      options = { params: new HttpParams().set('getFirstLevelCategories', true) };
-    }
-
-    // return for backend request
-    // return this.http.get<Category[]>(this.backendURL, options);
-
-    // return for local request (with filter)
-    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
-  }
-
   getCategoryChain(selected: Category): Observable<Category[]> {
     let options = { params: new HttpParams().set('getCategoryChain', selected.id) };
     // return for backend request
@@ -82,8 +67,27 @@ export class HttpRequestsService {
       }
       return categoryChain;
     }));
-
   }
 
+  // --------------work------
+  getChildCategories(parentId: number | null) {
+    let options;
+    if (parentId) {
+      options = { params: new HttpParams().set('getChildCategories', parentId) };
+    } else {
+      options = { params: new HttpParams().set('getFirstLevelCategories', true) };
+    }
 
+    // return for backend request
+    // return this.http.get<Category[]>(this.backendURL, options);
+
+    // return for local request (with filter)
+    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
+  }
+
+  getSelectedCategoryComplex(selected: Category): Observable<SelectedCategoryComplex>|void {
+    let options = { params: new HttpParams().set('getSelectedCategoryComplex', selected.id) };
+    // return for backend request
+    // return this.http.get<Category[]>(this.backendURL, options);
+  }
 }
