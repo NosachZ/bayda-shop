@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CatalogService } from 'src/app/catalog.service';
 import { HttpRequestsService } from 'src/app/http-requests.service';
-import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
+import { Category, Model, Asset, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 
 @Component({
   selector: 'app-catalog',

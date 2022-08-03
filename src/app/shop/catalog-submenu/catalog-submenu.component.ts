@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
+import { Category, Model, Asset, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { HttpRequestsService } from 'src/app/http-requests.service';
 import { CatalogService } from 'src/app/catalog.service';
 import { map, Observable } from 'rxjs';

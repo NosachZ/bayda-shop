@@ -7,56 +7,64 @@ Data
 // ----------common-----------------
 const attr_availability: Attribute = {
     id: 1,
-    name: 'Наличие',
-    categoriesId: new Set<number>([1,2,3,4,5,6,7,8]),
-    strType: "boolean",
+    title: 'Наличие',
+    categories: [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5},{id: 6},{id: 7},{id: 8}],
+    type: "boolean",
+    acceptableValues: "Есть в наличии"
 }
 
 const attr_brand: Attribute = {
     id: 2,
-    name: 'Бренд',
-    categoriesId: new Set<number>([1,2,3,4,5,6,7,8]),
-    strType: "string",
+    title: 'Бренд',
+    categories: [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5},{id: 6},{id: 7},{id: 8}],
+    type: "string",
+    acceptableValues: ["Terra Incognita", "Pinguin", "Kelty"]
 }
 
 const attr_price: Attribute = {
     id: 3,
-    name: 'Цена',
-    categoriesId: new Set<number>([1,2,3,4,5,6,7,8]),
-    strType: "number",
+    title: 'Цена',
+    categories: [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5},{id: 6},{id: 7},{id: 8}],
+    type: "number",
+    acceptableValues: {min: 1567, max: 16266}
 }
 // -------------tents-----------
 const attr_tent_person_number: Attribute = {
     id: 4,
-    name: 'Количество мест',
-    categoriesId: new Set<number>([27]),
-    strType: "string",
+    title: 'Количество мест',
+    categories: [{id: 27}],
+    type: "string",
+    acceptableValues: ["2", "2+1", "3"]
 }
 
 const attr_tent_entrance_number: Attribute = {
     id: 5,
-    name: 'Количество входов',
-    categoriesId: new Set<number>([27]),
-    strType: "string",
+    title: 'Количество входов',
+    categories: [{id: 27}],
+    type: "string",
+    acceptableValues: ["1", "2", "3"]
 }
 
 const attr_tent_skeleton_material: Attribute = {
     id: 6,
-    name: 'Материал дуг',
-    categoriesId: new Set<number>([27]),
-    strType: "string",
+    title: 'Материал дуг',
+    categories: [{id: 27}],
+    type: "string",
+    acceptableValues: ["Алюминий", "Стекловолокно"]
 }
 
 const attr_tent_skeleton_position: Attribute = {
     id: 7,
-    name: 'Расположение дуг',
-    categoriesId: new Set<number>([27]),
-    strType: "string",
+    title: 'Расположение дуг',
+    categories: [{id: 27}],
+    type: "string",
+    acceptableValues: ["Внутри", "Снаружи"]
 }
 
 const attr_tent_weight: Attribute = {
     id: 8,
-    name: 'Вес',
-    categoriesId: new Set<number>([27]),
-    strType: "string",
+    title: 'Вес',
+    categories: [{id: 27}],
+    type: "string",
+    acceptableValues: ["1-3", "3-6"]
 }

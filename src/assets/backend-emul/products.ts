@@ -3,41 +3,40 @@ import { Type } from "@angular/core";
 
 export interface Category {
     id: number,
-    title?: string,
-    parentId?: number | null,
-    attributes?: Set<Attribute> | null,
-    hasChild?: boolean,
+    title: string,
+    parentId: number | null,
+    attributes: Attribute[],
+    hasChildren: boolean,
 }
 
 export interface Model {
     id: number,
-    title?: string,
-    description?: string[],
-    images?: string[], //filenames for example
-    categoryId: number[],
-    articul?: string,
-    values?: Set<AttributeValue> | null,
+    title: string,
+    description: string,
+    images: string[], //filenames for example
+    category: Category[],
+    vendor: string,
+    values: AttributeValue[],
 }
 
-export interface Instance {
+export interface Asset {
     id: number,
     sn: string,
-    model: number,
+    model: Model,
 }
 
 export interface Attribute {
     id: number;
-    name: string;
-    categoriesId: Set<number>;
-    strType: "string" | "number" | "boolean";
-    attrAcceptableValues?: string[] | {min: number, max: number} | string
+    title: string;
+    categories: Category[];
+    type: "string" | "number" | "boolean";
+    acceptableValues: string[] | {min: number, max: number} | string
 }
 
 export interface AttributeValue {
     id: number;
-    attribute?: Attribute;
-    attributeId: number;
-    modelId: number[];
+    attribute: Attribute;
+    model:  Model[];
     value: string | number | boolean;
 }
 /*---------------

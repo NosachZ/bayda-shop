@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
+import { Category, Model, Asset, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { CatalogService } from 'src/app/catalog.service';
 import { Observable } from 'rxjs';
 

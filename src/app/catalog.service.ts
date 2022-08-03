@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { Category, Model, Instance, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
+import { Category, Model, Asset, Attribute, AttributeValue } from 'src/assets/backend-emul/products';
 import { HttpRequestsService } from './http-requests.service';
 import { map, Observable } from 'rxjs';
 import { BooleanFilterComponent } from './shop/filters-templates/boolean-filter/boolean-filter.component';
