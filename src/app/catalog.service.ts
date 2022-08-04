@@ -25,7 +25,7 @@ export class CatalogService {
 
   selectedCategory: Category | null = null;
   categoryChain: Observable<Category[]> | null = null;
-  attributeSet: Observable<Set<Attribute>> | null = null;
+  attributeArray: Observable<Attribute[]> | null = null;
   attrFilterSet: Filter | null = null;
 
   constructor(private httpRequest: HttpRequestsService) { }
@@ -33,7 +33,7 @@ export class CatalogService {
   catalogInit() {
     this.selectedCategory = null;
     this.categoryChain = null;
-    this.attributeSet = null;
+    this.attributeArray = null;
   }
 
   getChildCategories(parentId: number | null): Observable<Category[]> {
@@ -44,7 +44,7 @@ export class CatalogService {
     this.selectedCategory = category;
     this.categoryChain = this.httpRequest.getCategoryChain(category);
     this.categoryChain.subscribe(data => {
-      this.attributeSet = this.httpRequest.getAttributeSet(data);
+      this.attributeArray = this.httpRequest.getAttributeSet(data);
       // this.attributeSet.subscribe(attr => console.log(attr));
     });
     

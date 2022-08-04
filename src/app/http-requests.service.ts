@@ -41,12 +41,14 @@ export class HttpRequestsService {
       //   item.categoriesId = new Set(item.categoriesId);
       // }
       
-      for (let category of chainCategoriesId) {
+      for (let categoryId of chainCategoriesId) {
         for (let attr of data) {
-          if (attr.categories.has(category)) chainAttributeSet.add(attr);
+          for (let attrCategory of attr.categories) {
+            if (attrCategory.id == categoryId) chainAttributeArray.push(attr);
+          }
         }
       }
-      return chainAttributeSet;
+      return chainAttributeArray;
     }));
   }
 
@@ -79,10 +81,11 @@ export class HttpRequestsService {
     }
 
     // return for backend request
-    return this.http.get<Category[]>(this.backendURL, options);
+    // return this.http.get<Category[]>(this.backendURL, options);
 
     // return for local request (with filter)
-    // return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
+    // if ([].length == 0) alert("ALARM!!!");
+    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
   }
 
   getSelectedCategoryComplex(selected: Category): Observable<SelectedCategoryComplex> {

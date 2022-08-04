@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class CatalogSidebarComponent implements OnInit, DoCheck {
 
-  attributeSet!: Observable<Set<Attribute>> | null;
+  attributeArray!: Observable<Attribute[]> | null;
 
   constructor(private catalog: CatalogService) { 
   }
@@ -21,6 +21,6 @@ export class CatalogSidebarComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.attributeSet = this.catalog.attributeSet;
+    this.attributeArray = this.catalog.attributeArray;
   }
 }

@@ -5,8 +5,8 @@ export interface Category {
     id: number,
     title: string,
     parentId: number | null,
-    attributes: Attribute[],
     hasChildren: boolean,
+    attributes: Attribute[],
 }
 
 export interface Model {
