@@ -4,7 +4,7 @@ import { Type } from "@angular/core";
 export interface Category {
     id: number,
     title: string,
-    parentId: number | null,
+    parentCategory: Category | null,
     hasChildren: boolean,
     attributes: Attribute[],
 }

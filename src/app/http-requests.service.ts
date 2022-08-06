@@ -62,8 +62,8 @@ export class HttpRequestsService {
       let categoryChain: Category[] = [selected];
       let curCategory: Category;
       curCategory = selected;
-      while (curCategory.parentId) {
-        let parent = data.find(item => item.id == curCategory.parentId);
+      while (curCategory.parentCategory?.id) {
+        let parent = data.find(item => item.id == curCategory.parentCategory?.id);
         if (parent) { curCategory = parent };
         categoryChain.unshift(curCategory);
       }
@@ -85,7 +85,7 @@ export class HttpRequestsService {
 
     // return for local request (with filter)
     // if ([].length == 0) alert("ALARM!!!");
-    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentId == parentId)));
+    return this.http.get<Category[]>(this.categoryURL, options).pipe(map(data => data.filter(item => item.parentCategory?.id == parentId)));
   }
 
   getSelectedCategoryComplex(selected: Category): Observable<SelectedCategoryComplex> {

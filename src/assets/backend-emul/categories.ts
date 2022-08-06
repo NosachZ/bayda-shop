@@ -4,56 +4,56 @@ import { Category } from "./products";
 const category1_l1: Category = {
     id: 1,
     title: "Снаряжение",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category2_l1: Category = {
     id: 2,
     title: "Одежда",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category3_l1: Category = {
     id: 3,
     title: "Обувь",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category4_l1: Category = {
     id: 4,
     title: "Аксессуары",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category5_l1: Category = {
     id: 5,
     title: "Бивак",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category6_l1: Category = {
     id: 6,
     title: "Зимний спорт",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category7_l1: Category = {
     id: 7,
     title: "Товары общего назначения",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: true
 }
 const category8_l1: Category = {
     id: 8,
     title: "Акции",
-    parentId: null,
+    parentCategory: null,
     attributes: [{id: 1}, {id: 2}, {id: 3}],
     hasChildren: false
 }
@@ -61,252 +61,252 @@ const category8_l1: Category = {
 const category1_l2: Category = {
     id: 9,
     title: "Веревки",
-    parentId: 1,
+    parentCategory: {id: 1},
     attributes: [],
     hasChildren: false
 }
 const category2_l2: Category = {
     id: 10,
     title: "Железо",
-    parentId: 1,
+    parentCategory: {id: 1},
     attributes: [],
     hasChildren: false
 }
 const category3_l2: Category = {
     id: 11,
     title: "Каски",
-    parentId: 1,
+    parentCategory: {id: 1},
     attributes: [],
     hasChildren: false
 }
 const category4_l2: Category = {
     id: 12,
     title: "Ледовое снаряжение",
-    parentId: 1,
+    parentCategory: {id: 1},
     attributes: [],
     hasChildren: false
 }
 const category5_l2: Category = {
     id: 13,
     title: "Головные уборы",
-    parentId: 2,
+    parentCategory: {id: 2},
     attributes: [],
     hasChildren: true
 }
 const category6_l2: Category = {
     id: 14,
     title: "Жилеты",
-    parentId: 2,
+    parentCategory: {id: 2},
     attributes: [],
     hasChildren: false
 }
 const category7_l2: Category = {
     id: 15,
     title: "Носки",
-    parentId: 2,
+    parentCategory: {id: 2},
     attributes: [],
     hasChildren: false
 }
 const category8_l2: Category = {
     id: 16,
     title: "Термобелье",
-    parentId: 2,
+    parentCategory: {id: 2},
     attributes: [],
     hasChildren: false
 }
 const category9_l2: Category = {
     id: 17,
     title: "Штаны",
-    parentId: 2,
+    parentCategory: {id: 2},
     attributes: [],
     hasChildren: true
 }
 const category10_l2: Category = {
     id: 18,
     title: "Ботинки",
-    parentId: 3,
+    parentCategory: {id: 3},
     attributes: [],
     hasChildren: false
 }
 const category11_l2: Category = {
     id: 19,
     title: "Кроссовки",
-    parentId: 3,
+    parentCategory: {id: 3},
     attributes: [],
     hasChildren: false
 }
 const category12_l2: Category = {
     id: 20,
     title: "Сандалии",
-    parentId: 3,
+    parentCategory: {id: 3},
     attributes: [],
     hasChildren: false
 }
 const category13_l2: Category = {
     id: 21,
     title: "Скальники",
-    parentId: 3,
+    parentCategory: {id: 3},
     attributes: [],
     hasChildren: false
 }
 const category14_l2: Category = {
     id: 22,
     title: "Брелоки",
-    parentId: 4,
+    parentCategory: {id: 4},
     attributes: [],
     hasChildren: false
 }
 const category15_l2: Category = {
     id: 23,
     title: "Замки для багажа",
-    parentId: 4,
+    parentCategory: {id: 4},
     attributes: [],
     hasChildren: false
 }
 const category16_l2: Category = {
     id: 24,
     title: "Зонты",
-    parentId: 4,
+    parentCategory: {id: 4},
     attributes: [],
     hasChildren: false
 }
 const category17_l2: Category = {
     id: 25,
     title: "Стяжки/стропы",
-    parentId: 4,
+    parentCategory: {id: 4},
     attributes: [],
     hasChildren: false
 }
 const category18_l2: Category = {
     id: 26,
     title: "Фурнитура",
-    parentId: 4,
+    parentCategory: {id: 4},
     attributes: [],
     hasChildren: false
 }
 const category19_l2: Category = {
     id: 27,
     title: "Палатки",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [{id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}],
     hasChildren: true
 }
 const category20_l2: Category = {
     id: 28,
     title: "Тенты",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: false
 }
 const category21_l2: Category = {
     id: 29,
     title: "Рюкзаки",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: false
 }
 const category22_l2: Category = {
     id: 30,
     title: "Спальные мешки",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: false
 }
 const category23_l2: Category = {
     id: 31,
     title: "Коврики",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: false
 }
 const category24_l2: Category = {
     id: 32,
     title: "Посуда",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: true
 }
 const category25_l2: Category = {
     id: 33,
     title: "Мебель",
-    parentId: 5,
+    parentCategory: {id: 5},
     attributes: [],
     hasChildren: true
 }
 const category26_l2: Category = {
     id: 34,
     title: "Горнолыжные маски",
-    parentId: 6,
+    parentCategory: {id: 6},
     attributes: [],
     hasChildren: false
 }
 const category27_l2: Category = {
     id: 35,
     title: "Горнолыжные шлемы",
-    parentId: 6,
+    parentCategory: {id: 6},
     attributes: [],
     hasChildren: false
 }
 const category28_l2: Category = {
     id: 36,
     title: "Снегоступы",
-    parentId: 6,
+    parentCategory: {id: 6},
     attributes: [],
     hasChildren: false
 }
 const category29_l2: Category = {
     id: 37,
     title: "Чехлы для лыж/сноубордов",
-    parentId: 6,
+    parentCategory: {id: 6},
     attributes: [],
     hasChildren: false
 }
 const category30_l2: Category = {
     id: 38,
     title: "Гамаки",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category31_l2: Category = {
     id: 39,
     title: "Гермоупаковки",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category32_l2: Category = {
     id: 40,
     title: "Компрессионные мешки/чехлы",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category33_l2: Category = {
     id: 41,
     title: "Косметички/кошельки",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category34_l2: Category = {
     id: 42,
     title: "Средства гигиены/полотенца",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category35_l2: Category = {
     id: 43,
     title: "Сумки",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
 const category36_l2: Category = {
     id: 44,
     title: "Фонари",
-    parentId: 7,
+    parentCategory: {id: 7},
     attributes: [],
     hasChildren: false
 }
@@ -314,126 +314,126 @@ const category36_l2: Category = {
 const category1_l3: Category = {
     id: 45,
     title: "Балаклавы/маски/подшлемники",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category2_l3: Category = {
     id: 46,
     title: "Кепки/панамы",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category3_l3: Category = {
     id: 47,
     title: "Мультифункциональные",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category4_l3: Category = {
     id: 48,
     title: "Повязки на голову",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category5_l3: Category = {
     id: 49,
     title: "Повязки на шею",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category6_l3: Category = {
     id: 50,
     title: "Шапки",
-    parentId: 13,
+    parentCategory: {id: 13},
     attributes: [],
     hasChildren: false
 }
 const category7_l3: Category = {
     id: 51,
     title: "Горнолыжные штаны",
-    parentId: 17,
+    parentCategory: {id: 17},
     attributes: [],
     hasChildren: false
 }
 const category8_l3: Category = {
     id: 52,
     title: "Утепленные штаны",
-    parentId: 17,
+    parentCategory: {id: 17},
     attributes: [],
     hasChildren: false
 }
 const category9_l3: Category = {
     id: 53,
     title: "Мембранные штаны",
-    parentId: 17,
+    parentCategory: {id: 17},
     attributes: [],
     hasChildren: false
 }
 const category10_l3: Category = {
     id: 54,
     title: "Треккинговые/городские штаны",
-    parentId: 17,
+    parentCategory: {id: 17},
     attributes: [],
     hasChildren: false
 }
 const category11_l3: Category = {
     id: 55,
     title: "Кемпинговые",
-    parentId: 27,
+    parentCategory: {id: 27},
     attributes: [],
     hasChildren: false
 }
 const category12_l3: Category = {
     id: 56,
     title: "Треккинговые",
-    parentId: 27,
+    parentCategory: {id: 27},
     attributes: [],
     hasChildren: false
 }
 const category13_l3: Category = {
     id: 57,
     title: "Кастрюли/котлы",
-    parentId: 32,
+    parentCategory: {id: 32},
     attributes: [],
     hasChildren: false
 }
 const category14_l3: Category = {
     id: 58,
     title: "Миски",
-    parentId: 32,
+    parentCategory: {id: 32},
     attributes: [],
     hasChildren: false
 }
 const category15_l3: Category = {
     id: 59,
     title: "Термокружки",
-    parentId: 32,
+    parentCategory: {id: 32},
     attributes: [],
     hasChildren: false
 }
 const category16_l3: Category = {
     id: 60,
     title: "Термоса",
-    parentId: 32,
+    parentCategory: {id: 32},
     attributes: [],
     hasChildren: false
 }
 const category17_l3: Category = {
     id: 61,
     title: "Кресло",
-    parentId: 33,
+    parentCategory: {id: 33},
     attributes: [],
     hasChildren: false
 }
 const category18_l3: Category = {
     id: 62,
     title: "Стол",
-    parentId: 33,
+    parentCategory: {id: 33},
     attributes: [],
     hasChildren: false
 }
