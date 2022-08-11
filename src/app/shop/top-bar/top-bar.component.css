@@ -41,6 +41,10 @@ fa-icon.find {
     margin: 0 5px 0 0;
 }
 
+.catalogButton {
+    margin-right: 30px;
+}
+
 .cabinetIcon, .cartIcon {
     color: white;
     background-color: var(--dark-color);

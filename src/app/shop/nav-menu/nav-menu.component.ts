@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 
 import { MenuItem, menuItemsSrc } from '../nav-menu';
+import { LocaleService } from 'src/app/locale.service';
 
 
 @Component({
@@ -8,13 +9,18 @@ import { MenuItem, menuItemsSrc } from '../nav-menu';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent implements OnInit, DoCheck {
 
   menuItems: MenuItem[] = menuItemsSrc;
+  language!: string;
 
-  constructor() { }
+  constructor(private lang: LocaleService) { }
 
   ngOnInit(): void {
+  }
+
+  ngDoCheck(): void {
+    this.language = this.lang.language;
   }
 
 }

@@ -1,6 +1,7 @@
 [
     {
         "id": 1,
+        "name": "snariazhenie",
         "title": "Снаряжение",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -8,6 +9,7 @@
     },
     {
         "id": 2,
+        "name": "odezhda",
         "title": "Одежда",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -15,6 +17,7 @@
     },
     {
         "id": 3,
+        "name": "obuv",
         "title": "Обувь",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -22,6 +25,7 @@
     },
     {
         "id": 4,
+        "name": "aksessuari",
         "title": "Аксессуары",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -29,6 +33,7 @@
     },
     {
         "id": 5,
+        "name": "bivak",
         "title": "Бивак",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -36,6 +41,7 @@
     },
     {
         "id": 6,
+        "name": "zimnii-sport",
         "title": "Зимний спорт",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -43,6 +49,7 @@
     },
     {
         "id": 7,
+        "name": "tovari-obshego-naznachenia",
         "title": "Товары общего назначения",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -50,6 +57,7 @@
     },
     {
         "id": 8,
+        "name": "akcii",
         "title": "Акции",
         "parentCategory": null,
         "attributes": [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -57,6 +65,7 @@
     },
     {
         "id": 9,
+        "name": "verevki",
         "title": "Веревки",
         "parentCategory": {"id": 1},
         "attributes": [],
@@ -64,6 +73,7 @@
     },
     {
         "id": 10,
+        "name": "zhelezo",
         "title": "Железо",
         "parentCategory": {"id": 1},
         "attributes": [],
@@ -71,6 +81,7 @@
     },
     {
         "id": 11,
+        "name": "kaski",
         "title": "Каски",
         "parentCategory": {"id": 1},
         "attributes": [],
@@ -78,6 +89,7 @@
     },
     {
         "id": 12,
+        "name": "ledovoe-snariazhenie",
         "title": "Ледовое снаряжение",
         "parentCategory": {"id": 1},
         "attributes": [],
@@ -85,6 +97,7 @@
     },
     {
         "id": 13,
+        "name": "golovnie-ubori",
         "title": "Головные уборы",
         "parentCategory": {"id": 2},
         "attributes": [],
@@ -92,6 +105,7 @@
     },
     {
         "id": 14,
+        "name": "zhileti",
         "title": "Жилеты",
         "parentCategory": {"id": 2},
         "attributes": [],
@@ -99,6 +113,7 @@
     },
     {
         "id": 15,
+        "name": "noski",
         "title": "Носки",
         "parentCategory": {"id": 2},
         "attributes": [],
@@ -106,6 +121,7 @@
     },
     {
         "id": 16,
+        "name": "termobelie",
         "title": "Термобелье",
         "parentCategory": {"id": 2},
         "attributes": [],
@@ -113,6 +129,7 @@
     },
     {
         "id": 17,
+        "name": "shtani",
         "title": "Штаны",
         "parentCategory": {"id": 2},
         "attributes": [],
@@ -120,6 +137,7 @@
     },
     {
         "id": 18,
+        "name": "botinki",
         "title": "Ботинки",
         "parentCategory": {"id": 3},
         "attributes": [],
@@ -127,6 +145,7 @@
     },
     {
         "id": 19,
+        "name": "krossovki",
         "title": "Кроссовки",
         "parentCategory": {"id": 3},
         "attributes": [],
@@ -134,6 +153,7 @@
     },
     {
         "id": 20,
+        "name": "sandalii",
         "title": "Сандалии",
         "parentCategory": {"id": 3},
         "attributes": [],
@@ -141,6 +161,7 @@
     },
     {
         "id": 21,
+        "name": "skalniki",
         "title": "Скальники",
         "parentCategory": {"id": 3},
         "attributes": [],
@@ -148,6 +169,7 @@
     },
     {
         "id": 22,
+        "name": "breloki",
         "title": "Брелоки",
         "parentCategory": {"id": 4},
         "attributes": [],
@@ -155,6 +177,7 @@
     },
     {
         "id": 23,
+        "name": "zamki-dla-bagazha",
         "title": "Замки для багажа",
         "parentCategory": {"id": 4},
         "attributes": [],
@@ -162,6 +185,7 @@
     },
     {
         "id": 24,
+        "name": "zonti",
         "title": "Зонты",
         "parentCategory": {"id": 4},
         "attributes": [],
@@ -169,6 +193,7 @@
     },
     {
         "id": 25,
+        "name": "stiazhki-stropi",
         "title": "Стяжки/стропы",
         "parentCategory": {"id": 4},
         "attributes": [],
@@ -176,6 +201,7 @@
     },
     {
         "id": 26,
+        "name": "furnitura",
         "title": "Фурнитура",
         "parentCategory": {"id": 4},
         "attributes": [],
@@ -183,6 +209,7 @@
     },
     {
         "id": 27,
+        "name": "palatki",
         "title": "Палатки",
         "parentCategory": {"id": 5},
         "attributes": [{"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}, {"id": 8}],
@@ -190,6 +217,7 @@
     },
     {
         "id": 28,
+        "name": "tenti",
         "title": "Тенты",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -197,6 +225,7 @@
     },
     {
         "id": 29,
+        "name": "rukzaki",
         "title": "Рюкзаки",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -204,6 +233,7 @@
     },
     {
         "id": 30,
+        "name": "spalnie-meshki",
         "title": "Спальные мешки",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -211,6 +241,7 @@
     },
     {
         "id": 31,
+        "name": "kovriki",
         "title": "Коврики",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -218,6 +249,7 @@
     },
     {
         "id": 32,
+        "name": "posuda",
         "title": "Посуда",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -225,6 +257,7 @@
     },
     {
         "id": 33,
+        "name": "mebel",
         "title": "Мебель",
         "parentCategory": {"id": 5},
         "attributes": [],
@@ -232,6 +265,7 @@
     },
     {
         "id": 34,
+        "name": "gornolizhnie-maski",
         "title": "Горнолыжные маски",
         "parentCategory": {"id": 6},
         "attributes": [],
@@ -239,6 +273,7 @@
     },
     {
         "id": 35,
+        "name": "gornolizhnie-shlemi",
         "title": "Горнолыжные шлемы",
         "parentCategory": {"id": 6},
         "attributes": [],
@@ -246,6 +281,7 @@
     },
     {
         "id": 36,
+        "name": "snegostupi",
         "title": "Снегоступы",
         "parentCategory": {"id": 6},
         "attributes": [],
@@ -253,6 +289,7 @@
     },
     {
         "id": 37,
+        "name": "chehli-dla-lizh-snoubordov",
         "title": "Чехлы для лыж/сноубордов",
         "parentCategory": {"id": 6},
         "attributes": [],
@@ -260,6 +297,7 @@
     },
     {
         "id": 38,
+        "name": "gamaki",
         "title": "Гамаки",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -267,6 +305,7 @@
     },
     {
         "id": 39,
+        "name": "germoupakovki",
         "title": "Гермоупаковки",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -274,6 +313,7 @@
     },
     {
         "id": 40,
+        "name": "kompressionnie-meshki-chehli",
         "title": "Компрессионные мешки/чехлы",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -281,6 +321,7 @@
     },
     {
         "id": 41,
+        "name": "kosmetichki-koshelki",
         "title": "Косметички/кошельки",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -288,6 +329,7 @@
     },
     {
         "id": 42,
+        "name": "sredstva-gigieni-polotenca",
         "title": "Средства гигиены/полотенца",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -295,6 +337,7 @@
     },
     {
         "id": 43,
+        "name": "sumki",
         "title": "Сумки",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -302,6 +345,7 @@
     },
     {
         "id": 44,
+        "name": "fonari",
         "title": "Фонари",
         "parentCategory": {"id": 7},
         "attributes": [],
@@ -309,6 +353,7 @@
     },
     {
         "id": 45,
+        "name": "balaklavi-maski-podshlemniki",
         "title": "Балаклавы/маски/подшлемники",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -316,6 +361,7 @@
     },
     {
         "id": 46,
+        "name": "keoki-panami",
         "title": "Кепки/панамы",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -323,6 +369,7 @@
     },
     {
         "id": 47,
+        "name": "multifunkcionalnie",
         "title": "Мультифункциональные",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -330,6 +377,7 @@
     },
     {
         "id": 48,
+        "name": "poviazki-na-golovu",
         "title": "Повязки на голову",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -337,6 +385,7 @@
     },
     {
         "id": 49,
+        "name": "poviazki-na-sheju",
         "title": "Повязки на шею",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -344,6 +393,7 @@
     },
     {
         "id": 50,
+        "name": "shapki",
         "title": "Шапки",
         "parentCategory": {"id": 13},
         "attributes": [],
@@ -351,6 +401,7 @@
     },
     {
         "id": 51,
+        "name": "gornolizhnie-shtani",
         "title": "Горнолыжные штаны",
         "parentCategory": {"id": 17},
         "attributes": [],
@@ -358,6 +409,7 @@
     },
     {
         "id": 52,
+        "name": "uteplennie-shtani",
         "title": "Утепленные штаны",
         "parentCategory": {"id": 17},
         "attributes": [],
@@ -365,6 +417,7 @@
     },
     {
         "id": 53,
+        "name": "membrannie-shtani",
         "title": "Мембранные штаны",
         "parentCategory": {"id": 17},
         "attributes": [],
@@ -372,6 +425,7 @@
     },
     {
         "id": 54,
+        "name": "trekkingovie-gorodskie-shtani",
         "title": "Треккинговые/городские штаны",
         "parentCategory": {"id": 17},
         "attributes": [],
@@ -379,6 +433,7 @@
     },
     {
         "id": 55,
+        "name": "kempingovie",
         "title": "Кемпинговые",
         "parentCategory": {"id": 27},
         "attributes": [],
@@ -386,6 +441,7 @@
     },
     {
         "id": 56,
+        "name": "trekkingovie",
         "title": "Треккинговые",
         "parentCategory": {"id": 27},
         "attributes": [],
@@ -393,6 +449,7 @@
     },
     {
         "id": 57,
+        "name": "kastruli-kotli",
         "title": "Кастрюли/котлы",
         "parentCategory": {"id": 32},
         "attributes": [],
@@ -400,6 +457,7 @@
     },
     {
         "id": 58,
+        "name": "miski",
         "title": "Миски",
         "parentCategory": {"id": 32},
         "attributes": [],
@@ -407,6 +465,7 @@
     },
     {
         "id": 59,
+        "name": "termokruzhki",
         "title": "Термокружки",
         "parentCategory": {"id": 32},
         "attributes": [],
@@ -414,6 +473,7 @@
     },
     {
         "id": 60,
+        "name": "termosa",
         "title": "Термоса",
         "parentCategory": {"id": 32},
         "attributes": [],
@@ -421,14 +481,16 @@
     },
     {
         "id": 61,
-        "title": "Кресло",
+        "name": "kresla",
+        "title": "Кресла",
         "parentCategory": {"id": 33},
         "attributes": [],
         "hasChildren": false
     },
     {
         "id": 62,
-        "title": "Стол",
+        "name": "stoli",
+        "title": "Столы",
         "parentCategory": {"id": 33},
         "attributes": [],
         "hasChildren": false

@@ -6,7 +6,11 @@
     </div>
 </div>
 <div class="bottomContainer">
-    <a routerLink="" (click)="logoClick()"><img src="/assets/logo(на сайт)_white.webp" class="logo"></a>
+    <a routerLink=""><img src="/assets/logo(на сайт)_white.webp" class="logo"></a>
+    <button class="catalogButton" routerLink="/catalog" (click)="logoClick()">
+        Каталог
+        <fa-icon icon="person-hiking"></fa-icon>
+    </button>
     <ng-container>
         <input class="find" [(ngModel)]="findString">
         <button (click)="onFind()" [disabled]="!findString">

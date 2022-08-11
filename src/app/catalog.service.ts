@@ -7,9 +7,13 @@ import { NumberFilterComponent } from './shop/filters-templates/number-filter/nu
 import { StringFilterComponent } from './shop/filters-templates/string-filter/string-filter.component';
 
 export interface SelectedCategoryComplex {
-  selectedCategory: Category | null;
-  categoryChain: Category[] | null; //chain from root to selected category
-  attributeSet: Set<Attribute> | null; //union of attribute Sets from categoryChain with filled field "attrAcceptableValues"
+  selectedCategory: Pick<Category, 'id' | 'name' | 'title'> | null;
+  categoryChain: Pick<Category, 'id' | 'title'>[] | null; //chain from root to selected category
+  attributeArray: 
+    {
+      attr: Pick<Attribute, 'id' | 'name' | 'title' | 'type'>,
+      values: Pick<AttributeValue, 'id' | 'data'>[]
+    }[] | null; //array of attributes from categoryChain with attributeValues from models from categoryChain
 }
 
 type FilterTypes = BooleanFilterComponent | NumberFilterComponent | StringFilterComponent;
@@ -18,12 +22,17 @@ class Filter {
   constructor (component: Type<FilterTypes>, attr: Attribute, attrValues: Set<AttributeValue>) {}
 }
 
+// export interface SelectedCategory extends Omit<Category, "parentCategory" | "attributes"> {
+//   parentCategory: Pick<Category, "id"> | null,
+// }
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class CatalogService {
 
-  selectedCategory: Category | null = null;
+  selectedCategory: Pick<Category, 'id' | 'title' | 'hasChildren'> | null = null;
   categoryChain: Observable<Category[]> | null = null;
   attributeArray: Observable<Attribute[]> | null = null;
   attrFilterSet: Filter | null = null;

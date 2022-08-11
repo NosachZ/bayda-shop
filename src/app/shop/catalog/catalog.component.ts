@@ -11,7 +11,7 @@ import { Category, Model, Asset, Attribute, AttributeValue } from 'src/assets/ba
 })
 export class CatalogComponent implements OnInit, DoCheck {
 
-  selectedCategory!: Category | null;
+  selectedCategory!: Pick<Category, 'id' | 'title' | 'hasChildren'> | null;
   categoryChain!: Observable<Category[]> | null;
 
   constructor(

@@ -17,6 +17,7 @@ import { ServicePagesComponent } from './service-pages/service-pages.component';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { StringFilterComponent } from './filters-templates/string-filter/string-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NumberFilterComponent } from './filters-templates/number-filter/number-
     ServicePagesComponent,
     BooleanFilterComponent,
     StringFilterComponent,
-    NumberFilterComponent
+    NumberFilterComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

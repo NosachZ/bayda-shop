@@ -81,7 +81,7 @@ export class HttpRequestsService {
     }
 
     // return for backend request
-    // return this.http.get<Category[]>(this.backendURL, options);
+    // return this.http.get<Pick<Category, 'id' | 'title' | 'hasChildren'>[]>(this.backendURL, options);
 
     // return for local request (with filter)
     // if ([].length == 0) alert("ALARM!!!");

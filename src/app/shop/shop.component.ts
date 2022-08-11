@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LocaleService } from '../locale.service';
 
 
 
@@ -10,10 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShopComponent implements OnInit, DoCheck {
 
-  currentPage!: string|undefined;
+  // currentPage!: string|undefined;
+  language!: string;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private lang: LocaleService
   ) { }
 
   ngOnInit(): void {
@@ -21,9 +24,7 @@ export class ShopComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    //this.currentPage = window.location.href;
-    //this.currentPage = this.route.url.pipe(map(segments => segments.join('')))
-    // this.route.firstChild?.url.subscribe(url => {this.t = url.join('')})
-    this.currentPage = this.route.firstChild?.snapshot.url.join('');
+    this.language = this.lang.getLanguage();
+    // this.currentPage = this.route.firstChild?.snapshot.url.join('');
   }
 }
