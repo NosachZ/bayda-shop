@@ -36,7 +36,7 @@ interface StringAttribute {
     title: string,
     categories: Category[],
     type: "string",
-    acceptableValues: {index: number, value: string}[],
+    // acceptableValues: {index: number, value: string}[],
 }
 interface NumberAttribute {
     id: number,
@@ -52,7 +52,7 @@ interface BooleanAttribute {
     title: string,
     categories: Category[],
     type: "boolean",
-    acceptableValues: {value: boolean, title: string},
+    // acceptableValues: {value: boolean, title: string},
 }
 export type Attribute = StringAttribute | NumberAttribute | BooleanAttribute
 
@@ -61,19 +61,19 @@ interface StringAttributeValue {
     id: number,
     attribute: StringAttribute,
     model:  Model[],
-    data: {index: number, value: string},
+    value: string,
 }
 interface NumberAttributeValue {
     id: number,
     attribute: NumberAttribute,
     model:  Model[],
-    data: number,
+    value: number,
 }
 interface BooleanAttributeValue {
     id: number,
     attribute: BooleanAttribute,
     model:  Model[],
-    data: {value: boolean, title: string},
+    value: string,
 }
 export type AttributeValue = StringAttributeValue | NumberAttributeValue | BooleanAttributeValue
 

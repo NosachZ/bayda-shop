@@ -12,7 +12,7 @@ export interface SelectedCategoryComplex {
   attributeArray: 
     {
       attr: Pick<Attribute, 'id' | 'name' | 'title' | 'type'>,
-      values: Pick<AttributeValue, 'id' | 'data'>[]
+      values: Pick<AttributeValue, 'id' | 'value'>[]
     }[] | null; //array of attributes from categoryChain with attributeValues from models from categoryChain
 }
 
