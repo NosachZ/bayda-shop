@@ -12,7 +12,9 @@ const model_tent1: Model = {
     images: [],
     category: [{id: 56}],
     vendor: "64642624724",
-    values: [{id: 1},{id: 3},{id: 6},{id: 12},{id: 15},{id: 19},{id: 20},{id: 22}],
+    price: 2366,
+    availability: 1,
+    values: [{id: 1},{id: 4},{id: 7},{id: 11},{id: 12},{id: 14}],
 }
 
 const model_tent2: Model = {
@@ -23,7 +25,9 @@ const model_tent2: Model = {
     images: [],
     category: [{id: 56}],
     vendor: "34578769",
-    values: [{id: 1},{id: 3},{id: 7},{id: 14},{id: 16},{id: 18},{id: 20},{id: 22}],
+    price: 7357,
+    availability: 3,
+    values: [{id: 1},{id: 6},{id: 8},{id: 10},{id: 12},{id: 14}],
 }
 
 const model_tent3: Model = {
@@ -34,7 +38,9 @@ const model_tent3: Model = {
     images: [],
     category: [{id: 56}],
     vendor: "537354684",
-    values: [{id: 3},{id: 8},{id: 13},{id: 16},{id: 18},{id: 20},{id: 22}],
+    price: 5266,
+    availability: 0,
+    values: [{id: 1},{id: 5},{id: 8},{id: 10},{id: 12},{id: 14}],
 }
 
 const model_tent4: Model = {
@@ -45,7 +51,9 @@ const model_tent4: Model = {
     images: [],
     category: [{id: 56}],
     vendor: "6845672458980",
-    values: [{id: 1},{id: 4},{id: 9},{id: 12},{id: 15},{id: 19},{id: 20},{id: 22}],
+    price: 1567,
+    availability: 2,
+    values: [{id: 2},{id: 4},{id: 7},{id: 11},{id: 12},{id: 14}],
 }
 
 const model_tent5: Model = {
@@ -56,7 +64,9 @@ const model_tent5: Model = {
     images: [],
     category: [{id: 56}],
     vendor: "4776072q3150",
-    values: [{id: 1},{id: 5},{id: 10},{id: 14},{id: 17},{id: 18},{id: 20},{id: 23}],
+    price: 7577,
+    availability: 1,
+    values: [{id: 3},{id: 6},{id: 9},{id: 10},{id: 12},{id: 15}],
 }
 
 const model_tent6: Model = {
@@ -67,5 +77,7 @@ const model_tent6: Model = {
     images: [],
     category: [{id: 55}],
     vendor: "53245375697808",
-    values: [{id: 1},{id: 3},{id: 11},{id: 15},{id: 18},{id: 21},{id: 23}],
+    price: 16266,
+    availability: 1,
+    values: [{id: 1},{id: 7},{id: 10},{id: 13},{id: 15}],
 }

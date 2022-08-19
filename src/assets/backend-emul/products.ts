@@ -19,6 +19,8 @@ export interface Model {
     images: string[], //filenames for example
     category: Category[],
     vendor: string,
+    price: number,
+    availability: number,
     values: AttributeValue[],
 }
 
@@ -52,6 +54,7 @@ interface BooleanAttribute {
     title: string,
     categories: Category[],
     type: "boolean",
+    description: string,
     // acceptableValues: {value: boolean, title: string},
 }
 export type Attribute = StringAttribute | NumberAttribute | BooleanAttribute
@@ -73,7 +76,7 @@ interface BooleanAttributeValue {
     id: number,
     attribute: BooleanAttribute,
     model:  Model[],
-    value: string,
+    value: boolean,
 }
 export type AttributeValue = StringAttributeValue | NumberAttributeValue | BooleanAttributeValue
 
