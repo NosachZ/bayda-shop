@@ -8,6 +8,7 @@ export interface Category {
     parentCategory: Category | null,
     hasChildren: boolean,
     attributes: Attribute[],
+    models: Model[],
 }
 
 
@@ -17,7 +18,7 @@ export interface Model {
     title: string,
     description: string,
     images: string[], //filenames for example
-    category: Category[],
+    categories: Category[],
     vendor: string,
     price: number,
     availability: number,
