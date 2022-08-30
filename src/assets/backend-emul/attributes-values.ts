@@ -1,4 +1,4 @@
-import { AttributeValue } from "./products";
+import { AttributeValue } from "../../app/_data-model/products";
 
 //Brand
 const attrValue_3: AttributeValue = {

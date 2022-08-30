@@ -1,4 +1,4 @@
-import { Category } from "./products";
+import { Category } from "../../app/_data-model/products";
 
 //1 level
 const category1_l1: Category = {

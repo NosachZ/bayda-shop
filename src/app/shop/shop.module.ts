@@ -7,17 +7,17 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { ShopComponent } from './shop.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { CatalogComponent } from './catalog/catalog.component';
-import { AboutComponent } from './about/about.component';
+import { CatalogComponent } from './_catalog/catalog/catalog.component';
+import { AboutComponent } from './_support-pages/about/about.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PaymentComponent } from './payment/payment.component';
-import { CatalogSidebarComponent } from './catalog-sidebar/catalog-sidebar.component';
-import { CatalogSubmenuComponent } from './catalog-submenu/catalog-submenu.component';
-import { ServicePagesComponent } from './service-pages/service-pages.component';
-import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
-import { StringFilterComponent } from './filters-templates/string-filter/string-filter.component';
-import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
+import { PaymentComponent } from './_support-pages/payment/payment.component';
+import { CatalogSubmenuComponent } from './_catalog/catalog-submenu/catalog-submenu.component';
+import { ServicePagesComponent } from './_support-pages/support-pages/service-pages.component';
+import { BooleanFilterComponent } from './_category/filters-templates/boolean-filter/boolean-filter.component';
+import { StringFilterComponent } from './_category/filters-templates/string-filter/string-filter.component';
+import { NumberFilterComponent } from './_category/filters-templates/number-filter/number-filter.component';
 import { HomeComponent } from './home/home.component';
+import { CategoryComponent } from './_category/category/category.component';
 
 
 @NgModule({
@@ -28,13 +28,13 @@ import { HomeComponent } from './home/home.component';
     CatalogComponent,
     AboutComponent,
     PaymentComponent,
-    CatalogSidebarComponent,
     CatalogSubmenuComponent,
     ServicePagesComponent,
     BooleanFilterComponent,
     StringFilterComponent,
     NumberFilterComponent,
-    HomeComponent
+    HomeComponent,
+    CategoryComponent,
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-import { Model } from "./products";
+import { Model } from "../../app/_data-model/products";
 
 /*---------------
 Data

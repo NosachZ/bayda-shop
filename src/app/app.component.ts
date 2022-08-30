@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LocaleService } from './locale.service';
+import { LocaleService } from './services/locale.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,18 @@ import { LocaleService } from './locale.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'bayda-shop';
-
-  constructor (private locale: LocaleService) { 
+  lang: string = "";
+  constructor (
+    private locale: LocaleService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) { 
     
   }
 
   ngOnInit () {
-    this.locale.getLanguage();
+    // this.lang = this.locale.getLanguage();
+    
+    // this.router.navigate(["", this.lang]);
   }
 }

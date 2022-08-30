@@ -1,4 +1,4 @@
-import { Attribute, AttributeValue } from "./products";
+import { Attribute, AttributeValue } from "../../app/_data-model/products";
 
 // ----------common-----------------
 

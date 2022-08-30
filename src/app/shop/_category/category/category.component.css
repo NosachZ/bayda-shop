@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+}
+
+.sidebar {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: var(--sidebar-width);
+    box-shadow: 0 0 6px rgb(142, 142, 142);
+    padding: 20px;
+}
+
+.selectedCategory {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-gray);
+    border-bottom: 2px solid var(--text-gray);
+    padding-bottom: 20px;
+}
+
+.subcategories {
+    border-bottom: 2px solid var(--text-gray);
+}
+
+.subcategories a,
+.breadcrumb,
+.breadcrumb a {
+    color: black;
+}
+
+.subcategories li {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.main-container {
+    padding: 20px;
+}
+
+.breadcrumb-separator {
+    margin: 0 20px;
+}

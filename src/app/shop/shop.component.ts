@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LocaleService } from '../locale.service';
+import { LocaleService } from '../services/locale.service';
 
 
 

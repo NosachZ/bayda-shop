@@ -1,8 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { LocaleService } from 'src/app/locale.service';
-import { CartService } from 'src/app/cart.service';
-import { faUserLock, faUserGear, faCartShopping, IconName } from '@fortawesome/free-solid-svg-icons';
-import { CatalogService } from 'src/app/catalog.service';
+import { LocaleService } from 'src/app/services/locale.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -21,15 +19,10 @@ export class TopBarComponent implements OnInit {
   constructor(
     private locale: LocaleService,
     private cart: CartService,
-    private catalog: CatalogService
   ) { }
 
   ngOnInit(): void {
     this.language = this.locale.getLanguage();
-  }
-
-  logoClick() {
-    this.catalog.catalogInit();
   }
 
   selectLanguage(lang: string) {

@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 
 import { MenuItem, menuItemsSrc } from '../nav-menu';
-import { LocaleService } from 'src/app/locale.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 
 @Component({

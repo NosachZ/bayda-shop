@@ -6,8 +6,8 @@
     </div>
 </div>
 <div class="bottomContainer">
-    <a routerLink=""><img src="/assets/logo(на сайт)_white.webp" class="logo"></a>
-    <button class="catalogButton" routerLink="/catalog" (click)="logoClick()">
+    <a [routerLink]="['/']"><img src="/assets/logo(на сайт)_white.webp" class="logo"></a>
+    <button class="catalogButton" [routerLink]="['/catalog']">
         Каталог
         <fa-icon icon="person-hiking"></fa-icon>
     </button>
