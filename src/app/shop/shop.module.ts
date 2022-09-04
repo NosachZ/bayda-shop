@@ -18,6 +18,8 @@ import { StringFilterComponent } from './_category/filters-templates/string-filt
 import { NumberFilterComponent } from './_category/filters-templates/number-filter/number-filter.component';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './_category/category/category.component';
+import { FilterDirective } from './filter.directive';
+import { FiltersComponent } from './_category/filters/filters.component';
 
 
 @NgModule({
@@ -35,12 +37,17 @@ import { CategoryComponent } from './_category/category/category.component';
     NumberFilterComponent,
     HomeComponent,
     CategoryComponent,
+    FilterDirective,
+    FiltersComponent,
   ],
   imports: [
     CommonModule,
     ShopRoutingModule,
     FormsModule,
     FontAwesomeModule
+  ],
+  exports: [
+    FilterDirective
   ]
 })
 export class ShopModule { }

@@ -1,9 +1,9 @@
 <aside  class="sidebar">
-    <div *ngIf="selectedCategory  | async as selectedCategory" class="selectedCategory">
+    <div *ngIf="(selectedCategory  | async) as selectedCategory" class="selectedCategory">
         {{selectedCategory.title}}
     </div>
     
-    <ul *ngIf="childCategories | async as childCategories" class="subcategories">
+    <ul *ngIf="(childCategories | async) as childCategories" class="subcategories">
         <li *ngFor="let category of childCategories">
             <a [routerLink]="['/catalog/category', category.name]">
             {{category.title}}
@@ -11,7 +11,13 @@
         </li>
     </ul>
 
-    <div *ngFor="let item of attributeArray | async">{{item.title}}</div>
+    <!-- <div *ngFor="let item of attributeArray | async">{{item.title}}</div> -->
+
+    <!-- <div *ngFor="let item of (attributeArray_full | async)">{{item.attr.title}}</div> -->
+
+    <!-- <app-filters [attributeArrayComplex]="attributeArrayComplex"></app-filters> -->
+    <!-- <hr> -->
+    <app-filters *ngIf="attributeArrayComplex | async" [attributeArrayComplex]="attributeArrayComplex"></app-filters>
 
 
 </aside>

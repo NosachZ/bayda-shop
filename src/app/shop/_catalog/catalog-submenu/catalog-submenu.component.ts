@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
-import { map, Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class CatalogSubmenuComponent implements OnInit {
 
   @Input() parentId!: number | null;
   
-  childs!: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]>;
+  childs: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]> = EMPTY;
 
 
   constructor(

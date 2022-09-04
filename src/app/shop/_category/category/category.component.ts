@@ -1,32 +1,25 @@
 import { Component, Type, OnInit, DoCheck } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY, switchMap, of } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { BooleanFilterComponent } from '../filters-templates/boolean-filter/boolean-filter.component';
-import { NumberFilterComponent } from '../filters-templates/number-filter/number-filter.component';
-import { StringFilterComponent } from '../filters-templates/string-filter/string-filter.component';
 
 
 
-export interface SelectedCategoryComplexData {
+
+export interface CategoryComplexData {
   selectedCategory: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null;
-  childCategories: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> | null;
-  categoryChain: Pick<Category, 'id' | 'title'>[] | null; //chain from root to selected category
+  childCategories: Pick<Category, 'id' | 'name' | 'title'>[];
+  categoryChain: Pick<Category, 'id' | 'name' | 'title'>[]; //chain from root to selected category
+  priceRange: {minPrice: number, maxPrice: number}; //min and max price of models from category branch
   attributeArray: 
     {
       attr: Omit<Attribute, 'categories'>,
-      // attr: Pick<Attribute, 'id' | 'name' | 'title' | 'type'>,
       values: Pick<AttributeValue, 'id' | 'value'>[]
-    }[] | null; //array of attributes from categoryChain with attributeValues from models from categoryChain
+    }[]; //array of attributes from categoryChain with attributeValues from models from categoryChain
 }
 
-type FilterTypes = BooleanFilterComponent | NumberFilterComponent | StringFilterComponent;
-
-class Filter {
-  constructor (component: Type<FilterTypes>, attr: Attribute, attrValues: Set<AttributeValue>) {}
-}
 
 
 
@@ -37,11 +30,20 @@ class Filter {
 })
 export class CategoryComponent implements OnInit {
 
-  selectedCategory!: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | undefined>;
+  selectedCategory: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;
 
-  childCategories!: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> | null;
-  categoryChain!: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> | null;
-  attributeArray!: Observable<Attribute[]> | null;
+  childCategories: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
+  categoryChain: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
+  attributeArray: Observable<Attribute[]> = EMPTY;
+  attributeArrayComplex: Observable<{
+      attr: Omit<Attribute, 'categories'>,
+      values: Pick<AttributeValue, 'id' | 'value'>[]
+    }[]> = EMPTY;
+
+  attributeArrayComplex_flat: {
+    attr: Omit<Attribute, 'categories'>,
+    values: Pick<AttributeValue, 'id' | 'value'>[]
+  }[] = [];
 
 
 
@@ -52,26 +54,51 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.selectedCategory = this.route.params
+      .pipe(switchMap(params => {
+        return this.httpRequest.getCategoryByName(params['selCategory']);
+      }));
+    this.childCategories = this.selectedCategory
+      .pipe(switchMap(category => {
+        return this.httpRequest.getChildCategories(category!.id);
+      }));
+    this.categoryChain = this.selectedCategory
+      .pipe(switchMap(category => {
+        return this.httpRequest.getCategoryChain(category!);
+      }));
+    this.attributeArrayComplex = this.categoryChain
+      .pipe(switchMap(categoryChain => {
+        return this.httpRequest.getAttributeArray(categoryChain);
+      }));
+    this.attributeArrayComplex.subscribe(data => {
+      this.attributeArrayComplex_flat = data;
+      // console.log(this.attributeArrayComplex_flat);
+    });
+    
+    
+    /*this.route.params.subscribe(params => {
       let categoryName = params['selCategory'];
       this.selectedCategory = this.httpRequest.getCategoryByName(categoryName);
       
-      this.selectedCategory.subscribe(category => {
-        if (category?.hasChildren) {
-          this.childCategories = this.httpRequest.getChildCategories(category!.id);
-        } else {
-          this.childCategories = null;
-        }
-      });
+      // this.selectedCategory.subscribe(category => {
+      //   if (category != null) {
+      //     if (category.hasChildren) {
+      //       this.childCategories = this.httpRequest.getChildCategories(category.id);
+      //     } 
+      //   }
+      // });
+      this.childCategories = this.selectedCategory
+        .pipe(switchMap(category => {
+          return this.httpRequest.getChildCategories(category!.id);
+        }));
 
-      this.selectedCategory.subscribe(category => {
-        this.categoryChain = this.httpRequest.getCategoryChain(category!);
-        this.categoryChain.subscribe(categoryChain => {
-          this.attributeArray = this.httpRequest.getAttributeSet(categoryChain);
-          this.attributeArray.subscribe();
-        })
-      })
-    });
+      // this.selectedCategory.subscribe(category => {
+      //   this.categoryChain = this.httpRequest.getCategoryChain(category!);
+      //   this.categoryChain.subscribe(categoryChain => {
+      //     this.attributeArray_full = this.httpRequest.getAttributeArray(categoryChain);
+      //   })
+      // })
+    });*/
 
     
 

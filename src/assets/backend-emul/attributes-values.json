@@ -2,132 +2,100 @@
     {
         "id": 1,
         "attribute": {"id": 1},
-        "model": [{"id": 1},{"id": 2},{"id": 4},{"id": 5},{"id": 6}],
-        "value": "Есть в наличии"
-    },
-    {
-        "id": 3,
-        "attribute": {"id": 2},
         "model": [{"id": 1},{"id": 2},{"id": 3},{"id": 6}],
         "value": "Terra Incognita"
     },
     {
-        "id": 4,
-        "attribute": {"id": 2},
+        "id": 2,
+        "attribute": {"id": 1},
         "model": [{"id": 4}],
         "value": "Pinguin"
     },
     {
-        "id": 5,
-        "attribute": {"id": 2},
+        "id": 3,
+        "attribute": {"id": 1},
         "model": [{"id": 5}],
         "value": "Kelty"
     },
+    
+
     {
-        "id": 6,
-        "attribute": {"id": 3},
-        "model": [{"id": 1}],
-        "value": 2366
-    },
-    {
-        "id": 7,
-        "attribute": {"id": 3},
-        "model": [{"id": 2}],
-        "value": 7357
-    },
-    {
-        "id": 8,
-        "attribute": {"id": 3},
-        "model": [{"id": 3}],
-        "value": 5266
-    },
-    {
-        "id": 9,
-        "attribute": {"id": 3},
-        "model": [{"id": 4}],
-        "value": 1567
-    },
-    {
-        "id": 10,
-        "attribute": {"id": 3},
-        "model": [{"id": 5}],
-        "value": 7577
-    },
-    {
-        "id": 11,
-        "attribute": {"id": 3},
-        "model": [{"id": 6}],
-        "value": 16266
-    },
-    {
-        "id": 12,
-        "attribute": {"id": 4},
+        "id": 4,
+        "attribute": {"id": 2},
         "model": [{"id": 1},{"id": 4}],
         "value": "2"
     },
     {
-        "id": 13,
-        "attribute": {"id": 4},
+        "id": 5,
+        "attribute": {"id": 2},
         "model": [{"id": 3}],
         "value": "2+1"
     },
     {
-        "id": 14,
-        "attribute": {"id": 4},
+        "id": 6,
+        "attribute": {"id": 2},
         "model": [{"id": 2},{"id": 5}],
         "value": "3"
     },
+
+
     {
-        "id": 15,
-        "attribute": {"id": 5},
+        "id": 7,
+        "attribute": {"id": 3},
         "model": [{"id": 1},{"id": 4},{"id": 6}],
         "value": "1"
     },
     {
-        "id": 16,
-        "attribute": {"id": 5},
+        "id": 8,
+        "attribute": {"id": 3},
         "model": [{"id": 2},{"id": 3}],
         "value": "2"
     },
     {
-        "id": 17,
-        "attribute": {"id": 5},
+        "id": 9,
+        "attribute": {"id": 3},
         "model": [{"id": 5}],
         "value": "3"
     },
+
+
     {
-        "id": 18,
-        "attribute": {"id": 6},
+        "id": 10,
+        "attribute": {"id": 4},
         "model": [{"id": 2},{"id": 3},{"id": 5},{"id": 6}],
         "value": "Алюминий"
     },
     {
-        "id": 19,
-        "attribute": {"id": 6},
+        "id": 11,
+        "attribute": {"id": 4},
         "model": [{"id": 1},{"id": 4}],
         "value": "Стекловолокно"
     },
+
+
     {
-        "id": 20,
-        "attribute": {"id": 7},
+        "id": 12,
+        "attribute": {"id": 5},
         "model": [{"id": 1},{"id": 2},{"id": 3},{"id": 4},{"id": 5}],
         "value": "Внутри"
     },
     {
-        "id": 21,
-        "attribute": {"id": 7},
+        "id": 13,
+        "attribute": {"id": 5},
         "model": [{"id": 6}],
         "value": "Снаружи"
     },
+
+
     {
-        "id": 22,
-        "attribute": {"id": 8},
+        "id": 14,
+        "attribute": {"id": 6},
         "model": [{"id": 1},{"id": 2},{"id": 3},{"id": 4}],
         "value": "1-3"
     },
     {
-        "id": 23,
-        "attribute": {"id": 8},
+        "id": 15,
+        "attribute": {"id": 6},
         "model": [{"id": 5},{"id": 6}],
         "value": "3-6"
     }
