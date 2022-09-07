@@ -49,7 +49,15 @@ interface NumberAttribute {
     type: "number",
     // acceptableValues: {min: number, max: number},
 }
-interface BooleanAttribute {
+interface NumberRangeAttribute {
+    id: number,
+    name: string,
+    title: string,
+    categories: Category[],
+    type: "number-range",
+    // acceptableValues: {min: number, max: number},
+}
+export interface BooleanAttribute {
     id: number,
     name: string,
     title: string,
@@ -58,7 +66,7 @@ interface BooleanAttribute {
     description: string,
     // acceptableValues: {value: boolean, title: string},
 }
-export type Attribute = StringAttribute | NumberAttribute | BooleanAttribute
+export type Attribute = StringAttribute | NumberAttribute | NumberRangeAttribute | BooleanAttribute
 
 
 interface StringAttributeValue {
@@ -69,7 +77,7 @@ interface StringAttributeValue {
 }
 interface NumberAttributeValue {
     id: number,
-    attribute: NumberAttribute,
+    attribute: NumberAttribute | NumberRangeAttribute,
     model:  Model[],
     value: number,
 }

@@ -1,28 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
-
-:root {
-	--main-color: #00a6eb;
-	--away-field-color: #333;
-	--border-gray: #bbb;
-    --text-color: #000;
-    --link-color: #000;
-	--text-gray: #999;
-	--fill-gray: #eee;
-    --dark-color: #000050;
-    --dark-color-hover: #7070f0;
-    --sidebar-width: 250px;
-}
-
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0-modified | 20110126
-   License: none (public domain)
-*/
-
-*{
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
 }
+
+/* http://meyerweb.com/eric/tools/css/reset/
+//    v2.0-modified | 20110126
+//    License: none (public domain)
+// */
+
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -38,13 +27,13 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     text-decoration: none;
-    line-height: 150%;
+    // line-height: 150%;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
+	// vertical-align: baseline;
 }
 
 a {
@@ -62,9 +51,9 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
-body {
-	line-height: 1;
-}
+// body {
+// 	line-height: 1;
+// }
 
 ol, ul {
 	list-style: none;
@@ -391,3 +380,6 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

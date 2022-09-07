@@ -1,10 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
-import { CategoryComplexData } from '../shop/_category/category/category.component';
-import { attributeArray_tmp } from '../shop/_category/filters/filters.component';
+import { AttributeData, CategoryComplexData } from '../shop/_category/category-data';
+
+
+
+interface attributeArray_tmp {
+    attr: Attribute,
+    values: Pick<AttributeValue, 'id' | 'value'>[]
+  }
 
 
 
@@ -18,7 +23,6 @@ export class HttpRequestsService {
   attributeURL = '/assets/backend-emul/attributes.json';
   attributeArrayURL = '/assets/backend-emul/attributesArray.json';
 
-  error: any;
 
 
   constructor(private http: HttpClient) { }
@@ -29,11 +33,7 @@ export class HttpRequestsService {
     for (let item of categoryChain) {
       chainCategoriesId.push(item.id);
     }
-
     let options = { params: new HttpParams().set('getAttributeArray', chainCategoriesId.join(',')) };
-
-    // return for backend request
-    // return this.http.get<Set<Attribute>>(this.backendURL, options);
 
     // return for local request (with filter)
     return this.http.get<Attribute[]>(this.attributeURL, options)
@@ -60,7 +60,7 @@ export class HttpRequestsService {
     // return for local request (with filter)
     return this.http.get<attributeArray_tmp[]>(this.attributeArrayURL, options)
       .pipe(map(data => {
-        let chainAttributeArray: attributeArray_tmp[] = [];
+        let chainAttributeArray: AttributeData[] = [];
         for (let categoryId of chainCategoriesId) {
           for (let attribute of data) {
             for (let attrCategory of attribute.attr.categories) {
@@ -74,8 +74,6 @@ export class HttpRequestsService {
 
   getCategoryChain(selected: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>) {
     let options = { params: new HttpParams().set('getCategoryChain', selected.id) };
-    // return for backend request
-    // return this.http.get<Category[]>(this.backendURL, options);
 
     // return for local request (with filter)
     return this.http.get<Category[]>(this.categoryURL, options)
@@ -99,9 +97,6 @@ export class HttpRequestsService {
 
   getCategoryByName(category: string) {
     let options = { params: new HttpParams().set('getCategoryByName', category) };
-
-    // return for backend request
-    // return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>>(this.backendURL, options);
 
     // return for local request (with filter)
     return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]>(this.categoryURL, options)
@@ -132,8 +127,7 @@ export class HttpRequestsService {
   }
 
   getCategoryComplexData(categoryName: string): Observable<CategoryComplexData> {
-    let options;
-    options = { params: new HttpParams().set('getCategoryComplexData', categoryName) };
+    let options = { params: new HttpParams().set('getCategoryComplexData', categoryName) };
     
     // return for backend request
     return this.http.get<CategoryComplexData>(this.backendURL, options);

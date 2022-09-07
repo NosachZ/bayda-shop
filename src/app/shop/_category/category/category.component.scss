@@ -1,3 +1,5 @@
+@import "src/variables.scss";
+
 :host {
     display: flex;
 }
@@ -5,7 +7,7 @@
 .sidebar {
     flex-grow: 0;
     flex-shrink: 0;
-    width: var(--sidebar-width);
+    width: $sidebar-width;
     box-shadow: 0 0 6px rgb(142, 142, 142);
     padding: 20px;
 }
@@ -13,13 +15,12 @@
 .selectedCategory {
     font-size: 18px;
     font-weight: bold;
-    color: var(--text-gray);
-    border-bottom: 2px solid var(--text-gray);
+    color: $dark-gray;
     padding-bottom: 20px;
 }
 
 .subcategories {
-    border-bottom: 2px solid var(--text-gray);
+    border-top: 1px solid $dark-gray;
 }
 
 .subcategories a,

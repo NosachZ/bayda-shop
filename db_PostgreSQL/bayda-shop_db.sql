@@ -5,7 +5,7 @@
 -- Dumped from database version 14.5
 -- Dumped by pg_dump version 14.5
 
--- Started on 2022-09-04 22:51:28
+-- Started on 2022-09-05 14:08:41
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,7 +26,8 @@ SET row_security = off;
 CREATE TYPE public.attribute_type AS ENUM (
     'string',
     'number',
-    'boolean'
+    'boolean',
+    'number-range'
 );
 
 
@@ -684,7 +685,7 @@ ALTER TABLE ONLY public._model_attrvalue
     ADD CONSTRAINT fk_model_id FOREIGN KEY (model_id) REFERENCES public.models(id);
 
 
--- Completed on 2022-09-04 22:51:29
+-- Completed on 2022-09-05 14:08:41
 
 --
 -- PostgreSQL database dump complete

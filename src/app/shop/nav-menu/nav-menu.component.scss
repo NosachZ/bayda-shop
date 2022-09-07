@@ -1,3 +1,6 @@
+@import "src/variables.scss";
+
+
 /* topbar menu */
 :host(.topBarNavigation) {
     background-color: white;
@@ -13,7 +16,7 @@
 :host(.topBarNavigation) a {
     display: block;
     width: 100%;
-    color: var(--main-color);
+    color: $light-color;
 }
 
 /* sidebar menu */
@@ -25,7 +28,7 @@
 }
 
 :host(.sideBarNavigation) a {
-    color: var(--main-color);
+    color: $light-color;
 }
 
 :host(.sideBarNavigation) ul li {

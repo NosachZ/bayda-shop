@@ -7,7 +7,7 @@ import { LocaleService } from '../services/locale.service';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit, DoCheck {
 

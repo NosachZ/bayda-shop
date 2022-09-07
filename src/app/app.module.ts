@@ -8,6 +8,10 @@ import { AppComponent } from './app.component';
 import { ShopModule } from './shop/shop.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, faUserLock, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -19,12 +23,15 @@ import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, f
     AppRoutingModule,
     ShopModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    NgxSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(iconLibrary: FaIconLibrary) {
     iconLibrary.addIcons(faHouse);
     iconLibrary.addIcons(faAngleRight);

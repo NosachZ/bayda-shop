@@ -1,6 +1,8 @@
+@import "src/variables.scss";
+
 :host {
     display: block;
-    min-width: var(--sidebar-width);
+    min-width: $sidebar-width;
     font-size: 18px;
     background-color: white;
     box-shadow: 0 0 6px rgb(142, 142, 142);
@@ -11,7 +13,7 @@
     display: none;
     position: absolute;
     top: 0;
-    left: var(--sidebar-width);
+    left: $sidebar-width;
 }
 
 .submenuWrapper {
@@ -20,7 +22,7 @@
     cursor: pointer;
 }
 
-p {
+.menuTitle {
     padding: 20px 16px;
     width: 100%;
     color: black;
@@ -31,12 +33,21 @@ p {
     margin-right: 26px;
 }
 
-.submenuWrapper:hover {
+.submenuWrapper:hover, .submenuWrapper:focus {
     background-color: lightgray;
 }
 
-.submenuWrapper:hover > app-catalog-submenu {
+.submenuWrapper:hover > app-catalog-submenu, 
+.submenuWrapper:focus > app-catalog-submenu,
+.submenuWrapper:focus-within > app-catalog-submenu {
     display: block;
+}
+
+.submenuWrapper:hover > .menuTitle, 
+.submenuWrapper:focus > .menuTitle,
+.submenuWrapper:focus-within > .menuTitle {
+    color: $dark-color;
+    font-weight: bold;
 }
 
 .submenuWrapper:hover > .submenuArrow {

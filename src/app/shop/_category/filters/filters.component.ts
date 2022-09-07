@@ -1,94 +1,87 @@
-import { Component, Type, Input, OnInit, ViewChild, ViewChildren, ViewContainerRef, QueryList, ComponentRef, AfterViewInit, AfterContentInit, AfterViewChecked, DoCheck, AfterContentChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, Type, Input, OnInit, ViewChildren, ViewContainerRef, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, EMPTY } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { FilterDirective } from '../../filter.directive';
+import { AttributeData } from '../category-data';
 import { BooleanFilterComponent } from '../filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from '../filters-templates/number-filter/number-filter.component';
+import { NumberRangeFilterComponent } from '../filters-templates/number-range-filter/number-range-filter.component';
 import { StringFilterComponent } from '../filters-templates/string-filter/string-filter.component';
 
 
 
-
-
-type FilterTypes = BooleanFilterComponent | NumberFilterComponent | StringFilterComponent;
+type FilterTypes = BooleanFilterComponent | NumberFilterComponent | NumberRangeFilterComponent | StringFilterComponent;
 
 class Filter {
   constructor (public component: Type<FilterTypes>, public data: any) {}
 }
-
-export interface FilterComponent {
-  data: any;
-}
-
-//temporary interface
-export interface attributeArray_tmp {
-  attr: Attribute,
-  values: Pick<AttributeValue, 'id' | 'value'>[]
-}
-
- export interface AttributeArray {
-  attr: Omit<Attribute, 'categories'>,
-  values: Pick<AttributeValue, 'id' | 'value'>[]
-}
-
-
 
 
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.css']
+  styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit, AfterViewInit {
-  @Input() attributeArrayComplex: Observable<AttributeArray[]> = EMPTY;
+  @Input() attributeArrayComplex: Observable<AttributeData[]> = EMPTY;
   
   // @ViewChild(FilterDirective, {static: true}) filterHost!: FilterDirective;
-
   @ViewChildren('dynamic', {read: ViewContainerRef}) dynamic!: QueryList<ViewContainerRef>;
 
   filtersArray: Filter[] = [];
 
   constructor(
-    private cd: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.attributeArrayComplex
       .subscribe(array => {
         this.makeFiltersArray(array);
-        // console.log (this.filtersArray);
       });
   }
 
   ngAfterViewInit(): void {
     this.dynamic.changes.subscribe(() => {
-      this.dynamic.map((vcr: ViewContainerRef, i: number) => {
+      this.dynamic.forEach((vcr: ViewContainerRef, i: number) => {
         vcr.clear();
         let componentRef = vcr.createComponent(this.filtersArray[i].component);
         componentRef.instance.data = this.filtersArray[i].data;
       });
-      this.cd.detectChanges();
+      this.changeDetector.detectChanges();
       }
     );
   }
 
-  makeFiltersArray(array: AttributeArray[]) {
+  makeFiltersArray(array: AttributeData[]) {
     this.filtersArray.length = 0;
     let availability = new Filter(
       BooleanFilterComponent, 
       {
-        name: "nalichie",
-        title: "Наличие",
-        type: "boolean",
-        description: "В наличии"
+        attr: {
+          name: "nalichie",
+          title: "Наличие",
+          type: "boolean",
+          description: "В наличии"
+          }
       }
     );
     this.filtersArray.push(availability);
 
-    let price = new Filter(NumberFilterComponent, {
-      minPrice: 0, 
-      maxPrice: 20000
+    let price = new Filter(
+      NumberRangeFilterComponent, 
+      {
+        attr: {
+          name: "price",
+          title: "Цена",
+          type: "number-range",
+        },
+        value: {
+          minValue: 0, 
+          maxValue: 20000
+        }
+      
     });
     this.filtersArray.push(price);
 
@@ -97,6 +90,7 @@ export class FiltersComponent implements OnInit, AfterViewInit {
       switch (item.attr.type) {
         case "boolean": filter = new Filter(BooleanFilterComponent, item); break;
         case "number": filter = new Filter(NumberFilterComponent, item); break;
+        case "number-range": filter = new Filter(NumberFilterComponent, item); break;
         case "string": filter = new Filter(StringFilterComponent, item); break;
       }
       this.filtersArray.push(filter);

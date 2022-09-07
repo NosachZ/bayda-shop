@@ -20,6 +20,11 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './_category/category/category.component';
 import { FilterDirective } from './filter.directive';
 import { FiltersComponent } from './_category/filters/filters.component';
+import { NumberRangeFilterComponent } from './_category/filters-templates/number-range-filter/number-range-filter.component'; 
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 
 
 @NgModule({
@@ -39,12 +44,15 @@ import { FiltersComponent } from './_category/filters/filters.component';
     CategoryComponent,
     FilterDirective,
     FiltersComponent,
+    NumberRangeFilterComponent,
   ],
   imports: [
     CommonModule,
     ShopRoutingModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatCheckboxModule,
+    NgxSliderModule
   ],
   exports: [
     FilterDirective

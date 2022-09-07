@@ -1,3 +1,5 @@
+@import "src/variables.scss";
+
 :host {
     display: block;
 }
@@ -25,7 +27,7 @@
 }
 
 .bottomContainer {
-    background-color: var(--dark-color);
+    background-color: $dark-color;
 }
 
 .logo {
@@ -47,14 +49,15 @@ fa-icon.find {
 
 .cabinetIcon, .cartIcon {
     color: white;
-    background-color: var(--dark-color);
+    background-color: $dark-color;
     border: 0;
     margin: 0 16px;
     border-radius: 3px;
     padding: 2px 16px;
 }
-.cabinetIcon:hover, .cartIcon:hover {
-    background-color: var(--dark-color-hover);
+.cabinetIcon:hover, .cartIcon:hover,
+.cabinetIcon:focus, .cartIcon:focus {
+    background-color: $dark-color-hover;
 }
 
 .cartIcon {
