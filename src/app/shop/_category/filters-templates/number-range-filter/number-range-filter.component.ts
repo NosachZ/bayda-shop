@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Options } from '@angular-slider/ngx-slider/options';
+import { Options, LabelType } from '@angular-slider/ngx-slider/options';
 
 @Component({
   selector: 'app-number-range-filter',
@@ -10,15 +10,20 @@ export class NumberRangeFilterComponent implements OnInit {
 
   @Input() data: any;
 
-  value: number = 100;
+  minValue: number = 0;
+  maxValue: number = 0;
   options: Options = {
     floor: 0,
-    ceil: 200
+    ceil: 0,
+    noSwitching: true,
+    minRange: 1,
   };
 
   constructor() { }
 
   ngOnInit(): void {
+    this.minValue = this.options.floor = this.data.values.minValue;
+    this.maxValue = this.options.ceil = this.data.values.maxValue;
   }
 
 }

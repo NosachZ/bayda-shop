@@ -3,3 +3,23 @@
 // @import "reset by Elad Shechter v1.7.3.scss";
 @import "reset.scss";
 
+.custom-slider .ngx-slider {
+    .ngx-slider-pointer {
+        width: 22px;
+        height: 22px;
+        top: -10px; 
+        border-radius: 50%;
+    }
+    .ngx-slider-pointer:after {
+        top: 7px;
+        left: 7px;
+    }
+    .ngx-slider-bubble {
+        font-size: 14px;
+        
+    }
+    .ngx-slider.limit {
+        display: none;
+        color: red;
+    }
+}

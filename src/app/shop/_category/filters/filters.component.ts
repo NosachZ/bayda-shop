@@ -1,4 +1,5 @@
 import { Component, Type, Input, OnInit, ViewChildren, ViewContainerRef, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Observable, EMPTY } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { FilterDirective } from '../../filter.directive';
@@ -64,7 +65,11 @@ export class FiltersComponent implements OnInit, AfterViewInit {
           title: "Наличие",
           type: "boolean",
           description: "В наличии"
-          }
+          },
+        valies: {
+          id: null,
+          value: false
+        }
       }
     );
     this.filtersArray.push(availability);
@@ -77,7 +82,7 @@ export class FiltersComponent implements OnInit, AfterViewInit {
           title: "Цена",
           type: "number-range",
         },
-        value: {
+        values: {
           minValue: 0, 
           maxValue: 20000
         }

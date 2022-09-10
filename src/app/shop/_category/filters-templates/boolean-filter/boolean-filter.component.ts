@@ -15,7 +15,7 @@ export class BooleanFilterComponent implements OnInit {
 
   name: string = "";
 
-  obj: any = {};
+  // obj: any = {};
 
   constructor(private filtersHandler: FiltersHandlerService) { }
 
@@ -23,13 +23,11 @@ export class BooleanFilterComponent implements OnInit {
     this.name = this.data.attr.name;
   }
 
-  onChange(event: MatCheckboxChange) {
+  onChange(event: MatCheckboxChange, ) {
     let str = "string";
-    this.obj[str] = "test string";
+    // this.obj[str] = "test string";
 
     let filterItem = event.source.name + " = 1";
-    alert(this.obj.string + "filterItem is: " + filterItem);
+    // alert(this.obj.string + "filterItem is: " + filterItem);
   }
-
-
 }

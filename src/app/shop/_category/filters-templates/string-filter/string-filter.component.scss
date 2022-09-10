@@ -1,0 +1,14 @@
+@import "src/variables.scss";
+
+.filter {
+    border-top: 1px solid $dark-gray;
+    font-size: 14px;
+    .title {
+        font-weight: bold;
+        margin-bottom: 6px;
+        margin-top: 6px;
+    }
+    .checkbox {
+        font-size: inherit;
+    }
+}

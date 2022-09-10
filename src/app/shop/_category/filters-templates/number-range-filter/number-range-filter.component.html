@@ -1,5 +1,8 @@
 <div class="filter">
     <p class="title">{{data.attr.title}}</p>
   
-    <ngx-slider [(value)]="value" [options]="options" class="slider"></ngx-slider>
+    <div class="custom-slider">
+        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+    </div>
+    
 </div>
