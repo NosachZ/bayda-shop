@@ -1,10 +1,10 @@
-import { Category, Model, Asset, Attribute, AttributeValue, BooleanAttribute } from 'src/app/_data-model/products';
+import { Category, Model, Asset, Attribute, BooleanAttribute, AttributeValue } from 'src/app/_data-model/products';
 
 interface StringAttributeData {
     attr: Omit<Attribute, 'categories'>,
     values: Pick<AttributeValue, 'id' | 'value'>[]
     }
-export interface BooleanAttributeData {
+interface BooleanAttributeData {
     attr: Omit<BooleanAttribute, 'categories'>,
     values: Pick<AttributeValue, 'id' | 'value'>[]
     }

@@ -9,9 +9,9 @@ import { ShopModule } from './shop/shop.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, faUserLock, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { AttributeData, BooleanAttributeData } from '../../category-data';
 import { FiltersHandlerService } from '../../filters-handler.service';
+import { AttrType } from 'src/app/_data-model/products';
 
 
 @Component({
@@ -13,21 +13,12 @@ export class BooleanFilterComponent implements OnInit {
 
   @Input() data: any;
 
-  name: string = "";
-
-  // obj: any = {};
 
   constructor(private filtersHandler: FiltersHandlerService) { }
 
-  ngOnInit(): void {
-    this.name = this.data.attr.name;
-  }
+  ngOnInit(): void {}
 
-  onChange(event: MatCheckboxChange, ) {
-    let str = "string";
-    // this.obj[str] = "test string";
-
-    let filterItem = event.source.name + " = 1";
-    // alert(this.obj.string + "filterItem is: " + filterItem);
+  onChange(event: MatCheckboxChange) {
+    this.filtersHandler.switchFilter(this.data.attr.name, AttrType.Boolean, event.checked);   
   }
 }

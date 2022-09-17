@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { FiltersHandlerService } from '../../filters-handler.service';
+import { AttrType } from 'src/app/_data-model/products';
+
 
 @Component({
   selector: 'app-string-filter',
@@ -12,16 +15,14 @@ export class StringFilterComponent implements OnInit {
 
   @Input() data: any;
 
-  constructor() { }
+  constructor(private filtersHandler: FiltersHandlerService) { }
 
   ngOnInit(): void {
     this.name = this.data.attr.name;
   }
 
-  onChange(event: MatCheckboxChange, ) {
-    let str = "string";
-
-    let filterItem = event.source.name + " = 1";
+  onChange(event: MatCheckboxChange, id: number) {
+    this.filtersHandler.switchFilter(this.data.attr.name, AttrType.String, id);
   }
 
 }

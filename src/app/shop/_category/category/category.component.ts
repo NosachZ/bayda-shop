@@ -5,6 +5,7 @@ import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AttributeData, CategoryComplexData } from '../category-data';
+import { FiltersHandlerService } from '../filters-handler.service';
 
 
 
@@ -31,8 +32,9 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private httpRequest: HttpRequestsService
+    // private router: Router,
+    private httpRequest: HttpRequestsService,
+    private filtersHandler: FiltersHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,9 @@ export class CategoryComponent implements OnInit {
       .pipe(switchMap(params => {
         return this.httpRequest.getCategoryByName(params['selCategory']);
       }));
+    this.selectedCategory.subscribe(
+      () => this.filtersHandler.resetFilters()
+      );
     this.childCategories = this.selectedCategory
       .pipe(switchMap(category => {
         return this.httpRequest.getChildCategories(category!.id);

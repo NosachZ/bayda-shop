@@ -1,5 +1,12 @@
 import { Type } from "@angular/core";
 
+export enum AttrType {
+    String,
+    Number,
+    NumberRange,
+    Boolean
+}
+
 
 export interface Category {
     id: number,
@@ -39,6 +46,7 @@ interface StringAttribute {
     title: string,
     categories: Category[],
     type: "string",
+    // type: AttrType.String,
     // acceptableValues: {index: number, value: string}[],
 }
 interface NumberAttribute {
@@ -47,6 +55,7 @@ interface NumberAttribute {
     title: string,
     categories: Category[],
     type: "number",
+    // type: AttrType.Number,
     // acceptableValues: {min: number, max: number},
 }
 interface NumberRangeAttribute {
@@ -55,6 +64,7 @@ interface NumberRangeAttribute {
     title: string,
     categories: Category[],
     type: "number-range",
+    // type: AttrType.NumberRange,
     // acceptableValues: {min: number, max: number},
 }
 export interface BooleanAttribute {
@@ -63,6 +73,7 @@ export interface BooleanAttribute {
     title: string,
     categories: Category[],
     type: "boolean",
+    // type: AttrType.Boolean,
     description: string,
     // acceptableValues: {value: boolean, title: string},
 }

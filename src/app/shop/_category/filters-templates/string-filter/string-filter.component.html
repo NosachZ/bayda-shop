@@ -2,7 +2,7 @@
     <p class="title">{{data.attr.title}}</p>
   
     <div *ngFor="let item of data.values">
-        <mat-checkbox class="checkbox example-margin" (change)="onChange($event)">{{item.value}}</mat-checkbox>
+        <mat-checkbox class="checkbox example-margin" (change)="onChange($event, item.id)">{{item.value}}</mat-checkbox>
     </div>
 </div>
   
