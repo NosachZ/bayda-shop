@@ -9,24 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './_category/category/category.component';
 
 const routes: Routes = [
-  // { path: '', component: ShopComponent, 
-  // children: [
-  //   { path: '', component: CatalogComponent },
-  //   { path: 'about', component: AboutComponent },
-  //   { path: 'payment', component: PaymentComponent }
-  // ] }
-  
-  /*
-  { path: '', component: ShopComponent, 
-  children: [
-    { path: '', component: CatalogComponent },
-    { path: '', component: ServicePagesComponent, 
-    children: [ { path: 'about', component: AboutComponent} ] 
-    },
-    { path: '', component: ServicePagesComponent, 
-    children: [ { path: 'payment', component: PaymentComponent} ] 
-    }
-  ] }*/
   { path: '', component: ShopComponent, 
   children: [
     { path: '', component: HomeComponent },

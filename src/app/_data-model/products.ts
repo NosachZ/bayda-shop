@@ -45,8 +45,8 @@ interface StringAttribute {
     name: string,
     title: string,
     categories: Category[],
-    type: "string",
-    // type: AttrType.String,
+    // type: "string",
+    type: AttrType.String,
     // acceptableValues: {index: number, value: string}[],
 }
 interface NumberAttribute {
@@ -54,8 +54,8 @@ interface NumberAttribute {
     name: string,
     title: string,
     categories: Category[],
-    type: "number",
-    // type: AttrType.Number,
+    // type: "number",
+    type: AttrType.Number,
     // acceptableValues: {min: number, max: number},
 }
 interface NumberRangeAttribute {
@@ -63,8 +63,8 @@ interface NumberRangeAttribute {
     name: string,
     title: string,
     categories: Category[],
-    type: "number-range",
-    // type: AttrType.NumberRange,
+    // type: "number-range",
+    type: AttrType.NumberRange,
     // acceptableValues: {min: number, max: number},
 }
 export interface BooleanAttribute {
@@ -72,8 +72,8 @@ export interface BooleanAttribute {
     name: string,
     title: string,
     categories: Category[],
-    type: "boolean",
-    // type: AttrType.Boolean,
+    // type: "boolean",
+    type: AttrType.Boolean,
     description: string,
     // acceptableValues: {value: boolean, title: string},
 }

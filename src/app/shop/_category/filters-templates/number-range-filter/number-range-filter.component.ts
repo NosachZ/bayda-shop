@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Options, LabelType } from '@angular-slider/ngx-slider/options';
 import { AttrType } from 'src/app/_data-model/products';
-import { FiltersHandlerService } from '../../filters-handler.service';
+import { FiltersHandlerService, NumberRangeFilterArg } from '../../filters-handler.service';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class NumberRangeFilterComponent implements OnInit {
   }
 
   onChangeRange() {
-    let data: {update: boolean, min?: number, max?: number};
+    let data: NumberRangeFilterArg;
     if ((this.minValue === this.options.floor)&&(this.maxValue === this.options.ceil)) {
-      data = {update: false};
+      data = {update: false, min: this.minValue, max: this.maxValue};
     } else {
       data = {update: true, min: this.minValue, max: this.maxValue};
     }

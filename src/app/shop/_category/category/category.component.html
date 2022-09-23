@@ -11,20 +11,12 @@
         </li>
     </ul>
 
-    <!-- <div *ngFor="let item of attributeArray | async">{{item.title}}</div> -->
-
-    <!-- <div *ngFor="let item of (attributeArray_full | async)">{{item.attr.title}}</div> -->
-
-    <!-- <app-filters [attributeArrayComplex]="attributeArrayComplex"></app-filters> -->
-    <!-- <hr> -->
     <app-filters *ngIf="attributeArrayComplex | async" [attributeArrayComplex]="attributeArrayComplex"></app-filters>
-
-
 </aside>
 
 <div class="main-container">
     <div *ngIf="categoryChain" class="breadcrumb">
-        <a [routerLink]="['/catalog']">
+        <a [routerLink]="['/catalog']" >
             <fa-icon icon="house"></fa-icon>
         </a>
         

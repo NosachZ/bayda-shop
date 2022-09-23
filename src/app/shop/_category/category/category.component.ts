@@ -1,9 +1,9 @@
-import { Component, OnInit, } from '@angular/core';
-import { Observable, EMPTY, switchMap, of } from 'rxjs';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Observable, EMPTY, switchMap, of, takeUntil, Subject } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router';
 import { AttributeData, CategoryComplexData } from '../category-data';
 import { FiltersHandlerService } from '../filters-handler.service';
 
@@ -16,7 +16,7 @@ import { FiltersHandlerService } from '../filters-handler.service';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
 
   selectedCategory: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;
   childCategories: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
@@ -27,24 +27,24 @@ export class CategoryComponent implements OnInit {
 
   categoryComplexData: Observable<CategoryComplexData> = EMPTY;
 
+  destroy$: Subject<boolean> = new Subject();
+
+
 
 
 
   constructor(
     private route: ActivatedRoute,
-    // private router: Router,
+    private router: Router,
     private httpRequest: HttpRequestsService,
     private filtersHandler: FiltersHandlerService
   ) { }
 
   ngOnInit(): void {
     this.selectedCategory = this.route.params
-      .pipe(switchMap(params => {
+      .pipe(switchMap(params => {        
         return this.httpRequest.getCategoryByName(params['selCategory']);
       }));
-    this.selectedCategory.subscribe(
-      () => this.filtersHandler.resetFilters()
-      );
     this.childCategories = this.selectedCategory
       .pipe(switchMap(category => {
         return this.httpRequest.getChildCategories(category!.id);
@@ -57,6 +57,30 @@ export class CategoryComponent implements OnInit {
       .pipe(switchMap(categoryChain => {
         return this.httpRequest.getAttributeArray(categoryChain);
       }));
+
+
+    // this.selectedCategory
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(
+    //     () => this.filtersHandler.resetFilters()
+    //   );
+
+    // this.router.events
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((event) => {
+    //     if (event instanceof NavigationEnd) {
+    //       console.log("init filters");
+    //       // this.filtersHandler.initFiltersFromQueryParams(this.route.snapshot.queryParams, this.filtersArray);
+
+    //     }
+    //   });
+
+    
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
 }

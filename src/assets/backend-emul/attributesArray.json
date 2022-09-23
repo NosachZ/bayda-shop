@@ -6,7 +6,7 @@
                 "name": "brend",
                 "title": "Бренд",
                 "categories": [{"id": 1},{"id": 2},{"id": 3},{"id": 4},{"id": 5},{"id": 6},{"id": 7},{"id": 8}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [
@@ -31,7 +31,7 @@
                 "name": "kolichestvo-mest",
                 "title": "Количество мест",
                 "categories": [{"id": 27}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [
@@ -56,7 +56,7 @@
                 "name": "kolichestvo-vhodov",
                 "title": "Количество входов",
                 "categories": [{"id": 27}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [
@@ -81,7 +81,7 @@
                 "name": "material-dug",
                 "title": "Материал дуг",
                 "categories": [{"id": 27}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [
@@ -102,7 +102,7 @@
                 "name": "raspolozhenie-dug",
                 "title": "Расположение дуг",
                 "categories": [{"id": 27}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [
@@ -123,7 +123,7 @@
                 "name": "ves",
                 "title": "Вес",
                 "categories": [{"id": 27}],
-                "type": "string"
+                "type": 0
             },
         "values": 
             [

@@ -6,7 +6,7 @@ interface StringAttributeData {
     }
 interface BooleanAttributeData {
     attr: Omit<BooleanAttribute, 'categories'>,
-    values: Pick<AttributeValue, 'id' | 'value'>[]
+    values: Pick<AttributeValue, 'id' | 'value'>
     }
 interface NumberAttributeData {
     attr: Omit<Attribute, 'categories'>,
