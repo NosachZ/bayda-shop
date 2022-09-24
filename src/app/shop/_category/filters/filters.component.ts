@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChildren, ViewContainerRef, QueryList, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Observable, EMPTY, Subject, takeUntil, take } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable, EMPTY, Subject, takeUntil } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue, AttrType } from 'src/app/_data-model/products';
 import { FilterDirective } from '../../filter.directive';
 import { AttributeData } from '../category-data';
@@ -40,8 +40,8 @@ export class FiltersComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(array => {
         console.log("init");
-        this.filtersArray = this.filtersHandler.makeFiltersArray(array);          
-        this.filtersHandler.makeSelectedFiltersFromQueryParams(this.route.snapshot.queryParams, this.filtersArray);
+        this.filtersArray = this.filtersHandler.makeFiltersArray(array, this.route.snapshot.queryParamMap);          
+        // this.filtersHandler.makeSelectedFiltersFromQueryParams(this.route.snapshot.queryParams, this.filtersArray);
       });
 
     this.router.events

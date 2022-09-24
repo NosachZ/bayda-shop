@@ -8,7 +8,10 @@ import { AttributeData, CategoryComplexData } from '../shop/_category/category-d
 
 interface attributeArray_tmp {
     attr: Attribute,
-    values: Pick<AttributeValue, 'id' | 'value'>[]
+    values: {
+      item: Pick<AttributeValue, 'id' | 'value'>,
+      // initValue?: boolean
+    }[]
   }
 
 

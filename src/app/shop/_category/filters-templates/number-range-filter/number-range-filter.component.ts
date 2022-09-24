@@ -25,8 +25,8 @@ export class NumberRangeFilterComponent implements OnInit {
   constructor(private filtersHandler: FiltersHandlerService) { }
 
   ngOnInit(): void {
-    this.minValue = this.options.floor = this.data.values.minValue;
-    this.maxValue = this.options.ceil = this.data.values.maxValue;
+    this.minValue = this.options.floor = this.data.values.item.minValue;
+    this.maxValue = this.options.ceil = this.data.values.item.maxValue;
   }
 
   onChangeRange() {

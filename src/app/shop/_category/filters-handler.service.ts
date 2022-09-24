@@ -1,7 +1,7 @@
 import { Injectable, Type } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { AttributeValue, AttrType, BooleanAttribute } from 'src/app/_data-model/products';
-import { AttributeData } from './category-data';
+import { AttributeData, AVAILABILITY_DATA, PRICE_DATA } from './category-data';
 // import { Filter } from './filters/filters.component';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
@@ -21,7 +21,7 @@ interface SelectedBooleanFilter {
 }
 interface SelectedNumberRangeFilter {
   type: AttrType.NumberRange,
-  values: {min: number, max: number}
+  values: {minValue: number, maxValue: number}
 }
 interface SelectedStringFilter {
   type: AttrType.String,
@@ -52,68 +52,78 @@ export class FiltersHandlerService {
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
-  makeFiltersArray(array: AttributeData[]): Filter[] {
+  makeFiltersArray(array: AttributeData[], paramMap: ParamMap): Filter[] {
     this.filtersArray.length = 0;
-    let availability = new Filter(
-      BooleanFilterComponent, 
-      {
-        attr: {
-          name: "nalichie",
-          title: "Наличие",
-          // type: "boolean",
-          type: AttrType.Boolean,
-          description: "В наличии"
-          },
-        values: {
-          id: null as unknown as number,
-          value: false
-        }
-      } as AttributeData
-    );
-    this.filtersArray.push(availability);
+    this.selectedFilters = {};
+
+    array.unshift(AVAILABILITY_DATA, PRICE_DATA);
+
+    // let availability = new Filter(BooleanFilterComponent, availabilityData);
+    // availability.data.values.initItem = false;
+    // if (paramMap.has(availabilityData.attr.name)) {
+    //   availability.data.values.initItem = paramMap.get(availabilityData.attr.name);
+    //   this.selectedFilters[availabilityData.attr.name] = {type: AttrType.Boolean, values: true}
+    // }
+    // this.filtersArray.push(availability);
   
-    let price = new Filter(
-      NumberRangeFilterComponent, 
-      {
-        attr: {
-          name: "price",
-          title: "Цена",
-          // type: "number-range",
-          type: AttrType.NumberRange,
-        },
-        values: {
-          minValue: 0, 
-          maxValue: 20000
-        }
-      } as AttributeData
-    );
-    this.filtersArray.push(price);
+    // let price = new Filter(NumberRangeFilterComponent, priceData);
+    // price.data.values.initItem = price.data.values.item;
+    // if (paramMap.has(priceData.attr.name)) {
+    //   let paramValue = paramMap.get(priceData.attr.name);
+    //   if (paramValue) {
+    //     let range = paramValue.split("-");
+    //     price.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
+    //   this.selectedFilters[priceData.attr.name] = {type: AttrType.String, values: price.data.values.initItem}
+    //   }
+    // }
+    // this.filtersArray.push(price);
+
+    
   
     for (let item of array) {
       let filter: Filter;
       switch (item.attr.type) {
-        // case "boolean": filter = new Filter(BooleanFilterComponent, item); break;
-        // case "number": filter = new Filter(NumberFilterComponent, item); break;
-        // case "number-range": filter = new Filter(NumberFilterComponent, item); break;
-        // case "string": filter = new Filter(StringFilterComponent, item); break;
-        case AttrType.Boolean: filter = new Filter(BooleanFilterComponent, item); break;
+        case AttrType.Boolean: 
+          filter = new Filter(BooleanFilterComponent, item);
+          filter.data.values[0].initItem = false;
+          filter.data.values[1].initItem = false;
+          if (paramMap.has(item.attr.name)) {
+            filter.data.values.initItem = paramMap.get(item.attr.name);
+            this.selectedFilters[item.attr.name] = {type: AttrType.Boolean, values: true}
+          }
+          break;
+        case AttrType.NumberRange: 
+          filter = new Filter(NumberRangeFilterComponent, item);
+          filter.data.values.initItem = filter.data.values.item;
+          if (paramMap.has(item.attr.name)) {
+            let paramValue = paramMap.get(item.attr.name);
+            if (paramValue) {
+              let range = paramValue.split("-");
+              filter.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
+              this.selectedFilters[item.attr.name] = {type: AttrType.String, values: filter.data.values.initItem}
+            }
+          }
+          break;
+        case AttrType.String: 
+          filter = new Filter(StringFilterComponent, item); 
+          break;
         case AttrType.Number: filter = new Filter(NumberFilterComponent, item); break;
-        case AttrType.NumberRange: filter = new Filter(NumberRangeFilterComponent, item); break;
-        case AttrType.String: filter = new Filter(StringFilterComponent, item); break;
         // default: break;
       }
       this.filtersArray.push(filter);
     }
+    console.log(this.selectedFilters);
+
     return this.filtersArray;
   }
 
   makeSelectedFiltersFromQueryParams(params: Params, array: Filter[]) {
     this.selectedFilters = {};
-    console.log(params);
-    console.log(array);
+    // console.log(params);
+    // console.log(array);
     for (let paramName in params) {
-      console.log(paramName);
-      console.log(params[paramName]);
+      // console.log(paramName);
+      // console.log(params[paramName]);
       let filter = array.find(f => f.data.attr.name === paramName);
       console.log(filter);
       if (filter) {
@@ -129,7 +139,7 @@ export class FiltersHandlerService {
           case "number-range":
           // case AttrType.NumberRange:          
             let range = params[paramName].split("-");
-            this.selectedFilters[paramName] = {type: AttrType.NumberRange, values: {min: Number(range[0]), max: Number(range[1])}}
+            // this.selectedFilters[paramName] = {type: AttrType.NumberRange, values: {min: Number(range[0]), max: Number(range[1])}}
             break;
         
           default:
@@ -171,7 +181,7 @@ export class FiltersHandlerService {
           break;
         
         case AttrType.NumberRange:
-          queryParams[key] = `${element.values.min}-${element.values.max}`;
+          queryParams[key] = `${element.values.minValue}-${element.values.maxValue}`;
           break;
         
         case AttrType.String:
@@ -245,7 +255,7 @@ export class FiltersHandlerService {
     type: AttrType.NumberRange, 
     value: NumberRangeFilterArg) {
       if (value.update) {
-        this.selectedFilters[name] = {type: type, values: {min: value.min, max:value.max}};
+        this.selectedFilters[name] = {type: type, values: {minValue: value.min, maxValue:value.max}};
       } else {
         delete this.selectedFilters[name];
       }

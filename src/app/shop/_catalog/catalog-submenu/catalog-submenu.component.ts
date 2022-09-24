@@ -13,7 +13,7 @@ export class CatalogSubmenuComponent implements OnInit {
 
   @Input() parentId!: number | null;
   
-  childs: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]> = EMPTY;
+  childs$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]> = EMPTY;
 
 
   constructor(
@@ -22,6 +22,6 @@ export class CatalogSubmenuComponent implements OnInit {
     private httpRequest: HttpRequestsService) { }
 
   ngOnInit(): void {
-    this.childs = this.httpRequest.getChildCategories(this.parentId);
+    this.childs$ = this.httpRequest.getChildCategories(this.parentId);
   }
 }

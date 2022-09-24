@@ -1,4 +1,4 @@
-<a *ngFor="let item of childs | async" [routerLink]="['/catalog/category', item.name]" class="submenuWrapper">
+<a *ngFor="let item of childs$ | async" [routerLink]="['/catalog/category', item.name]" class="submenuWrapper">
     <div class="menuTitle">
         {{item.title}}
         ({{item.id}})

@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   attributeArrayComplex: Observable<AttributeData[]> = EMPTY;
 
 
-  categoryComplexData: Observable<CategoryComplexData> = EMPTY;
+  categoryComplexData$: Observable<CategoryComplexData> = EMPTY;
 
   destroy$: Subject<boolean> = new Subject();
 
