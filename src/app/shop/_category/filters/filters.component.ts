@@ -49,6 +49,10 @@ export class FiltersComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
           console.log("init filters");
+          console.log(this.filtersArray);
+          console.log(this.filtersHandler.selectedFilters);
+          
+          
           // this.filtersHandler.initFiltersFromQueryParams(this.route.snapshot.queryParams, this.filtersArray);
 
         }

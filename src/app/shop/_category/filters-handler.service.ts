@@ -43,7 +43,8 @@ export type StringFilterArg = number;
 })
 export class FiltersHandlerService {
 
-  private selectedFilters: SelectedFilters = {};
+  selectedFilters: SelectedFilters = {};
+  // private selectedFilters: SelectedFilters = {};
 
   private filtersArray: Filter[] = [];
 
@@ -57,61 +58,70 @@ export class FiltersHandlerService {
     this.selectedFilters = {};
 
     array.unshift(AVAILABILITY_DATA, PRICE_DATA);
-
-    // let availability = new Filter(BooleanFilterComponent, availabilityData);
-    // availability.data.values.initItem = false;
-    // if (paramMap.has(availabilityData.attr.name)) {
-    //   availability.data.values.initItem = paramMap.get(availabilityData.attr.name);
-    //   this.selectedFilters[availabilityData.attr.name] = {type: AttrType.Boolean, values: true}
-    // }
-    // this.filtersArray.push(availability);
-  
-    // let price = new Filter(NumberRangeFilterComponent, priceData);
-    // price.data.values.initItem = price.data.values.item;
-    // if (paramMap.has(priceData.attr.name)) {
-    //   let paramValue = paramMap.get(priceData.attr.name);
-    //   if (paramValue) {
-    //     let range = paramValue.split("-");
-    //     price.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
-    //   this.selectedFilters[priceData.attr.name] = {type: AttrType.String, values: price.data.values.initItem}
-    //   }
-    // }
-    // this.filtersArray.push(price);
-
-    
   
     for (let item of array) {
       let filter: Filter;
+      let paramValue: string | null = paramMap.get(item.attr.name);;
+
       switch (item.attr.type) {
-        case AttrType.Boolean: 
+        case AttrType.Boolean:
           filter = new Filter(BooleanFilterComponent, item);
           filter.data.values[0].initItem = false;
           filter.data.values[1].initItem = false;
-          if (paramMap.has(item.attr.name)) {
-            filter.data.values.initItem = paramMap.get(item.attr.name);
-            this.selectedFilters[item.attr.name] = {type: AttrType.Boolean, values: true}
+          if (paramValue) {
+            filter.data.values[0].initItem = Boolean(paramValue);
+            filter.data.values[1].initItem = Boolean(paramValue);
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.Boolean, values: true}
           }
           break;
+
         case AttrType.NumberRange: 
           filter = new Filter(NumberRangeFilterComponent, item);
           filter.data.values.initItem = filter.data.values.item;
-          if (paramMap.has(item.attr.name)) {
-            let paramValue = paramMap.get(item.attr.name);
-            if (paramValue) {
-              let range = paramValue.split("-");
-              filter.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
-              this.selectedFilters[item.attr.name] = {type: AttrType.String, values: filter.data.values.initItem}
-            }
+          if (paramValue) {
+            let range = paramValue.split("-");
+            filter.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.NumberRange, values: filter.data.values.initItem}
           }
           break;
+
         case AttrType.String: 
-          filter = new Filter(StringFilterComponent, item); 
+          filter = new Filter(StringFilterComponent, item);
+          // console.log("paramValue: " + paramValue);
+          let valueIDs: Set<number>;
+          if (paramValue) {
+            valueIDs = new Set<number>(JSON.parse("[" + paramValue + "]"));
+          } else {
+            valueIDs = new Set();
+          }
+          
+          // console.log("valueIDs:");
+          // console.log(valueIDs);
+          
+          for (let attrValue of filter.data.values) {            
+            if (valueIDs.has(attrValue.item.id)) {
+              attrValue.initItem = true;                
+            } else {
+              attrValue.initItem = false;
+            }
+          }
+          if (valueIDs.size) {
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.String, values: valueIDs}
+          }
           break;
-        case AttrType.Number: filter = new Filter(NumberFilterComponent, item); break;
-        // default: break;
+
+        case AttrType.Number: 
+          console.error("NumberFilter component not implemented");
+          continue; 
+          break;
+        default:
+          console.error("Undefined filter type");
+          continue; 
+          break;
       }
       this.filtersArray.push(filter);
     }
+    console.log(this.filtersArray);
     console.log(this.selectedFilters);
 
     return this.filtersArray;

@@ -1,6 +1,10 @@
 <div class="filter">
   <p class="title">{{data.attr.title}}</p>
 
-  <mat-checkbox [name]="data.attr.name" class="checkbox example-margin" (change)="onChange($event)">{{data.attr.description}}</mat-checkbox>
+  <mat-checkbox 
+    [name]="data.attr.name" 
+    class="checkbox example-margin" 
+    (change)="onChange($event)"
+    [checked]="data.values[0].initItem">{{data.attr.description}}</mat-checkbox>
 </div>
 
