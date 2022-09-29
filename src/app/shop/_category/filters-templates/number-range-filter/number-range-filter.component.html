@@ -2,7 +2,7 @@
     <p class="title">{{data.attr.title}}</p>
   
     <div class="custom-slider">
-        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onChangeRange()"></ngx-slider>
+        <ngx-slider [(value)]="state.minValue" [(highValue)]="state.maxValue" [options]="options" (userChangeEnd)="onChangeRange()"></ngx-slider>
     </div>
     
 </div>

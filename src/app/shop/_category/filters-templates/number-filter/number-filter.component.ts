@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SelectedFilters } from '../../filters-handler.service';
 
 @Component({
   selector: 'app-number-filter',
@@ -12,6 +13,15 @@ export class NumberFilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  init(selectedFilters: SelectedFilters) {
+    this.reset();
+    console.error("number filter init not implemented");
+  }
+
+  reset() {
+    console.error("number filter reset not implemented");
   }
 
 }

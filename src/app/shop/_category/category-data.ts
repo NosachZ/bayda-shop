@@ -5,6 +5,8 @@ export interface AttributeValueData {
     initItem?: boolean                          | {minValue: number, maxValue: number}
 }
 
+
+
 interface StringAttributeData {
         attr: Omit<Attribute, 'categories'>,
         values: AttributeValueData[],

@@ -5,6 +5,10 @@
     [name]="data.attr.name" 
     class="checkbox example-margin" 
     (change)="onChange($event)"
-    [checked]="data.values[0].initItem">{{data.attr.description}}</mat-checkbox>
+    [(ngModel)]="state"
+    >
+    <!-- [checked]="data.values[0].initItem"> -->
+      {{data.attr.description}}
+  </mat-checkbox>
 </div>
 

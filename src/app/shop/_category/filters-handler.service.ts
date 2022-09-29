@@ -1,7 +1,9 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable, Type, ComponentRef, ViewContainerRef, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { EMPTY, Observable, switchMap } from 'rxjs';
+import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { AttributeValue, AttrType, BooleanAttribute } from 'src/app/_data-model/products';
-import { AttributeData, AVAILABILITY_DATA, PRICE_DATA } from './category-data';
+import { AttributeData, AVAILABILITY_DATA, CategoryComplexData, PRICE_DATA } from './category-data';
 // import { Filter } from './filters/filters.component';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
@@ -9,7 +11,8 @@ import { NumberRangeFilterComponent } from './filters-templates/number-range-fil
 import { StringFilterComponent } from './filters-templates/string-filter/string-filter.component';
 
 
-type FilterTypes = BooleanFilterComponent | NumberFilterComponent | NumberRangeFilterComponent | StringFilterComponent;
+
+export type FilterTypes = BooleanFilterComponent | NumberFilterComponent | NumberRangeFilterComponent | StringFilterComponent;
 
 export class Filter {
   constructor (public component: Type<FilterTypes>, public data: any) {}
@@ -28,7 +31,7 @@ interface SelectedStringFilter {
   values: Set<number>
 }
 
-interface SelectedFilters {
+export interface SelectedFilters {
   [name: string]: SelectedBooleanFilter | SelectedNumberRangeFilter | SelectedStringFilter
 }
 
@@ -43,76 +46,61 @@ export type StringFilterArg = number;
 })
 export class FiltersHandlerService {
 
-  selectedFilters: SelectedFilters = {};
-  // private selectedFilters: SelectedFilters = {};
+  private categoryData$: Observable<CategoryComplexData> = EMPTY;
 
   private filtersArray: Filter[] = [];
+
+  private selectedFilters: SelectedFilters = {};
+
+  filterComponentRefArray: ComponentRef<FilterTypes>[] = [];
+
+  dynamic!: QueryList<ViewContainerRef>
+
 
 
   constructor(    
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private httpRequest: HttpRequestsService) 
+  { }
 
-  makeFiltersArray(array: AttributeData[], paramMap: ParamMap): Filter[] {
+  downloadCategorySubscription(): void {
+    this.categoryData$ = this.route.params
+      .pipe(switchMap(params =>
+        this.httpRequest.getCategoryComplexData(params['selCategory'])
+      ));
+  }
+
+  getCategory(): Observable<CategoryComplexData> {
+    return this.categoryData$;
+  }
+
+  // ------------------------------------------
+
+  makeFiltersArray(array: AttributeData[]): Filter[] {
     this.filtersArray.length = 0;
-    this.selectedFilters = {};
 
     array.unshift(AVAILABILITY_DATA, PRICE_DATA);
   
     for (let item of array) {
       let filter: Filter;
-      let paramValue: string | null = paramMap.get(item.attr.name);;
 
       switch (item.attr.type) {
         case AttrType.Boolean:
           filter = new Filter(BooleanFilterComponent, item);
-          filter.data.values[0].initItem = false;
-          filter.data.values[1].initItem = false;
-          if (paramValue) {
-            filter.data.values[0].initItem = Boolean(paramValue);
-            filter.data.values[1].initItem = Boolean(paramValue);
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.Boolean, values: true}
-          }
           break;
 
         case AttrType.NumberRange: 
           filter = new Filter(NumberRangeFilterComponent, item);
-          filter.data.values.initItem = filter.data.values.item;
-          if (paramValue) {
-            let range = paramValue.split("-");
-            filter.data.values.initItem = {minValue: Number(range[0]), maxValue: Number(range[1])};      
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.NumberRange, values: filter.data.values.initItem}
-          }
           break;
 
         case AttrType.String: 
           filter = new Filter(StringFilterComponent, item);
-          // console.log("paramValue: " + paramValue);
-          let valueIDs: Set<number>;
-          if (paramValue) {
-            valueIDs = new Set<number>(JSON.parse("[" + paramValue + "]"));
-          } else {
-            valueIDs = new Set();
-          }
-          
-          // console.log("valueIDs:");
-          // console.log(valueIDs);
-          
-          for (let attrValue of filter.data.values) {            
-            if (valueIDs.has(attrValue.item.id)) {
-              attrValue.initItem = true;                
-            } else {
-              attrValue.initItem = false;
-            }
-          }
-          if (valueIDs.size) {
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.String, values: valueIDs}
-          }
           break;
 
         case AttrType.Number: 
           console.error("NumberFilter component not implemented");
-          continue; 
+          continue;
           break;
         default:
           console.error("Undefined filter type");
@@ -121,61 +109,73 @@ export class FiltersHandlerService {
       }
       this.filtersArray.push(filter);
     }
-    console.log(this.filtersArray);
-    console.log(this.selectedFilters);
-
     return this.filtersArray;
   }
 
-  makeSelectedFiltersFromQueryParams(params: Params, array: Filter[]) {
+  initFiltersfromQueryParams(): void {
     this.selectedFilters = {};
-    // console.log(params);
-    // console.log(array);
-    for (let paramName in params) {
-      // console.log(paramName);
-      // console.log(params[paramName]);
-      let filter = array.find(f => f.data.attr.name === paramName);
-      console.log(filter);
-      if (filter) {
+    let paramMap = this.route.snapshot.queryParamMap;
+
+    for (let filter of this.filtersArray) {
+      let paramValue = paramMap.get(filter.data.attr.name);
+
+      if (paramValue) {
         switch (filter.data.attr.type) {
-          case "boolean":
-          // case AttrType.Boolean:         
-            this.selectedFilters[paramName] = {type: AttrType.Boolean, values: true}
+          case AttrType.Boolean:
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.Boolean, values: true};
             break;
-          case "string":
-          // case AttrType.String:
-            this.selectedFilters[paramName] = {type: AttrType.String, values: new Set(JSON.parse("[" + params[paramName] + "]"))}
+  
+          case AttrType.NumberRange: 
+            let range = paramValue.split("-");
+            let values = {minValue: Number(range[0]), maxValue: Number(range[1])};
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.NumberRange, values: values};
             break;
-          case "number-range":
-          // case AttrType.NumberRange:          
-            let range = params[paramName].split("-");
-            // this.selectedFilters[paramName] = {type: AttrType.NumberRange, values: {min: Number(range[0]), max: Number(range[1])}}
+  
+          case AttrType.String: 
+            let valueIDs: Set<number> = new Set<number>(JSON.parse("[" + paramValue + "]"));
+            this.selectedFilters[filter.data.attr.name] = {type: AttrType.String, values: valueIDs};
             break;
-        
+  
+          case AttrType.Number: 
+            console.error("NumberFilter component not implemented");
+            continue; 
+            break;
           default:
+            console.error("Undefined filter type");
+            continue; 
             break;
         }
       }
-      console.log(this.selectedFilters);
-      
-      
-      
     }
-    
+
+    for (let filter of this.filterComponentRefArray) {
+      filter.instance.init(this.selectedFilters);
+    }
   }
 
   applyFilters() {
+    console.log(`1. update url queryParams
+    2. send request to backend with current queryParams`);
+    
     this.router.navigate(
       [], 
       {
-        relativeTo: this.activatedRoute,
+        relativeTo: this.route,
         queryParams: this.makeQueryParams(), 
         // queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
   }
 
   resetFilters() {
+    console.log(`filters-handler resetFilters:
+      1. ++ make 'SelectedFilters' from queryParams-----
+      2. ++ init Filters[] from selectedFilters---------
+      3. send request to backend with current queryParams`);
+    
     this.selectedFilters = {};
+    for (let filter of this.filterComponentRefArray) {
+      filter.instance.reset();
+    }
   }
 
   makeQueryParams(): Params {
@@ -258,7 +258,7 @@ export class FiltersHandlerService {
       }
 
       this.selectedFilters[name] = {type: type, values: new Set([value])};
-    }
+  }
 
   private switchNumbnerRangeFilter(
     name: string, 
@@ -269,6 +269,17 @@ export class FiltersHandlerService {
       } else {
         delete this.selectedFilters[name];
       }
-    }
+  }
+
+
+  initFilterComponents(dynamic: QueryList<ViewContainerRef>) {
+    this.filterComponentRefArray = [];
+    dynamic.forEach((vcr: ViewContainerRef, i: number) => {
+      vcr.clear();
+      let componentRef = vcr.createComponent(this.filtersArray[i].component);
+      componentRef.instance.data = this.filtersArray[i].data;
+      this.filterComponentRefArray.push(componentRef);
+    });
+  }
 
 }

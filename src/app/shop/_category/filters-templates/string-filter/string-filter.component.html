@@ -1,11 +1,11 @@
 <div class="filter">
     <p class="title">{{data.attr.title}}</p>
   
-    <div *ngFor="let item of data.values">
+    <div *ngFor="let item of values">
         <mat-checkbox 
             class="checkbox example-margin" 
             (change)="onChange($event, item.item.id)"
-            [checked]="item.initItem">{{item.item.value}}</mat-checkbox>
+            [(ngModel)]="item.item.state">{{item.item.value}}</mat-checkbox>
     </div>
 </div>
   

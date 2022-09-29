@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
 import { AttributeData, CategoryComplexData } from '../shop/_category/category-data';
@@ -134,5 +135,11 @@ export class HttpRequestsService {
     
     // return for backend request
     return this.http.get<CategoryComplexData>(this.backendURL, options);
+  }
+
+  getModels(categoryName: string, queryParams: Params): Observable<Model[]> {
+    let options = { params: new HttpParams().set('getModels', categoryName) };
+    options.params.set('queryParams', JSON.stringify(queryParams));
+    return this.http.get<Model[]>(this.backendURL, options);
   }
 }
