@@ -29,6 +29,9 @@
     
     
     
+    <div *ngFor="let model of modelsData$ | async">
+        {{model.name}}
+    </div>
     <p>category works!</p>
     <p>category works!</p>
     <p>category works!</p>

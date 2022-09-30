@@ -28,6 +28,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   categoryComplexData$: Observable<CategoryComplexData> = EMPTY;
 
   destroy$: Subject<boolean> = new Subject();
+  modelsData$: Observable<Model[]> = EMPTY;
 
 
 
@@ -39,14 +40,19 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.filtersHandler.downloadCategorySubscription();
-    this.categoryComplexData$ = this.filtersHandler.getCategory();
+    // this.filtersHandler.downloadCategorySubscription();
+    // this.categoryComplexData$ = this.filtersHandler.getCategory();
+    // this.modelsData$ = this.filtersHandler.modelsData$;
     // -------------- logic moved to filters-handler, need rename "filters-handler" to "category-handler"
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe( params => {
+        console.log("params");
+        console.log(params);
+        this.selectedCategory = this.filtersHandler.getSelectedCategory(params);
+      });
+
     
-    this.selectedCategory = this.route.params
-      .pipe(switchMap(params => 
-        this.httpRequest.getCategoryByName(params['selCategory'])
-      ));
     this.childCategories = this.selectedCategory
       .pipe(switchMap(category => 
         this.httpRequest.getChildCategories(category!.id)

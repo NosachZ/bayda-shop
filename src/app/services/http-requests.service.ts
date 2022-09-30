@@ -26,6 +26,7 @@ export class HttpRequestsService {
   categoryURL = '/assets/backend-emul/categories.json';
   attributeURL = '/assets/backend-emul/attributes.json';
   attributeArrayURL = '/assets/backend-emul/attributesArray.json';
+  modelURL = '/assets/backend-emul/models.json';
 
 
 
@@ -138,8 +139,14 @@ export class HttpRequestsService {
   }
 
   getModels(categoryName: string, queryParams: Params): Observable<Model[]> {
-    let options = { params: new HttpParams().set('getModels', categoryName) };
-    options.params.set('queryParams', JSON.stringify(queryParams));
+    console.log("category Name = " + categoryName);
+    
+    let options = { 
+      params: new HttpParams()
+        .set('getModels', categoryName) 
+        .set('queryParams', JSON.stringify(queryParams))
+    };
+    // return this.http.get<Model[]>(this.backendURL, options);
     return this.http.get<Model[]>(this.backendURL, options);
   }
 }

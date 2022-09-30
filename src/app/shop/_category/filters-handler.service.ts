@@ -2,7 +2,7 @@ import { Injectable, Type, ComponentRef, ViewContainerRef, QueryList } from '@an
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { EMPTY, Observable, switchMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
-import { AttributeValue, AttrType, BooleanAttribute } from 'src/app/_data-model/products';
+import { AttributeValue, AttrType, BooleanAttribute, Category, Model } from 'src/app/_data-model/products';
 import { AttributeData, AVAILABILITY_DATA, CategoryComplexData, PRICE_DATA } from './category-data';
 // import { Filter } from './filters/filters.component';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
@@ -48,6 +48,11 @@ export class FiltersHandlerService {
 
   private categoryData$: Observable<CategoryComplexData> = EMPTY;
 
+  categoryName: string = "";//tmp
+  selectedCategory$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;//tmp
+
+  modelsData$: Observable<Model[]> = EMPTY;
+
   private filtersArray: Filter[] = [];
 
   private selectedFilters: SelectedFilters = {};
@@ -64,11 +69,24 @@ export class FiltersHandlerService {
     private httpRequest: HttpRequestsService) 
   { }
 
+  // ---tmp---
+  getSelectedCategory(params: Params) {
+    console.log("params");
+    console.log(params);
+    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
+    return this.selectedCategory$;
+  }
+  // ---tmp---
+
   downloadCategorySubscription(): void {
     this.categoryData$ = this.route.params
-      .pipe(switchMap(params =>
-        this.httpRequest.getCategoryComplexData(params['selCategory'])
-      ));
+      .pipe(switchMap(params => {
+        console.log("params");
+        console.log(params);
+        
+        this.categoryName = params['selCategory'];
+        return this.httpRequest.getCategoryComplexData(params['selCategory'])
+      }));
   }
 
   getCategory(): Observable<CategoryComplexData> {
@@ -151,6 +169,8 @@ export class FiltersHandlerService {
     for (let filter of this.filterComponentRefArray) {
       filter.instance.init(this.selectedFilters);
     }
+
+    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
   }
 
   applyFilters() {
@@ -163,7 +183,10 @@ export class FiltersHandlerService {
         relativeTo: this.route,
         queryParams: this.makeQueryParams(), 
         // queryParamsHandling: 'merge', // remove to replace all query params by provided
-      });
+      }
+    );
+    
+    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
   }
 
   resetFilters() {
@@ -176,6 +199,8 @@ export class FiltersHandlerService {
     for (let filter of this.filterComponentRefArray) {
       filter.instance.reset();
     }
+
+    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
   }
 
   makeQueryParams(): Params {
