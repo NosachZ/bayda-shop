@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "brend",
+        "title": "Бренд",
+        "categories": [{"id": 1},{"id": 2},{"id": 3},{"id": 4},{"id": 5},{"id": 6},{"id": 7},{"id": 8}],
+        "type": 0
+    },
+    {
+        "id": 2,
+        "name": "kolichestvo-mest",
+        "title": "Количество мест",
+        "categories": [{"id": 27}],
+        "type": "string"
+    },
+    {
+        "id": 3,
+        "name": "kolichestvo-vhodov",
+        "title": "Количество входов",
+        "categories": [{"id": 27}],
+        "type": "string"
+    },    
+    {
+        "id": 4,
+        "name": "material-dug",
+        "title": "Материал дуг",
+        "categories": [{"id": 27}],
+        "type": "string"
+    },    
+    {
+        "id": 5,
+        "name": "raspolozhenie-dug",
+        "title": "Расположение дуг",
+        "categories": [{"id": 27}],
+        "type": "string"
+    },    
+    {
+        "id": 6,
+        "name": "ves",
+        "title": "Вес",
+        "categories": [{"id": 27}],
+        "type": "string"
+    }
+]

@@ -1,0 +1,185 @@
+[
+    {
+        "attr": 
+            {
+               "id": 1,
+                "name": "brend",
+                "title": "Бренд",
+                "categories": [{"id": 1},{"id": 2},{"id": 3},{"id": 4},{"id": 5},{"id": 6},{"id": 7},{"id": 8}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 1,
+                            "value": "Terra Incognita"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 2,
+                            "value": "Pinguin"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 3,
+                            "value": "Kelty"
+                        }
+                }
+            ]
+    },
+    {
+        "attr": 
+            {
+                "id": 2,
+                "name": "kolichestvo-mest",
+                "title": "Количество мест",
+                "categories": [{"id": 27}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 4,
+                            "value": "2"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 5,
+                            "value": "2+1"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 6,
+                            "value": "3"
+                        }
+                }
+            ]
+    },
+    {
+        "attr": 
+            {
+                "id": 3,
+                "name": "kolichestvo-vhodov",
+                "title": "Количество входов",
+                "categories": [{"id": 27}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 7,
+                            "value": "1"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 8,
+                            "value": "2"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 9,
+                            "value": "3"
+                        }
+                }
+            ]
+    },    
+    {
+        "attr": 
+            {
+                "id": 4,
+                "name": "material-dug",
+                "title": "Материал дуг",
+                "categories": [{"id": 27}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 10,
+                            "value": "Алюминий"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 11,
+                            "value": "Стекловолокно"
+                        }
+                }
+            ]
+    },    
+    {
+        "attr": 
+            {
+                "id": 5,
+                "name": "raspolozhenie-dug",
+                "title": "Расположение дуг",
+                "categories": [{"id": 27}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 12,
+                            "value": "Внутри"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 13,
+                            "value": "Снаружи"
+                        }
+                }
+            ]
+    },    
+    {
+        "attr": 
+            {
+                "id": 6,
+                "name": "ves",
+                "title": "Вес",
+                "categories": [{"id": 27}],
+                "type": 0
+            },
+        "values": 
+            [
+                {
+                    "item": 
+                        {
+                            "id": 14,
+                            "value": "1-3"
+                        }
+                },
+                {
+                    "item": 
+                        {
+                            "id": 15,
+                            "value": "3-6"
+                        }
+                }
+            ]
+    }
+]
