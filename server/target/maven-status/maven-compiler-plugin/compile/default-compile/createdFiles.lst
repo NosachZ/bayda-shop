@@ -1,0 +1,5 @@
+com\baydashop\repository\CategoryRepository.class
+com\baydashop\controller\CategoryController.class
+com\baydashop\ServerApplication.class
+com\baydashop\model\Category.class
+com\baydashop\ServerApplication$IntegrationConfig.class

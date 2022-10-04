@@ -4,7 +4,6 @@ import { EMPTY, Observable, switchMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { AttributeValue, AttrType, BooleanAttribute, Category, Model } from 'src/app/_data-model/products';
 import { AttributeData, AVAILABILITY_DATA, CategoryComplexData, PRICE_DATA } from './category-data';
-// import { Filter } from './filters/filters.component';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
 import { NumberRangeFilterComponent } from './filters-templates/number-range-filter/number-range-filter.component';
@@ -50,7 +49,10 @@ export class FiltersHandlerService {
 
   categoryName: string = "";//tmp
   selectedCategory$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;//tmp
-
+  childCategories$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;//tmp
+  categoryChain$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;//tmp
+  attributeArrayComplex$: Observable<AttributeData[]> = EMPTY; 
+  
   modelsData$: Observable<Model[]> = EMPTY;
 
   private filtersArray: Filter[] = [];
@@ -70,12 +72,49 @@ export class FiltersHandlerService {
   { }
 
   // ---tmp---
-  getSelectedCategory(params: Params) {
-    console.log("params");
-    console.log(params);
-    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
+ /*  getSelectedCategory(params: Params) {    
+    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);    
     return this.selectedCategory$;
   }
+
+  getChildCategories(category: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null) {    
+    this.childCategories$ = this.httpRequest.getChildCategories(category!.id);    
+    console.log(category);
+    
+    return this.childCategories$;
+  }
+
+  onCategorySelect(params: Params) {
+    this.selectedCategory$.subscribe(category => {
+      console.log(category);
+      this.selectedCategory = category;
+    });
+    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
+
+    // console.log("---");
+    // console.log(this.selectedCategory);
+    // console.log("---");
+    
+    
+    
+
+    this.childCategories$ = this.selectedCategory$
+      .pipe(switchMap(category => {
+        // console.log(category);
+        
+        return this.httpRequest.getChildCategories(category!.id)
+        }
+      ));
+    this.categoryChain$ = this.selectedCategory$
+      .pipe(switchMap(category => 
+        this.httpRequest.getCategoryChain(category!)
+      ));
+    this.attributeArrayComplex$ = this.categoryChain$
+      .pipe(switchMap(categoryChain => 
+        this.httpRequest.getAttributeArray(categoryChain)
+      ));
+  } */
+
   // ---tmp---
 
   downloadCategorySubscription(): void {

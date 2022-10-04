@@ -72,7 +72,7 @@ export class HttpRequestsService {
               if (attrCategory.id == categoryId) chainAttributeArray.push(attribute);
             }
           }
-        }        
+        }
         return chainAttributeArray;
       }));
   }
@@ -139,14 +139,13 @@ export class HttpRequestsService {
   }
 
   getModels(categoryName: string, queryParams: Params): Observable<Model[]> {
-    console.log("category Name = " + categoryName);
+    // console.log("category Name = " + categoryName);
     
     let options = { 
       params: new HttpParams()
         .set('getModels', categoryName) 
         .set('queryParams', JSON.stringify(queryParams))
     };
-    // return this.http.get<Model[]>(this.backendURL, options);
     return this.http.get<Model[]>(this.backendURL, options);
   }
 }

@@ -20,14 +20,27 @@ public class CategoryController {
     this.repository = repository;
   }
 
-//  @RequestMapping("")
-//  public List<Category> allEntities() {
-//    return repository.findAll();
-//  }
+  // @RequestMapping("")
+  // public List<Category> allEntities() {
+  // return repository.findAll();
+  // }
 
-  @RequestMapping("{id}")
-  public Category entity(@PathVariable("id") long id) {
-    return repository.findById(id).orElse(null);
+  // @RequestMapping("{id}")
+  // public Category entity(@PathVariable("id") long id) {
+  //   return repository.findById(id).orElse(null);
+  // }
+
+  @RequestMapping("{name}")
+  public Category entity(@PathVariable("name") String name) {
+    Category probe = new Category();
+    probe.setName(name);
+    Example<Category> example = Example.of(probe);
+    List<Category> respond = repository.findAll(example);
+    if (respond.isEmpty()) {
+      return null;
+    } else {
+      return respond.get(0);
+    }
   }
 
   @RequestMapping("")
