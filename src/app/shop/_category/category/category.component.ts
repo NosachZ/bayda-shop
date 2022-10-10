@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, EMPTY, switchMap, of, takeUntil, Subject } from 'rxjs';
+import { Observable, EMPTY, switchMap, of, takeUntil, Subject, tap, first, concatMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
@@ -30,7 +30,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject();
   modelsData$: Observable<Model[]> = EMPTY;
-
+  private response: any = {};
 
 
   constructor(
@@ -41,49 +41,54 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // this.filtersHandler.downloadCategorySubscription();
-    // this.categoryComplexData$ = this.filtersHandler.getCategory();
-    // this.modelsData$ = this.filtersHandler.modelsData$;
-    // -------------- logic moved to filters-handler, need rename "filters-handler" to "category-handler"
-    
+    this.route.params
+      .pipe(
+        switchMap(params => {
+          let response = this.httpRequest.getCategoryByName(params['selCategory'])
+          this.filtersHandler.selectedCategory$ = response;
+          return response;
+        })
+      )
+    // this.filtersHandler.categoryChain$ = this.filtersHandler.selectedCategory$
+    //   .pipe(
+    //     switchMap(category => this.httpRequest.getChildCategories(category!.id))
+    //   )
 
+
+
+      /* 
     // this.route.params
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe( params => 
-    //     this.selectedCategory = this.filtersHandler.getSelectedCategory(params)
-    //   );
+    // .pipe(switchMap(params => {
+    //     this.filtersHandler.getSelectedCategory(params);
+    //   }));
 
-    //   this.filtersHandler.childCategories$ = this.filtersHandler.selectedCategory$
+    // this.filtersHandler.selectedCategory$ = this.route.params
+    //   .pipe(switchMap(params => 
+    //     this.httpRequest.getCategoryByName(params['selCategory'])
+    //   ));
+
+    // this.filtersHandler.childCategories$ = this.filtersHandler.selectedCategory$
     //   .pipe(switchMap(category => 
     //     this.httpRequest.getChildCategories(category!.id)
     //   ));
+    // this.filtersHandler.categoryChain$ = this.filtersHandler.selectedCategory$
+    //   .pipe(switchMap(category => 
+    //     this.httpRequest.getCategoryChain(category!)
+    //   ));
+    // this.filtersHandler.attributeArrayComplex$ = this.filtersHandler.categoryChain$
+    //   .pipe(switchMap(categoryChain => 
+    //     this.httpRequest.getAttributeArray(categoryChain)
+    //   )); */
 
-    // this.route.params
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe( params => this.filtersHandler.onCategorySelect(params) );
-    
-
-    
-    this.filtersHandler.selectedCategory$ = this.route.params
-      .pipe(switchMap(params => 
-        this.httpRequest.getCategoryByName(params['selCategory'])
-      ));
-    this.filtersHandler.childCategories$ = this.filtersHandler.selectedCategory$
-      .pipe(switchMap(category => 
-        this.httpRequest.getChildCategories(category!.id)
-      ));
-    this.filtersHandler.categoryChain$ = this.filtersHandler.selectedCategory$
-      .pipe(switchMap(category => 
-        this.httpRequest.getCategoryChain(category!)
-      ));
-    this.filtersHandler.attributeArrayComplex$ = this.filtersHandler.categoryChain$
-      .pipe(switchMap(categoryChain => 
-        this.httpRequest.getAttributeArray(categoryChain)
-      ));
+    /* this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => 
+        this.filtersHandler.getCategoryData(params)
+      ); */
   }
 
   resetFilters() {
-    this.filtersHandler.resetFilters();    
+    this.filtersHandler.resetFilters();
   }
 
   ngOnDestroy(): void {

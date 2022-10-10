@@ -7,10 +7,12 @@
 </div>
 <div class="bottomContainer">
     <a [routerLink]="['/']"><img src="/assets/logo(на сайт)_white.webp" class="logo"></a>
-    <button class="catalogButton" [routerLink]="['/catalog']">
+    
+    <a mat-flat-button [routerLink]="['/catalog']" class="catalogButton">
         Каталог
         <fa-icon icon="person-hiking"></fa-icon>
-    </button>
+    </a>
+    
     <ng-container>
         <input class="find" [(ngModel)]="findString">
         <button (click)="onFind()" [disabled]="!findString">
@@ -18,12 +20,27 @@
             Find
         </button>
     </ng-container>
-    <button class="cabinetIcon" (click)="onCabinetClick()">
+    
+    <button mat-flat-button class="cabinetIcon" (click)="onCabinetClick()">
         <fa-icon *ngIf="!isAuthorised" icon="user-lock"></fa-icon>
         <fa-icon *ngIf="isAuthorised" icon="user-gear"></fa-icon>
     </button>
-    <button class="cartIcon" (click)="onCartClick()">
-        <fa-icon icon="cart-shopping"></fa-icon>
-        <span class="cartTotalCounter">{{cartTotalCounter}}</span>
+    
+    <button 
+        mat-flat-button 
+        class="cartIcon" 
+        (click)="onCartClick()"
+        >
+        <fa-icon icon="cart-shopping" class="cartShopping"></fa-icon>
+        <span class="cartTotalCounter" color="accent">{{cartTotalCounter}}</span>
     </button>
+
+    <!-- <button 
+        mat-flat-button 
+        class="cartIcon" 
+        (click)="onCartClick()"
+        [matBadge]="cartTotalCounter" matBadgeColor="accent" matBadgeSize="small"
+        >
+        <fa-icon icon="cart-shopping" class="cartShopping"></fa-icon>
+    </button> -->
 </div>

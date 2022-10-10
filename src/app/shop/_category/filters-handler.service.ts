@@ -47,13 +47,20 @@ export class FiltersHandlerService {
 
   private categoryData$: Observable<CategoryComplexData> = EMPTY;
 
-  categoryName: string = "";//tmp
-  selectedCategory$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;//tmp
-  childCategories$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;//tmp
-  categoryChain$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;//tmp
+  categoryName: string = "";
+  selectedCategory$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;
+  childCategories$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
+  categoryChain$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
   attributeArrayComplex$: Observable<AttributeData[]> = EMPTY; 
-  
   modelsData$: Observable<Model[]> = EMPTY;
+
+
+  selectedCategory: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null = null;
+  childCategories: Pick<Category, 'id' | 'name' | 'title'>[] = [];
+  categoryChain: Pick<Category, 'id' | 'name' | 'title'>[] = [];
+  attributeArrayComplex: AttributeData[] = [];
+  modelsData: Model[] = [];
+
 
   private filtersArray: Filter[] = [];
 
@@ -61,8 +68,7 @@ export class FiltersHandlerService {
 
   filterComponentRefArray: ComponentRef<FilterTypes>[] = [];
 
-  dynamic!: QueryList<ViewContainerRef>
-
+  dynamic: QueryList<ViewContainerRef> = new QueryList<ViewContainerRef>();//tmp
 
 
   constructor(    
@@ -72,12 +78,32 @@ export class FiltersHandlerService {
   { }
 
   // ---tmp---
- /*  getSelectedCategory(params: Params) {    
+  getSelectedCategory(params: Params) {    
     this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);    
-    return this.selectedCategory$;
+    // this.selectedCategory$.subscribe(console.log);
   }
 
-  getChildCategories(category: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null) {    
+  getCategoryData(params: Params) {
+    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
+    // this.selectedCategory$.subscribe(console.log)
+
+    this.childCategories$ = this.selectedCategory$
+      .pipe(switchMap(category => 
+        this.httpRequest.getChildCategories(category!.id)
+      ));
+    this.childCategories$.subscribe(console.log)
+    this.categoryChain$ = this.selectedCategory$
+      .pipe(switchMap(category => 
+        this.httpRequest.getCategoryChain(category!)
+      ));
+    this.categoryChain$.subscribe(console.log)
+    this.attributeArrayComplex$ = this.categoryChain$
+      .pipe(switchMap(categoryChain => 
+        this.httpRequest.getAttributeArray(categoryChain)
+      ));
+  }
+
+  /*getChildCategories(category: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null) {    
     this.childCategories$ = this.httpRequest.getChildCategories(category!.id);    
     console.log(category);
     
@@ -167,6 +193,17 @@ export class FiltersHandlerService {
       this.filtersArray.push(filter);
     }
     return this.filtersArray;
+  }
+
+  initFilterComponents(dynamic: QueryList<ViewContainerRef>) {
+    this.filterComponentRefArray = [];
+    dynamic.forEach((vcr: ViewContainerRef, i: number) => {
+      vcr.clear();
+      let componentRef = vcr.createComponent(this.filtersArray[i].component);
+      componentRef.instance.data = this.filtersArray[i].data;
+      this.filterComponentRefArray.push(componentRef);
+    });
+    this.dynamic = dynamic;
   }
 
   initFiltersfromQueryParams(): void {
@@ -333,17 +370,6 @@ export class FiltersHandlerService {
       } else {
         delete this.selectedFilters[name];
       }
-  }
-
-
-  initFilterComponents(dynamic: QueryList<ViewContainerRef>) {
-    this.filterComponentRefArray = [];
-    dynamic.forEach((vcr: ViewContainerRef, i: number) => {
-      vcr.clear();
-      let componentRef = vcr.createComponent(this.filtersArray[i].component);
-      componentRef.instance.data = this.filtersArray[i].data;
-      this.filterComponentRefArray.push(componentRef);
-    });
   }
 
 }

@@ -47,38 +47,20 @@ Filters:`);
         3. init Filters[] from selectedFilters---------
         4. send request to backend with current queryParams`);   */        
       });
-    
-
-//     this.router.events
-//       .pipe(takeUntil(this.destroy$))
-//       .subscribe((event) => {
-//         if (event instanceof NavigationEnd) {
-//           console.log();
-//         }
-//       });
   }
 
   ngAfterViewInit(): void {
-    
     this.dynamic.changes
     .pipe(takeUntil(this.destroy$))
     .subscribe(() => {
       this.filtersHandler.initFilterComponents(this.dynamic);
       this.filtersHandler.initFiltersfromQueryParams();
-
-      /* let filters: ComponentRef<FilterTypes>[] = [];
-      this.dynamic.forEach((vcr: ViewContainerRef, i: number) => {
-        vcr.clear();
-        let componentRef = vcr.createComponent(this.filtersArray[i].component);
-        componentRef.instance.data = this.filtersArray[i].data;
-        filters.push(componentRef);
-      });
-      this.filtersHandler.filterComponentRefArray = filters; */
       
       this.changeDetector.detectChanges();
       }
-      
     );
+    this.filtersHandler.dynamic = this.dynamic;
+    this.filtersHandler.dynamic.changes.subscribe(()=>console.log('+++'))
   }
 
   
@@ -89,7 +71,7 @@ Filters:`);
     // (this.filtersHandler.filterComponentRefArray[1].instance).onReset();
     // (this.filtersHandler.filterComponentRefArray[0].instance as NumberFilterComponent).onReset();
     // (this.filtersHandler.filterComponentRefArray[0].instance as BooleanFilterComponent).state = false;
-
+    
 
     /* this.dynamic.forEach((vcr: ViewContainerRef, i: number) => {
       vcr.clear();

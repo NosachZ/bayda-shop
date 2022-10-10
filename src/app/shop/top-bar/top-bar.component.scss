@@ -54,6 +54,7 @@ fa-icon.find {
     margin: 0 16px;
     border-radius: 3px;
     padding: 2px 16px;
+    display: inline-block;
 }
 .cabinetIcon:hover, .cartIcon:hover,
 .cabinetIcon:focus, .cartIcon:focus {
@@ -62,6 +63,10 @@ fa-icon.find {
 
 .cartIcon {
     position: relative;
+}
+
+.cartShopping {
+    display: inline-flex;
 }
 
 .cartTotalCounter {

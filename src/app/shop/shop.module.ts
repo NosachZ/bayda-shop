@@ -21,7 +21,9 @@ import { CategoryComponent } from './_category/category/category.component';
 import { FilterDirective } from './filter.directive';
 import { FiltersComponent } from './_category/filters/filters.component';
 import { NumberRangeFilterComponent } from './_category/filters-templates/number-range-filter/number-range-filter.component'; 
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
@@ -53,7 +55,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     FontAwesomeModule,
     MatCheckboxModule,
     NgxSliderModule,
-    MatButtonModule
+    MatButtonModule,
+    MatBadgeModule
   ],
   exports: [
     FilterDirective

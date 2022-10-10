@@ -105,10 +105,9 @@ export class HttpRequestsService {
 
     // return for local request (with filter)
     return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]>(this.categoryURL, options)
-      .pipe(map(data => {
-        // let respond = data.find(item => item.name === category);
-        return data.find(item => item.name === category) ?? null;
-      }));
+      .pipe(map(data => 
+        data.find(item => item.name === category) ?? null
+      ));
   }
 
 
