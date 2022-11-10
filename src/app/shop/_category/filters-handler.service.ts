@@ -1,9 +1,9 @@
 import { Injectable, Type, ComponentRef, ViewContainerRef, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { EMPTY, Observable, switchMap } from 'rxjs';
+import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { AttributeValue, AttrType, BooleanAttribute, Category, Model } from 'src/app/_data-model/products';
-import { AttributeData, AVAILABILITY_DATA, CategoryComplexData, PRICE_DATA } from './category-data';
+import { CategoryComplexData } from './category-data';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
 import { NumberRangeFilterComponent } from './filters-templates/number-range-filter/number-range-filter.component';
@@ -38,6 +38,11 @@ export type BooleanFilterArg = boolean;
 export type NumberRangeFilterArg = {update: boolean, min: number, max: number};
 export type StringFilterArg = number;
 
+export interface ModelRequestParams {
+  category: string,
+  queryParams: Params
+}
+
 
 
 @Injectable({
@@ -45,30 +50,25 @@ export type StringFilterArg = number;
 })
 export class FiltersHandlerService {
 
-  private categoryData$: Observable<CategoryComplexData> = EMPTY;
-
-  categoryName: string = "";
-  selectedCategory$: Observable<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null> = EMPTY;
-  childCategories$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
-  categoryChain$: Observable<Pick<Category, 'id' | 'name' | 'title'>[]> = EMPTY;
-  attributeArrayComplex$: Observable<AttributeData[]> = EMPTY; 
-  modelsData$: Observable<Model[]> = EMPTY;
-
-
-  selectedCategory: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null = null;
-  childCategories: Pick<Category, 'id' | 'name' | 'title'>[] = [];
-  categoryChain: Pick<Category, 'id' | 'name' | 'title'>[] = [];
-  attributeArrayComplex: AttributeData[] = [];
-  modelsData: Model[] = [];
-
-
-  private filtersArray: Filter[] = [];
+  categoryData: CategoryComplexData = {} as CategoryComplexData;
+  filtersArray: Filter[] = [];
 
   private selectedFilters: SelectedFilters = {};
 
   filterComponentRefArray: ComponentRef<FilterTypes>[] = [];
 
-  dynamic: QueryList<ViewContainerRef> = new QueryList<ViewContainerRef>();//tmp
+  // private modelsRequestSource = new Subject<ModelRequestParams>;
+  private modelsRequestSource = new Subject<boolean>;
+  // private modelsRequestSource = new Subject<string>;
+  modelsRequest$ = this.modelsRequestSource.asObservable();
+
+  
+  modelsData$: Observable<Model[]> = EMPTY;
+  modelsData: Model[] = [];
+
+
+
+
 
 
   constructor(    
@@ -77,93 +77,64 @@ export class FiltersHandlerService {
     private httpRequest: HttpRequestsService) 
   { }
 
-  // ---tmp---
-  getSelectedCategory(params: Params) {    
-    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);    
-    // this.selectedCategory$.subscribe(console.log);
+  getCategory(params: Params) {
+    let response = this.httpRequest.getCategoryByName(params['selCategory'])
+      .pipe(map(category => {
+        let categoryComplexData: CategoryComplexData = {} as CategoryComplexData;
+        categoryComplexData.selectedCategory = category;
+        return categoryComplexData;
+      }))
+    return response;
   }
 
-  getCategoryData(params: Params) {
-    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
-    // this.selectedCategory$.subscribe(console.log)
-
-    this.childCategories$ = this.selectedCategory$
-      .pipe(switchMap(category => 
-        this.httpRequest.getChildCategories(category!.id)
-      ));
-    this.childCategories$.subscribe(console.log)
-    this.categoryChain$ = this.selectedCategory$
-      .pipe(switchMap(category => 
-        this.httpRequest.getCategoryChain(category!)
-      ));
-    this.categoryChain$.subscribe(console.log)
-    this.attributeArrayComplex$ = this.categoryChain$
-      .pipe(switchMap(categoryChain => 
-        this.httpRequest.getAttributeArray(categoryChain)
-      ));
+  getChildCategories(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getChildCategories(categoryComplexData.selectedCategory!.id)
+      .pipe(map(children => {
+        categoryComplexData.childCategories = children;
+        // console.log(categoryComplexData);
+        return categoryComplexData;
+      }))
+    return response;
   }
 
-  /*getChildCategories(category: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null) {    
-    this.childCategories$ = this.httpRequest.getChildCategories(category!.id);    
-    console.log(category);
-    
-    return this.childCategories$;
+  getCategoryChain(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getCategoryChain(categoryComplexData.selectedCategory!.id)
+      .pipe(map(chain => {
+        categoryComplexData.categoryChain = chain;
+        // console.log(categoryComplexData);
+        return categoryComplexData;
+      }))
+    return response;
   }
 
-  onCategorySelect(params: Params) {
-    this.selectedCategory$.subscribe(category => {
-      console.log(category);
-      this.selectedCategory = category;
-    });
-    this.selectedCategory$ = this.httpRequest.getCategoryByName(params['selCategory']);
-
-    // console.log("---");
-    // console.log(this.selectedCategory);
-    // console.log("---");
-    
-    
-    
-
-    this.childCategories$ = this.selectedCategory$
-      .pipe(switchMap(category => {
-        // console.log(category);
-        
-        return this.httpRequest.getChildCategories(category!.id)
-        }
-      ));
-    this.categoryChain$ = this.selectedCategory$
-      .pipe(switchMap(category => 
-        this.httpRequest.getCategoryChain(category!)
-      ));
-    this.attributeArrayComplex$ = this.categoryChain$
-      .pipe(switchMap(categoryChain => 
-        this.httpRequest.getAttributeArray(categoryChain)
-      ));
-  } */
-
-  // ---tmp---
-
-  downloadCategorySubscription(): void {
-    this.categoryData$ = this.route.params
-      .pipe(switchMap(params => {
-        console.log("params");
-        console.log(params);
-        
-        this.categoryName = params['selCategory'];
-        return this.httpRequest.getCategoryComplexData(params['selCategory'])
-      }));
+  getAttributes(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getAttributeArray(categoryComplexData.categoryChain)
+      .pipe(map(attributes => {
+        categoryComplexData.attributeArray = attributes;
+        // console.log(categoryComplexData);
+        return categoryComplexData;
+      }))
+    return response;
   }
 
-  getCategory(): Observable<CategoryComplexData> {
-    return this.categoryData$;
+  getModelBasedFilters(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getModelBasedFilters(categoryComplexData.selectedCategory!.id)
+      .pipe(map(modelBasedFilters => {
+        categoryComplexData.modelBasedFilters = modelBasedFilters;
+        // console.log(categoryComplexData);
+        return categoryComplexData;
+      }))
+    return response;
   }
 
-  // ------------------------------------------
+  modelsRequest() {
+    this.modelsRequestSource.next(true);
+  }
 
-  makeFiltersArray(array: AttributeData[]): Filter[] {
+  makeFiltersArray(categoryComplexData: CategoryComplexData): Filter[] {
     this.filtersArray.length = 0;
 
-    array.unshift(AVAILABILITY_DATA, PRICE_DATA);
+    let array = categoryComplexData.modelBasedFilters.concat(categoryComplexData.attributeArray);
   
     for (let item of array) {
       let filter: Filter;
@@ -195,18 +166,7 @@ export class FiltersHandlerService {
     return this.filtersArray;
   }
 
-  initFilterComponents(dynamic: QueryList<ViewContainerRef>) {
-    this.filterComponentRefArray = [];
-    dynamic.forEach((vcr: ViewContainerRef, i: number) => {
-      vcr.clear();
-      let componentRef = vcr.createComponent(this.filtersArray[i].component);
-      componentRef.instance.data = this.filtersArray[i].data;
-      this.filterComponentRefArray.push(componentRef);
-    });
-    this.dynamic = dynamic;
-  }
-
-  initFiltersfromQueryParams(): void {
+  makeSelectedFilters(): void {
     this.selectedFilters = {};
     let paramMap = this.route.snapshot.queryParamMap;
 
@@ -241,18 +201,28 @@ export class FiltersHandlerService {
         }
       }
     }
+  }
 
+  createFiltersComponents(dynamic: QueryList<ViewContainerRef>) {
+    this.filterComponentRefArray = [];
+    dynamic.forEach((vcr: ViewContainerRef, i: number) => {
+      vcr.clear();
+      let componentRef = vcr.createComponent(this.filtersArray[i].component);
+      componentRef.instance.data = this.filtersArray[i].data;
+      this.filterComponentRefArray.push(componentRef);
+    });
+  }
+
+  initFilters(): void {
     for (let filter of this.filterComponentRefArray) {
       filter.instance.init(this.selectedFilters);
     }
 
-    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
+    this.modelsRequest();
+    // this.modelsData$ = this.httpRequest.getModels(this.categoryData.selectedCategory!.name, this.makeQueryParams());
   }
 
   applyFilters() {
-    console.log(`1. update url queryParams
-    2. send request to backend with current queryParams`);
-    
     this.router.navigate(
       [], 
       {
@@ -262,28 +232,24 @@ export class FiltersHandlerService {
       }
     );
     
-    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
+    this.modelsRequest();
   }
 
   resetFilters() {
-    console.log(`filters-handler resetFilters:
-      1. ++ make 'SelectedFilters' from queryParams-----
-      2. ++ init Filters[] from selectedFilters---------
-      3. send request to backend with current queryParams`);
+    console.log(this.filterComponentRefArray);
     
     this.selectedFilters = {};
     for (let filter of this.filterComponentRefArray) {
       filter.instance.reset();
     }
 
-    this.modelsData$ = this.httpRequest.getModels(this.categoryName, this.makeQueryParams());
+    this.modelsRequest();
+    // this.modelsData$ = this.httpRequest.getModels(this.categoryData.selectedCategory!.name, this.makeQueryParams());
   }
 
   makeQueryParams(): Params {
     let queryParams: Params = {};
     
-    // for (const key in this.test1) {
-    //   const element = this.test1[key];
     for (const key in this.selectedFilters) {
       const element = this.selectedFilters[key];  
       switch (element.type) {

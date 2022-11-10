@@ -1,0 +1,38 @@
+<div class="modelCard">
+    <a [routerLink]="['/catalog/model', model.name]">
+        <img [src]="previewSrc" alt="preview photo" class="modelPreview">
+    </a>
+    
+    <a [routerLink]="['/catalog/model', model.name]" class="title" [class.unavailable]="!model.availability">
+        {{model.title}}
+    </a>
+    <!-- <p class="price">{{model.price | currency:"UAH":""}} грн</p> -->
+    <p class="price" [class.unavailable]="!model.availability">
+        {{model.price | currency:"UAH":"грн":"1.2":"uk"}}
+    </p>
+
+    <p class="availability" [class.unavailable]="!model.availability">
+        {{availabilityTitle}}
+    </p>
+
+    <button 
+        mat-flat-button
+        color="primary"
+        class="buyButton" 
+        (click)="onBuy()"
+        [disabled]="!model.availability"
+    >
+        Купити
+    </button>
+
+    <button
+        *ngIf="!model.availability"
+        mat-button
+        color="primary"
+        class="favoritesButton" 
+        (click)="onFavorites()"     
+    >
+        <fa-icon class="favorites" [icon]="['far', 'heart']" ></fa-icon>
+    </button>
+</div>
+

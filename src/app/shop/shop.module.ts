@@ -26,6 +26,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { ModelCardComponent } from './_category/model-card/model-card.component';
+import { ModelComponent } from './_model/model/model.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 
@@ -47,6 +50,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     FilterDirective,
     FiltersComponent,
     NumberRangeFilterComponent,
+    ModelCardComponent,
+    ModelComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     CommonModule,

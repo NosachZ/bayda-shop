@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    margin-bottom: 16px;
+}
+
+:host,
+:host a {
+    color: black;
+}
+
+.breadcrumb-separator {
+    margin: 0 20px;
+}

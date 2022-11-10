@@ -7,10 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShopModule } from './shop/shop.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, faUserLock, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faCartShopping, faHouse, faMagnifyingGlass, faUserGear, faUserLock, faPersonHiking, faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+registerLocaleData(localeUk, 'uk');
 
 
 @NgModule({
@@ -40,5 +45,6 @@ export class AppModule {
     iconLibrary.addIcons(faUserGear);
     iconLibrary.addIcons(faCartShopping);
     iconLibrary.addIcons(faPersonHiking);
+    iconLibrary.addIcons(fasHeart, farHeart);
   }
 }

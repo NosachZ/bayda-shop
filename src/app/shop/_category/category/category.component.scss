@@ -29,6 +29,10 @@
     color: black;
 }
 
+.breadcrumb {
+    margin-bottom: 16px;
+}
+
 .subcategories li {
     margin: 10px;
     cursor: pointer;
@@ -40,4 +44,9 @@
 
 .breadcrumb-separator {
     margin: 0 20px;
+}
+
+.modelsCardsContainer {
+    display: flex;
+    flex-wrap: wrap;
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
-import { AttributeData, CategoryComplexData } from '../shop/_category/category-data';
+import { AttributeData, CategoryComplexData, SelectedCategory } from '../shop/_category/category-data';
 
 
 
@@ -26,6 +26,7 @@ export class HttpRequestsService {
   categoryURL = '/assets/backend-emul/categories.json';
   attributeURL = '/assets/backend-emul/attributes.json';
   attributeArrayURL = '/assets/backend-emul/attributesArray.json';
+  modelBasedFiltersURL = '/assets/backend-emul/modelBasedFilters.json';
   modelURL = '/assets/backend-emul/models.json';
 
 
@@ -33,27 +34,6 @@ export class HttpRequestsService {
   constructor(private http: HttpClient) { }
 
   // -------temp-----------
-  getAttributeSet(categoryChain: Pick<Category, 'id' | 'title'>[]) {
-    let chainCategoriesId: number[] = [];
-    for (let item of categoryChain) {
-      chainCategoriesId.push(item.id);
-    }
-    let options = { params: new HttpParams().set('getAttributeArray', chainCategoriesId.join(',')) };
-
-    // return for local request (with filter)
-    return this.http.get<Attribute[]>(this.attributeURL, options)
-      .pipe(map(data => {
-        let chainAttributeArray: Attribute[] = [];
-        for (let categoryId of chainCategoriesId) {
-          for (let attr of data) {
-            for (let attrCategory of attr.categories) {
-              if (attrCategory.id == categoryId) chainAttributeArray.push(attr);
-            }
-          }
-        }
-        return chainAttributeArray;
-      }));
-  }
 
   getAttributeArray(categoryChain: Pick<Category, 'id' | 'title'>[]) {
     let chainCategoriesId: number[] = [];
@@ -77,14 +57,14 @@ export class HttpRequestsService {
       }));
   }
 
-  getCategoryChain(selected: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>) {
-    let options = { params: new HttpParams().set('getCategoryChain', selected.id) };
+  getCategoryChain(selected: number) {
+    let options = { params: new HttpParams().set('getCategoryChain', selected) };
 
     // return for local request (with filter)
     return this.http.get<Category[]>(this.categoryURL, options)
       .pipe(map(data => {
         let curCategory: Pick<Category, 'id' | 'name' | 'title' | 'parentCategory'> | undefined;
-        curCategory = data.find(item => item.id == selected.id);
+        curCategory = data.find(item => item.id == selected);
 
         let categoryChain: Pick<Category, 'id' | 'name' | 'title'>[] = [];
 
@@ -104,10 +84,15 @@ export class HttpRequestsService {
     let options = { params: new HttpParams().set('getCategoryByName', category) };
 
     // return for local request (with filter)
-    return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]>(this.categoryURL, options)
+    return this.http.get<SelectedCategory[]>(this.categoryURL, options)
       .pipe(map(data => 
-        data.find(item => item.name === category) ?? null
+        data.find(item => item!.name === category) ?? null
       ));
+  }
+
+  getModelBasedFilters(category: number) {
+    let options = { params: new HttpParams().set('getModelBasedFilters', category) };
+    return this.http.get<attributeArray_tmp[]>(this.modelBasedFiltersURL, options);
   }
 
 
@@ -130,21 +115,22 @@ export class HttpRequestsService {
       }));
   }
 
-  getCategoryComplexData(categoryName: string): Observable<CategoryComplexData> {
-    let options = { params: new HttpParams().set('getCategoryComplexData', categoryName) };
-    
-    // return for backend request
-    return this.http.get<CategoryComplexData>(this.backendURL, options);
-  }
-
-  getModels(categoryName: string, queryParams: Params): Observable<Model[]> {
-    // console.log("category Name = " + categoryName);
-    
+  getModels(categoryName: string, queryParams: Params): Observable<Model[]> {    
     let options = { 
       params: new HttpParams()
         .set('getModels', categoryName) 
         .set('queryParams', JSON.stringify(queryParams))
     };
-    return this.http.get<Model[]>(this.backendURL, options);
+    return this.http.get<Model[]>(this.modelURL, options);
+  }
+
+  getModel(model: string) {
+    let options = { 
+      params: new HttpParams().set('getModel', model) 
+    };
+    return this.http.get<Model[]>(this.modelURL, options)
+      .pipe(map(data => 
+        data.find(item => item!.name === model) ?? null
+      ));
   }
 }

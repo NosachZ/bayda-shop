@@ -1,0 +1,40 @@
+[
+    {
+        "attr": {
+            "id": null,
+            "name": "nalichie",
+            "title": "Наличие",
+            "type": 3,
+            "description": "В наличии"
+        },
+        "values": 
+            [
+                {
+                    "item": {
+                        "id": null,
+                        "value": false
+                    }
+                },
+                {
+                    "item": {
+                        "id": null,
+                        "value": true
+                    }
+                }
+            ]
+    },
+    {
+        "attr": {
+            "id": null,
+            "name": "price",
+            "title": "Цена",
+            "type": 2
+        },
+        "values": {
+            "item": {
+                "minValue": 0,
+                "maxValue": 20000
+            }
+        }
+    }
+]

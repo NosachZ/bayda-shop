@@ -7,6 +7,7 @@ import { ServicePagesComponent } from './_support-pages/support-pages/service-pa
 import { ShopComponent } from './shop.component';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './_category/category/category.component';
+import { ModelComponent } from './_model/model/model.component';
 
 const routes: Routes = [
   { path: '', component: ShopComponent, 
@@ -20,6 +21,7 @@ const routes: Routes = [
     },
     { path: 'catalog', component: CatalogComponent },
     { path: 'catalog/category/:selCategory', component: CategoryComponent },
+    { path: 'catalog/model/:modelName', component: ModelComponent },
   ] }
 ];
 

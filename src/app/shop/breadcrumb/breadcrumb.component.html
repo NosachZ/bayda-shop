@@ -1,0 +1,9 @@
+<a [routerLink]="['/catalog']" >
+    <fa-icon icon="house"></fa-icon>
+</a>
+    
+<span *ngFor="let category of categoryChain; last as isLast">
+    <fa-icon icon="angle-right" size="xs" class="breadcrumb-separator"></fa-icon>
+    <a *ngIf="!isLast" [routerLink]="['/catalog/category', category.name]">{{category.title}}</a>
+    <a *ngIf="isLast" [routerLink]="['/catalog/category', category.name]" (click)="lastItemHandler()">{{category.title}}</a>
+</span>

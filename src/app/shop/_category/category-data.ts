@@ -25,52 +25,21 @@ interface NumberRangeAttributeData {
 }
 export type AttributeData = StringAttributeData | BooleanAttributeData | NumberAttributeData | NumberRangeAttributeData
 
-
+//to delete
 export interface CategoryComplexData {
     selectedCategory: Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null;
     childCategories: Pick<Category, 'id' | 'name' | 'title'>[];
     categoryChain: Pick<Category, 'id' | 'name' | 'title'>[]; //chain from root to selected category
-    // priceRange: {minValue: number, maxValue: number}; //min and max price of models from category branch
     attributeArray: AttributeData[]; //array of attributes from categoryChain with attributeValues from models from categoryChain
+    modelBasedFilters: AttributeData[];
 }
 
-export const AVAILABILITY_DATA: AttributeData = {
-    attr: {
-        id: null as unknown as number,
-        name: "nalichie",
-        title: "Наличие",
-        // type: "boolean",
-        type: AttrType.Boolean,
-        description: "В наличии"
-    },
-    values: [
-        {
-            item: {
-                id: null as unknown as number,
-                value: false
-            }
-        },
-        {
-            item: {
-                id: null as unknown as number,
-                value: true
-            }
-        }
-    ]
-}
+export type SelectedCategory = Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'> | null;
+export type ChildCategories = Pick<Category, 'id' | 'name' | 'title'>[];
+export type CategoryChain = Pick<Category, 'id' | 'name' | 'title'>[]; //chain from root to selected category
+export type AttributeArray = AttributeData[]; //array of attributes from categoryChain with attributeValues from models from categoryChain
 
-export const PRICE_DATA: AttributeData = {
-    attr: {
-        id: null as unknown as number,
-        name: "price",
-        title: "Цена",
-        // type: "number-range",
-        type: AttrType.NumberRange,
-    },
-    values: {
-        item: {
-            minValue: 0,
-            maxValue: 20000
-        }
-    }
-}
+export interface ModelData {
+    model: Model | null;
+    categoryChain: CategoryChain;
+  }

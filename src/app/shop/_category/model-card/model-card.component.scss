@@ -1,0 +1,61 @@
+:host {
+    display: block;
+    width: 270px;
+    height: 360px;
+}
+
+.modelCard {
+    color: black;
+    display: block;
+    border: 1px solid rgba($color: #000000, $alpha: 0);
+    // border: 1px solid rgba($color: #000000, $alpha: 1);
+    border-radius: 3px;
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.modelCard:hover, .modelCard:focus, .modelCard:focus-within {
+    border: 1px solid rgba($color: #000000, $alpha: .5);
+    box-shadow: 0 0 5px rgba($color: #000000, $alpha: .5);
+    position: relative;
+    height: auto;
+}
+
+.modelPreview {
+    display: block;
+    // border: 1px solid gray;
+    margin: 0 auto;
+}
+
+
+
+.title {
+    display: block;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 6px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.unavailable {
+    color: silver;
+}
+
+.buyButton, .favoritesButton {
+    margin-right: 16px;
+    display: none;
+}
+
+.modelCard:hover .buyButton, 
+.modelCard:focus .buyButton,
+.modelCard:focus-within .buyButton,
+.modelCard:hover .favoritesButton, 
+.modelCard:focus .favoritesButton,
+.modelCard:focus-within .favoritesButton {
+    display: inline-block;
+}
