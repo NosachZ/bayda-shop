@@ -1,24 +1,5 @@
-<p>model works!</p>
-
-<p>{{modelData.model?.title}} 2</p>
-
-<!-- <div class="breadcrumb">
-    <a [routerLink]="['/catalog']" >
-        <fa-icon icon="house"></fa-icon>
-    </a>
-    
-    <span *ngFor="let category of modelData?.categoryChain; last as isLast">
-        <fa-icon icon="angle-right" size="xs" class="breadcrumb-separator"></fa-icon>
-        <a *ngIf="!isLast" [routerLink]="['/catalog/category', category.name]">{{category.title}}</a>
-        <a *ngIf="isLast" [routerLink]="['/catalog/category', category.name]">{{category.title}}</a>
-    </span>
-</div> -->
+<p>{{modelData.model?.title}}</p>
 
 <app-breadcrumb [categoryChain]="modelData.categoryChain"></app-breadcrumb>
 
-<div>
-    <p>Taken from wikpedia</p>
-
-    <img [src]="img" alt="Red dot" />
-
-</div> 
+<ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>

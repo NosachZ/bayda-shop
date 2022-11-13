@@ -18,7 +18,7 @@ export class ModelCardComponent implements OnInit {
   ngOnInit(): void {
     this.availabilityTitle = this.model.availability ? "Є в наявності" : "Немає в наявності";
     // add implementation of downloading images from source (DB, directory or other)
-    this.previewSrc = this.model.images.length ? this.model.images[0] : "assets/nophoto.svg";
+    this.previewSrc = this.model.images.length ? 'assets/backend-emul/models_photo/' + this.model.images[0] : "assets/nophoto.svg";
   }
 
   onBuy() {
