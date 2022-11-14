@@ -30,6 +30,7 @@ import { ModelCardComponent } from './_category/model-card/model-card.component'
 import { ModelComponent } from './_model/model/model.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { GalleryModule } from 'ng-gallery';
 
 
 
@@ -64,7 +65,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     NgxSliderModule,
     NgxGalleryModule,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    GalleryModule
   ],
   exports: [
     FilterDirective

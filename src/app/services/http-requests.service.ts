@@ -110,9 +110,7 @@ export class HttpRequestsService {
 
     // return for local request (with filter)
     return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'parentCategory' | 'hasChildren'>[]>(this.categoryURL, options)
-      .pipe(map(data => {
-        return data.filter(item => item.parentCategory?.id == parentId)
-      }));
+      .pipe(map(data => data.filter(item => item.parentCategory?.id == parentId)));
   }
 
   getModels(categoryName: string, queryParams: Params): Observable<Model[]> {    

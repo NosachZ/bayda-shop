@@ -15,6 +15,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { registerLocaleData } from '@angular/common';
 import localeUk from '@angular/common/locales/uk';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 registerLocaleData(localeUk, 'uk');
 
 
@@ -32,6 +33,8 @@ registerLocaleData(localeUk, 'uk');
     BrowserAnimationsModule,
     MatCheckboxModule,
     NgxSliderModule,
+    NgxGalleryModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

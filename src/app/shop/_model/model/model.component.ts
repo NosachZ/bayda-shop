@@ -4,7 +4,8 @@ import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { Category, Model } from 'src/app/_data-model/products';
 import { Observable, switchMap, takeUntil, Subject, map, EMPTY } from 'rxjs';
 import { ModelData } from '../../_category/category-data';
-import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { GalleryItem, ImageItem } from 'ng-gallery';
+
 
 
 
@@ -17,11 +18,13 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 export class ModelComponent implements OnInit {
 
   modelData: ModelData = {model: null, categoryChain: []}; 
+  galleryImages: GalleryItem[] = [];
+  availabilityTitle = "";
 
   destroy$: Subject<boolean> = new Subject();
 
-  galleryOptions: NgxGalleryOptions[] = [];
-  galleryImages: NgxGalleryImage[] = [];
+  
+
 
 
   constructor(
@@ -30,32 +33,6 @@ export class ModelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.galleryOptions = [
-      {
-        // width: '600px',
-        // height: '400px',
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false,
-        thumbnailsArrows: true
-      },
-      // max-width 800
-      // {
-      //   breakpoint: 800,
-      //   width: '100%',
-      //   height: '600px',
-      //   imagePercent: 80,
-      //   thumbnailsPercent: 20,
-      //   thumbnailsMargin: 20,
-      //   thumbnailMargin: 20
-      // },
-      // max-width 400
-      {
-        breakpoint: 400,
-        preview: false
-      }
-    ];
-
     this.route.params
     .pipe(
       switchMap(params => this.getModel(params['modelName'])),
@@ -64,7 +41,10 @@ export class ModelComponent implements OnInit {
     )
     .subscribe (modelData => {
       this.modelData = modelData;
-      this.galleryImages = this.getImages(this.modelData.model?.images);
+      if (this.modelData.model) {
+        this.availabilityTitle = this.modelData.model.availability ? "Є в наявності" : "Немає в наявності";
+        this.galleryImages = this.getGalleryImages(this.modelData.model.images);
+      }
     })
   }
 
@@ -90,24 +70,27 @@ export class ModelComponent implements OnInit {
     return response;
   }
 
-  getImages(imageArray: string[] | undefined) {
-    console.log(imageArray);
-    
-    let imageGalleryData: NgxGalleryImage[] = [];
+  getGalleryImages(imageArray: string[] | undefined) {    
+    let imageGalleryData: GalleryItem[] = [];
     if (!imageArray) return imageGalleryData;
-    if (!imageArray.length) return imageGalleryData = [{
-      small: 'assets/nophoto.svg',
-      medium: 'assets/nophoto.svg',
-      big: 'assets/nophoto.svg'
-    }];
+    if (!imageArray.length) return imageGalleryData = [
+      new ImageItem({src: 'assets/nophoto.svg', thumb: 'assets/nophoto.svg'})
+    ];
     for (let image of imageArray) {
-      imageGalleryData.push({
-        small: 'assets/backend-emul/models_photo/' + image,
-      medium: 'assets/backend-emul/models_photo/' + image,
-      big: 'assets/backend-emul/models_photo/' + image
-      })
+      imageGalleryData.push(new ImageItem({
+        src: 'assets/backend-emul/models_photo/' + image, 
+        thumb: 'assets/backend-emul/models_photo/' + image})
+      )
     }
     return imageGalleryData;
+  }
+
+  onBuy() {
+    
+  }
+
+  onFavorites() {
+    
   }
 
 }

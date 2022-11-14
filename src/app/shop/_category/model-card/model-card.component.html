@@ -6,8 +6,9 @@
     <a [routerLink]="['/catalog/model', model.name]" class="title" [class.unavailable]="!model.availability">
         {{model.title}}
     </a>
-    <!-- <p class="price">{{model.price | currency:"UAH":""}} грн</p> -->
+
     <p class="price" [class.unavailable]="!model.availability">
+        <!-- {{model.price | currency:"UAH":""}} грн -->
         {{model.price | currency:"UAH":"грн":"1.2":"uk"}}
     </p>
 
