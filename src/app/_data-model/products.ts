@@ -1,5 +1,3 @@
-import { Type } from "@angular/core";
-
 export enum AttrType {
     String,
     Number,
@@ -18,7 +16,6 @@ export interface Category {
     models: Model[],
 }
 
-
 export interface Model {
     id: number,
     name: string,
@@ -32,20 +29,17 @@ export interface Model {
     values: AttributeValue[],
 }
 
-
 export interface Asset {
     id: number,
     sn: string,
     model: Model,
 }
 
-
 interface StringAttribute {
     id: number,
     name: string,
     title: string,
     categories: Category[],
-    // type: "string",
     type: AttrType.String,
     // acceptableValues: {index: number, value: string}[],
 }
@@ -54,7 +48,6 @@ interface NumberAttribute {
     name: string,
     title: string,
     categories: Category[],
-    // type: "number",
     type: AttrType.Number,
     // acceptableValues: {min: number, max: number},
 }
@@ -63,7 +56,6 @@ interface NumberRangeAttribute {
     name: string,
     title: string,
     categories: Category[],
-    // type: "number-range",
     type: AttrType.NumberRange,
     // acceptableValues: {min: number, max: number},
 }
@@ -72,13 +64,11 @@ export interface BooleanAttribute {
     name: string,
     title: string,
     categories: Category[],
-    // type: "boolean",
     type: AttrType.Boolean,
     description: string,
     // acceptableValues: {value: boolean, title: string},
 }
 export type Attribute = StringAttribute | NumberAttribute | NumberRangeAttribute | BooleanAttribute
-
 
 interface StringAttributeValue {
     id: number,

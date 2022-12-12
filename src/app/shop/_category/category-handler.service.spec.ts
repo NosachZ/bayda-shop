@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FiltersHandlerService } from './filters-handler.service';
+import { FiltersHandlerService } from './category-handler.service';
 
 describe('FiltersHandlerService', () => {
   let service: FiltersHandlerService;

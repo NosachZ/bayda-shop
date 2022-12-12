@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { switchMap, takeUntil, Subject } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
-import { FiltersHandlerService } from '../filters-handler.service';
+import { FiltersHandlerService } from '../category-handler.service';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 
 

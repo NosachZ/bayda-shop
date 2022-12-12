@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CategoryChain, ModelData } from '../_category/category-data';
-import { FiltersHandlerService } from '../_category/filters-handler.service';
+import { CategoryType } from '../shop-interfaces';
+import { FiltersHandlerService } from '../_category/category-handler.service';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -8,23 +8,20 @@ import { FiltersHandlerService } from '../_category/filters-handler.service';
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() categoryChain: CategoryChain = []; 
+  @Input() categoryChain: CategoryType[] = []; 
   @Input() handler: Function | null = null;
 
   
-  constructor(    public filtersHandler: FiltersHandlerService
+  constructor(
+    public filtersHandler: FiltersHandlerService
     ) { }
 
   ngOnInit(): void {
   }
 
   lastItemHandler() {
-    if (this.handler) {
-      console.log("handler");
-      
+    if (this.handler) {      
       this.handler();
-
-      // this.handler.call(this.context);
     }
   }
 

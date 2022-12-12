@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { Category, Model } from 'src/app/_data-model/products';
 import { Observable, switchMap, takeUntil, Subject, map, EMPTY } from 'rxjs';
-import { ModelData } from '../../_category/category-data';
+import { ModelData } from '../../shop-interfaces';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 
 
@@ -58,7 +58,7 @@ export class ModelComponent implements OnInit {
   }
 
   getCategoryChain(modelData: ModelData) {
-    console.log("getCategoryChain, modelData: ",modelData);
+    // console.log("getCategoryChain, modelData: ",modelData);
     let response: Observable<ModelData> = EMPTY;
     if (modelData.model /* && modelData.model.categories.length */) {
       response = this.httpRequest.getCategoryChain(modelData.model.categories[0].id)

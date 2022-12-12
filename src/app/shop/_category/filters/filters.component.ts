@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChildren, ViewContainerRef, QueryList, Af
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, EMPTY, Subject, takeUntil } from 'rxjs';
 import { FilterDirective } from '../../filter.directive';
-import { FiltersHandlerService } from '../filters-handler.service';
+import { FiltersHandlerService } from '../category-handler.service';
 
 
 

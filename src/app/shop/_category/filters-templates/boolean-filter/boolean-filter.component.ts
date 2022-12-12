@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { FiltersHandlerService, SelectedFilters } from '../../filters-handler.service';
+import { FiltersHandlerService, SelectedFilters } from '../../category-handler.service';
 import { AttrType } from 'src/app/_data-model/products';
 
 

@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Category, Model, Asset, Attribute, AttributeValue } from 'src/app/_data-model/products';
-import { AttributeData, CategoryComplexData, SelectedCategory } from '../shop/_category/category-data';
-
+import { BASE_URL } from '../base_url';
+import { CategoryType, AttributeData } from '../shop/shop-interfaces';
 
 
 interface attributeArray_tmp {
@@ -22,7 +22,8 @@ interface attributeArray_tmp {
 })
 export class HttpRequestsService {
 
-  backendURL = '/API/********************';
+  // backendURL = 'http://localhost:8080/';
+  backendURL = '/api/';
   categoryURL = '/assets/backend-emul/categories.json';
   attributeURL = '/assets/backend-emul/attributes.json';
   attributeArrayURL = '/assets/backend-emul/attributesArray.json';
@@ -31,15 +32,64 @@ export class HttpRequestsService {
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(BASE_URL) private baseUrl: string
+  ) { }
 
-  // -------temp-----------
-
-  getAttributeArray(categoryChain: Pick<Category, 'id' | 'title'>[]) {
-    let chainCategoriesId: number[] = [];
-    for (let item of categoryChain) {
-      chainCategoriesId.push(item.id);
+  getChildCategories(parentId: number | null) {
+    if (parentId) {
+      return this.http.get<CategoryType[]>(this.baseUrl + "Category/" + parentId + "/children");
+      // return this.http.get<CategoryType[]>(this.backendURL + "Category/" + parentId + "/children");
+    } else {
+      return this.http.get<CategoryType[]>(this.baseUrl + "Category/root");
+      // return this.http.get<CategoryType[]>(this.backendURL + "Category/root");
     }
+  }
+
+  getCategoryByName(category: string) {
+    /* let options = { params: new HttpParams().set('getCategoryByName', category) };
+
+    // return for local request (with filter)
+    return this.http.get<SelectedCategory[]>(this.categoryURL, options)
+      .pipe(map(data => 
+        data.find(item => item!.name === category) ?? null
+      )); */
+
+    return this.http.get<CategoryType>(this.baseUrl + "Category?name=" + category);
+  }
+
+  getCategoryChain(selected: number) {
+    /* let options = { params: new HttpParams().set('getCategoryChain', selected) };
+
+    // return for local request (with filter)
+    return this.http.get<Category[]>(this.categoryURL, options)
+      .pipe(map(data => {
+        let curCategory: CategoryType | undefined;
+        curCategory = data.find(item => item.id == selected);
+
+        let categoryChain: CategoryType[] = [];
+
+        if(curCategory != undefined) {
+          categoryChain.unshift(curCategory);
+          while (curCategory.parentCategory) {
+            let parent = data.find(item => item.id == curCategory?.parentCategory?.id);
+            if (parent) { curCategory = parent };
+            categoryChain.unshift(curCategory);
+          }
+        }
+        return categoryChain;
+      })); */
+    
+    return this.http.get<CategoryType[]>(this.baseUrl + "Category/" + selected + "/chain");
+    
+  }
+
+  getAttributeArray(categoryChain: CategoryType[]) {
+    let chainCategoriesId: number[] = [];
+    categoryChain.forEach(category => chainCategoriesId.push(category.id));
+    // console.log(chainCategoriesId.join(","));
+
     let options = { params: new HttpParams().set('getAttributeArray', chainCategoriesId.join(',')) };
 
     // return for local request (with filter)
@@ -57,38 +107,16 @@ export class HttpRequestsService {
       }));
   }
 
-  getCategoryChain(selected: number) {
-    let options = { params: new HttpParams().set('getCategoryChain', selected) };
 
-    // return for local request (with filter)
-    return this.http.get<Category[]>(this.categoryURL, options)
-      .pipe(map(data => {
-        let curCategory: Pick<Category, 'id' | 'name' | 'title' | 'parentCategory'> | undefined;
-        curCategory = data.find(item => item.id == selected);
 
-        let categoryChain: Pick<Category, 'id' | 'name' | 'title'>[] = [];
 
-        if(curCategory != undefined) {
-          categoryChain.unshift(curCategory);
-          while (curCategory.parentCategory) {
-            let parent = data.find(item => item.id == curCategory?.parentCategory?.id);
-            if (parent) { curCategory = parent };
-            categoryChain.unshift(curCategory);
-          }
-        }
-        return categoryChain;
-      }));
-  }
+  // -------temp-----------
 
-  getCategoryByName(category: string) {
-    let options = { params: new HttpParams().set('getCategoryByName', category) };
+  
 
-    // return for local request (with filter)
-    return this.http.get<SelectedCategory[]>(this.categoryURL, options)
-      .pipe(map(data => 
-        data.find(item => item!.name === category) ?? null
-      ));
-  }
+  
+
+  
 
   getModelBasedFilters(category: number) {
     let options = { params: new HttpParams().set('getModelBasedFilters', category) };
@@ -97,21 +125,7 @@ export class HttpRequestsService {
 
 
   // --------------work------
-  getChildCategories(parentId: number | null) {
-    let options;
-    if (parentId) {
-      options = { params: new HttpParams().set('getChildCategories', parentId) };
-    } else {
-      options = { params: new HttpParams().set('getFirstLevelCategories', true) };
-    }
-
-    // return for backend request
-    // return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'hasChildren'>[]>(this.backendURL, options);
-
-    // return for local request (with filter)
-    return this.http.get<Pick<Category, 'id' | 'name' | 'title' | 'parentCategory' | 'hasChildren'>[]>(this.categoryURL, options)
-      .pipe(map(data => data.filter(item => item.parentCategory?.id == parentId)));
-  }
+  
 
   getModels(categoryName: string, queryParams: Params): Observable<Model[]> {    
     let options = { 

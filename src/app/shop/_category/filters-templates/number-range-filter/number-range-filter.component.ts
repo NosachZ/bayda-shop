@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Options, LabelType } from '@angular-slider/ngx-slider/options';
 import { AttrType } from 'src/app/_data-model/products';
-import { FiltersHandlerService, NumberRangeFilterArg, SelectedFilters } from '../../filters-handler.service';
+import { FiltersHandlerService, NumberRangeFilterArg, SelectedFilters } from '../../category-handler.service';
 
 interface State {
   minValue: number,

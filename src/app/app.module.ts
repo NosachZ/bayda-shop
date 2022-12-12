@@ -15,7 +15,10 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { registerLocaleData } from '@angular/common';
 import localeUk from '@angular/common/locales/uk';
+import { environment } from 'src/environments/environment';
+import { BASE_URL } from './base_url';
 registerLocaleData(localeUk, 'uk');
+
 
 
 @NgModule({
@@ -34,7 +37,12 @@ registerLocaleData(localeUk, 'uk');
     NgxSliderModule,
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: BASE_URL,
+      useValue: environment.apiBaseUrl
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

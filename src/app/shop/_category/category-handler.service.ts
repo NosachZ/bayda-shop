@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { AttributeValue, AttrType, BooleanAttribute, Category, Model } from 'src/app/_data-model/products';
-import { CategoryComplexData } from './category-data';
+import { CategoryComplexData } from '../shop-interfaces';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
 import { NumberRangeFilterComponent } from './filters-templates/number-range-filter/number-range-filter.component';
@@ -88,20 +88,18 @@ export class FiltersHandlerService {
   }
 
   getChildCategories(categoryComplexData: CategoryComplexData) {
-    let response = this.httpRequest.getChildCategories(categoryComplexData.selectedCategory!.id)
+    let response = this.httpRequest.getChildCategories(categoryComplexData.selectedCategory.id)
       .pipe(map(children => {
         categoryComplexData.childCategories = children;
-        // console.log(categoryComplexData);
         return categoryComplexData;
       }))
     return response;
   }
 
   getCategoryChain(categoryComplexData: CategoryComplexData) {
-    let response = this.httpRequest.getCategoryChain(categoryComplexData.selectedCategory!.id)
+    let response = this.httpRequest.getCategoryChain(categoryComplexData.selectedCategory.id)
       .pipe(map(chain => {
         categoryComplexData.categoryChain = chain;
-        // console.log(categoryComplexData);
         return categoryComplexData;
       }))
     return response;
@@ -111,7 +109,6 @@ export class FiltersHandlerService {
     let response = this.httpRequest.getAttributeArray(categoryComplexData.categoryChain)
       .pipe(map(attributes => {
         categoryComplexData.attributeArray = attributes;
-        // console.log(categoryComplexData);
         return categoryComplexData;
       }))
     return response;

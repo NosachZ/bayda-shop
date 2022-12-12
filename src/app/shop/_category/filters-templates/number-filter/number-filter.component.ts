@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SelectedFilters } from '../../filters-handler.service';
+import { SelectedFilters } from '../../category-handler.service';
 
 @Component({
   selector: 'app-number-filter',

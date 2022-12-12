@@ -1,71 +1,82 @@
 package com.baydashop.controller;
 
+import com.baydashop.model.Attribute;
 import com.baydashop.model.Category;
+import com.baydashop.repository.AttributeRepository;
 import com.baydashop.repository.CategoryRepository;
-import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("Category")
 public class CategoryController {
 
   private final CategoryRepository repository;
+  private final AttributeRepository attrRepository;
 
-  public CategoryController(CategoryRepository repository) {
+  public CategoryController(CategoryRepository repository, AttributeRepository attrRepository) {
     this.repository = repository;
+    this.attrRepository = attrRepository;
   }
 
-  /* @RequestMapping("")
+  @RequestMapping("all")
   public List<Category> allEntities() {
-  return repository.findAll();
+    return repository.findAll();
   }
 
-  @RequestMapping("{id}")
-  public Category entity(@PathVariable("id") long id) {
-    return repository.findById(id).orElse(null);
-  } */
+  @RequestMapping("")
+  public Category entityByName(@RequestParam("name") String name) {
+    return repository.findByName(name);
+  }
 
-  @RequestMapping("byName/{name}")
-  public Category entity(@PathVariable("name") String name) {
-    Category probe = new Category();
-    probe.setName(name);
-    Example<Category> example = Example.of(probe);
-    Optional<Category> respond = repository.findOne(example);
+  @RequestMapping("{Id}")
+  public Category entityById(@PathVariable("Id") long Id) {
+    return repository.findById(Id).orElse(null);
+  }
 
-    if (respond.isPresent()) {
-      return respond.get();
-    } else {
-      return null;
+  @RequestMapping("{Id}/chain")
+  public List<Category> chainEntities(@PathVariable("Id") long Id) {
+    List<Category> chain = new ArrayList<>();
+    Category curCategory = repository.findById(Id).orElse(null);
+    chain.add(0, curCategory);
+    while (curCategory.getParentCategory() != null) {
+      curCategory = repository.findById(curCategory.getParentCategory()).orElse(null);
+      chain.add(0, curCategory);
     }
+    return chain;
   }
 
-  @RequestMapping("byID/{Id}")
-  public 
-  Category entityById(@RequestParam("Id") long Id) {
-    Category probe = new Category();
-    probe.setId(Id);
-    Example<Category> example = Example.of(probe);
-    Optional<Category> respond = repository.findOne(example);
+  @RequestMapping("root")
+  public List<Category> entitiesByParentIdNull() {
+    return repository.findByParentCategory(null);
+  }
+
+  @RequestMapping("{parentId}/children")
+  public List<Category> entitiesByParent(@PathVariable("parentId") long parentId) {
+    return repository.findByParentCategory(parentId);
+  }
+
+  @RequestMapping("{categoriesIds}/attributes")
+  public List<Attribute> attributesByCategories(@PathVariable("categoriesIds") List<Long> categoriesIds) {
+    // List<Long> t = categoriesIds;
+    // Long i = categoriesIds.get(1);
+    return attrRepository.findAttributesByCategoriesId(categoriesIds.get(0));
+  }
+
+  /* @RequestMapping("byParentID/")
+  public List<Category> entitiesByParentNull() {
+    //  Category probe = new Category();
     
-    if (respond.isPresent()) {
-      return respond.get();
-    } else {
-      return null;
-    }
-  }
-
-  @RequestMapping("byParentID/{parentId}")
-  public List<Category> entitiesByParent(@RequestParam("parentId") long parentId) {
-    Category probe = new Category();
-    probe.setParentCategory(parentId);
-    Example<Category> example = Example.of(probe);
-    return repository.findAll(example);
-  }
+    // probe.setParentCategory(parentId);
+    // Example<Category> example = Example.of(probe);
+    // return repository.findAll(example);
+    return repository.findByParentCategory(null);
+  } */
+  
 }

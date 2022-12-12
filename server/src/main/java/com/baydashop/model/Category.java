@@ -1,5 +1,7 @@
 package com.baydashop.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,16 @@ public class Category {
 
   @Column(name = "parent_category")
   private Long parentCategory;
+
+  @ManyToMany
+  @JoinTable(
+    name = "_category_attribute", 
+    joinColumns = @JoinColumn(name = "category_id"), 
+    inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+  Set<Attribute> attributes;
+
+  
+  //getters/setters
 
   public Long getId() {
     return id;
@@ -58,4 +70,12 @@ public class Category {
   public void setParentCategory(Long parentCategory) {
     this.parentCategory = parentCategory;
   }
+
+  public Set<Attribute> getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(Set<Attribute> attributes) {
+    this.attributes = attributes;
+  } 
 }
