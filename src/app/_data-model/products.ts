@@ -1,10 +1,9 @@
 export enum AttrType {
-    String,
-    Number,
-    NumberRange,
-    Boolean
+    STRING = "STRING",
+    NUMBER = " NUMBER",
+    BOOLEAN = "BOOLEAN", 
+    NUMBER_RANGE = "NUMBER_RANGE",
 }
-
 
 export interface Category {
     id: number,
@@ -40,33 +39,32 @@ interface StringAttribute {
     name: string,
     title: string,
     categories: Category[],
-    type: AttrType.String,
-    // acceptableValues: {index: number, value: string}[],
+    type: AttrType.STRING,
+    booleanTypeDescription: null,
 }
 interface NumberAttribute {
     id: number,
     name: string,
     title: string,
     categories: Category[],
-    type: AttrType.Number,
-    // acceptableValues: {min: number, max: number},
+    type: AttrType.NUMBER,
+    booleanTypeDescription: null,
 }
 interface NumberRangeAttribute {
     id: number,
     name: string,
     title: string,
     categories: Category[],
-    type: AttrType.NumberRange,
-    // acceptableValues: {min: number, max: number},
+    type: AttrType.NUMBER_RANGE,
+    booleanTypeDescription: null,
 }
 export interface BooleanAttribute {
     id: number,
     name: string,
     title: string,
     categories: Category[],
-    type: AttrType.Boolean,
-    description: string,
-    // acceptableValues: {value: boolean, title: string},
+    type: AttrType.BOOLEAN,
+    booleanTypeDescription: string,
 }
 export type Attribute = StringAttribute | NumberAttribute | NumberRangeAttribute | BooleanAttribute
 

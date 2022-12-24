@@ -29,7 +29,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
       switchMap(categoryComplexData => this.filtersHandler.getChildCategories(categoryComplexData)),
       switchMap(categoryComplexData => this.filtersHandler.getCategoryChain(categoryComplexData)),
       switchMap(categoryComplexData => this.filtersHandler.getAttributes(categoryComplexData)),
-      switchMap(categoryComplexData => this.filtersHandler.getModelBasedFilters(categoryComplexData)),
+      switchMap(categoryComplexData => this.filtersHandler.getAttributesData(categoryComplexData)),
+      switchMap(categoryComplexData => this.filtersHandler.getModelBasedData(categoryComplexData)),
       takeUntil(this.destroy$)
     )
     .subscribe(categoryComplexData => {

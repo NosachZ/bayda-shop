@@ -1,39 +1,47 @@
-import { Attribute, AttributeValue, BooleanAttribute, Category, Model } from "../_data-model/products";
+import { Attribute, AttributeValue, Category, Model } from "../_data-model/products";
 
 export type CategoryType = Pick<Category, 'id' | 'name' | 'title' | 'parentCategory' | 'hasChildren'>;
+export type AttributeType = Pick<Attribute, 'id' | 'name' | 'title' | 'type' | 'booleanTypeDescription'>;
+
+export interface AttributeValueType {
+    id: number,
+    attribute: Attribute,
+    stringValue: string | null,
+    numberValue: number | null,
+    booleanValue: boolean | null,
+}
+
+
+
+
 
 export interface CategoryComplexData {
     selectedCategory: CategoryType;
     childCategories: CategoryType[];
     categoryChain: CategoryType[]; //chain from root to selected category
-    attributeArray: AttributeData[]; //array of attributes from categoryChain with attributeValues from models from categoryChain
-    modelBasedFilters: AttributeData[];
+    attributes: AttributeType[];
+    attributeArray: AttributeData[]; //array of attributes from categoryChain
+    modelBasedFilters: AttributeData[]; //array of model-based attributes from models from categoryChain
 }
 
-interface AttributeValueData {
-    item: Pick<AttributeValue, 'id' | 'value'> | { minValue: number, maxValue: number },
-    initItem?: boolean | { minValue: number, maxValue: number }
+export interface FilterRange { 
+    minValue: number, 
+    maxValue: number 
 }
 
-interface StringAttributeData {
-    attr: Omit<Attribute, 'categories'>,
-    values: AttributeValueData[],
+export interface AttributeData {
+    attribute: AttributeType,
+    values: AttributeValueType[]
 }
-interface BooleanAttributeData {
-    attr: Omit<BooleanAttribute, 'categories'>,
-    values: AttributeValueData[]
-}
-interface NumberAttributeData {
-    attr: Omit<Attribute, 'categories'>,
-    values: AttributeValueData[],
-}
-interface NumberRangeAttributeData {
-    attr: Omit<Attribute, 'categories'>,
-    values: AttributeValueData
-}
-export type AttributeData = StringAttributeData | BooleanAttributeData | NumberAttributeData | NumberRangeAttributeData
+
+
+
 
 export interface ModelData {
-    model: Model | null;
+    model: ModelType;
     categoryChain: CategoryType[];
-  }
+}
+
+export interface ModelType extends Omit<Model, "values"> {
+    values: AttributeValueType[]
+}

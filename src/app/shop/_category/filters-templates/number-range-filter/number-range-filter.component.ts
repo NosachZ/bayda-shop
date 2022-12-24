@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Options, LabelType } from '@angular-slider/ngx-slider/options';
+import { Options } from '@angular-slider/ngx-slider/options';
 import { AttrType } from 'src/app/_data-model/products';
 import { FiltersHandlerService, NumberRangeFilterArg, SelectedFilters } from '../../category-handler.service';
+import { AttributeData, FilterRange } from 'src/app/shop/shop-interfaces';
 
 interface State {
   minValue: number,
@@ -15,7 +16,7 @@ interface State {
 })
 export class NumberRangeFilterComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() data!: AttributeData;
 
   state: State = {
     minValue: 0,
@@ -28,6 +29,9 @@ export class NumberRangeFilterComponent implements OnInit {
     minRange: 0,
   };
 
+  valuesArray: number[] = [];
+  filterRange: FilterRange = {} as FilterRange;
+
   constructor(private filtersHandler: FiltersHandlerService) { }
 
   ngOnInit(): void {}
@@ -39,22 +43,32 @@ export class NumberRangeFilterComponent implements OnInit {
     } else {
       data = {update: true, min: this.state.minValue, max: this.state.maxValue};
     }
-    this.filtersHandler.switchFilter(this.data.attr.name, AttrType.NumberRange, data);    
+    this.filtersHandler.switchFilter(this.data.attribute.name, AttrType.NUMBER_RANGE, data);    
   }
 
   init(selectedFilters: SelectedFilters) {
+    this.valuesArray.length = 0;
+
+    for (let item of this.data.values) {
+      if (item.numberValue) {
+        this.valuesArray.push(item.numberValue);
+      }
+    }
+    this.valuesArray.sort((a, b) => a - b);
+
     this.reset();
+    
     let filterNames = new Set(Object.keys(selectedFilters));
-    if (filterNames.has(this.data.attr.name)) {
-      this.state = selectedFilters[this.data.attr.name].values as State;
+    if (filterNames.has(this.data.attribute.name)) {
+      this.state = selectedFilters[this.data.attribute.name].values as State;
     }
   }
 
   reset() {
-    this.options.floor = this.data.values.item.minValue ?? 0;
-    this.options.ceil = this.data.values.item.maxValue ?? 100;
-    this.state.minValue = this.options.floor ?? 0;
-    this.state.maxValue = this.options.ceil ?? 100;
+    this.options.floor = this.valuesArray[0] ?? 0;
+    this.options.ceil = this.valuesArray[this.valuesArray.length - 1] ?? 100;
+    this.state.minValue = this.options.floor;
+    this.state.maxValue = this.options.ceil;
   }
 
 }

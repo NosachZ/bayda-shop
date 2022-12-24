@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FiltersHandlerService, SelectedFilters } from '../../category-handler.service';
 import { AttrType } from 'src/app/_data-model/products';
+import { AttributeData } from 'src/app/shop/shop-interfaces';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { AttrType } from 'src/app/_data-model/products';
 })
 export class BooleanFilterComponent implements OnInit {
 
-  @Input() data!: any;
+  @Input() data!: AttributeData;
 
   state: boolean = false;
 
@@ -21,14 +22,14 @@ export class BooleanFilterComponent implements OnInit {
   ngOnInit(): void {}
 
   onChange(event: MatCheckboxChange) {
-    this.filtersHandler.switchFilter(this.data.attr.name, AttrType.Boolean, event.checked);
+    this.filtersHandler.switchFilter(this.data.attribute.name, AttrType.BOOLEAN, event.checked);
   }
 
   init(selectedFilters: SelectedFilters) {
     this.reset();
 
     let filterNames = new Set(Object.keys(selectedFilters));    
-    if (filterNames.has(this.data.attr.name)) {      
+    if (filterNames.has(this.data.attribute.name)) {      
       this.state = true;
     }
   }

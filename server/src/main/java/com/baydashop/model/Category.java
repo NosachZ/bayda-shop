@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -24,15 +26,26 @@ public class Category {
   @ManyToMany
   @JoinTable(
     name = "_category_attribute", 
-    joinColumns = @JoinColumn(name = "category_id"), 
-    inverseJoinColumns = @JoinColumn(name = "attribute_id"))
-  Set<Attribute> attributes;
+    joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"), 
+    inverseJoinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"))
+  private Set<Attribute> attributes;
+
+  @ManyToMany(fetch = FetchType.LAZY,
+  cascade = {
+      CascadeType.PERSIST,
+      CascadeType.MERGE
+  })
+  @JoinTable(
+    name = "_category_model", 
+    joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"), 
+    inverseJoinColumns = @JoinColumn(name = "model_id", referencedColumnName = "id"))
+  private Set<Model> models;
 
   
   //getters/setters
 
   public Long getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(Long id) {
@@ -40,7 +53,7 @@ public class Category {
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public void setName(String name) {
@@ -48,7 +61,7 @@ public class Category {
   }
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public void setTitle(String title) {
@@ -56,7 +69,7 @@ public class Category {
   }
 
   public Boolean getHasChildren() {
-    return hasChildren;
+    return this.hasChildren;
   }
 
   public void setHasChildren(Boolean hasChildren) {
@@ -64,7 +77,7 @@ public class Category {
   }
 
   public Long getParentCategory() {
-    return parentCategory;
+    return this.parentCategory;
   }
 
   public void setParentCategory(Long parentCategory) {
@@ -72,10 +85,18 @@ public class Category {
   }
 
   public Set<Attribute> getAttributes() {
-    return attributes;
+    return this.attributes;
   }
 
   public void setAttributes(Set<Attribute> attributes) {
     this.attributes = attributes;
-  } 
+  }
+
+  /* public Set<Model> getModels() {
+    return this.models;
+  }
+
+  public void setModels(Set<Model> models) {
+    this.models = models;
+  } */
 }

@@ -4,12 +4,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-enum AttrType {
-    String,
-    Number,
-    NumberRange,
-    Boolean
-}
 
 @Entity
 @Table(name = "attributes")
@@ -23,13 +17,19 @@ public class Attribute {
 
   private String title;
 
-  private AttrType type;
+  @Enumerated(EnumType.STRING)
+  private AttributeType type;
+  
 
-  @Column(name = "bool_description")
-  private String boolDescription;
+  @Column(name = "boolean_type_description")
+  private String booleanTypeDescription;
 
   @ManyToMany(mappedBy = "attributes")
-  Set<Category> categories;
+  private Set<Category> categories;
+
+  @OneToMany(mappedBy = "attribute", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+  private Set<AttributeValue> values;
 
 
 
@@ -59,28 +59,28 @@ public class Attribute {
     this.title = title;
   }
 
-  public AttrType getType() {
+  public AttributeType getType() {
     return type;
   }
 
-  public void setType(AttrType type) {
+  public void setType(AttributeType type) {
     this.type = type;
   }
 
-  public String getBoolDescription() {
-    return boolDescription;
+  public String getBooleanTypeDescription() {
+    return booleanTypeDescription;
   }
 
-  public void setBoolDescription(String boolDescription) {
-    this.boolDescription = boolDescription;
+  public void setbooleanTypeDescription(String booleanTypeDescription) {
+    this.booleanTypeDescription = booleanTypeDescription;
   }
 
-  public Set<Category> getCategories() {
+  /* public Set<Category> getCategories() {
     return categories;
   }
 
   public void setCategories(Set<Category> categories) {
     this.categories = categories;
-  }
+  } */
     
 }

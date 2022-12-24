@@ -2,8 +2,8 @@ import { Injectable, Type, ComponentRef, ViewContainerRef, QueryList } from '@an
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
-import { AttributeValue, AttrType, BooleanAttribute, Category, Model } from 'src/app/_data-model/products';
-import { CategoryComplexData } from '../shop-interfaces';
+import { AttributeValue, AttrType, Category, Model } from 'src/app/_data-model/products';
+import { AttributeData, AttributeValueType, CategoryComplexData, ModelType } from '../shop-interfaces';
 import { BooleanFilterComponent } from './filters-templates/boolean-filter/boolean-filter.component';
 import { NumberFilterComponent } from './filters-templates/number-filter/number-filter.component';
 import { NumberRangeFilterComponent } from './filters-templates/number-range-filter/number-range-filter.component';
@@ -14,19 +14,19 @@ import { StringFilterComponent } from './filters-templates/string-filter/string-
 export type FilterTypes = BooleanFilterComponent | NumberFilterComponent | NumberRangeFilterComponent | StringFilterComponent;
 
 export class Filter {
-  constructor (public component: Type<FilterTypes>, public data: any) {}
+  constructor (public component: Type<FilterTypes>, public data: AttributeData) {}
 }
 
 interface SelectedBooleanFilter {
-  type: AttrType.Boolean,
+  type: AttrType.BOOLEAN,
   values: boolean
 }
 interface SelectedNumberRangeFilter {
-  type: AttrType.NumberRange,
+  type: AttrType.NUMBER_RANGE,
   values: {minValue: number, maxValue: number}
 }
 interface SelectedStringFilter {
-  type: AttrType.String,
+  type: AttrType.STRING,
   values: Set<number>
 }
 
@@ -57,14 +57,12 @@ export class FiltersHandlerService {
 
   filterComponentRefArray: ComponentRef<FilterTypes>[] = [];
 
-  // private modelsRequestSource = new Subject<ModelRequestParams>;
   private modelsRequestSource = new Subject<boolean>;
-  // private modelsRequestSource = new Subject<string>;
   modelsRequest$ = this.modelsRequestSource.asObservable();
 
   
-  modelsData$: Observable<Model[]> = EMPTY;
-  modelsData: Model[] = [];
+  modelsData$: Observable<ModelType[]> = EMPTY;
+  modelsData: ModelType[] = [];
 
 
 
@@ -106,50 +104,67 @@ export class FiltersHandlerService {
   }
 
   getAttributes(categoryComplexData: CategoryComplexData) {
-    let response = this.httpRequest.getAttributeArray(categoryComplexData.categoryChain)
+    let response = this.httpRequest.getAttributes(categoryComplexData.categoryChain)
       .pipe(map(attributes => {
-        categoryComplexData.attributeArray = attributes;
+        categoryComplexData.attributes = attributes;
         return categoryComplexData;
       }))
     return response;
   }
 
-  getModelBasedFilters(categoryComplexData: CategoryComplexData) {
-    let response = this.httpRequest.getModelBasedFilters(categoryComplexData.selectedCategory!.id)
+  getAttributesData(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getAttributeValues(categoryComplexData.attributes)
+      .pipe(map(attributeValues => {
+        let attributeArray: AttributeData[] = [];
+        for (let attribute of categoryComplexData.attributes) {
+          let attributeItem: AttributeData = {} as AttributeData;
+          attributeItem.attribute = attribute;
+          attributeItem.values = attributeValues
+            .filter(attrValue => attrValue.attribute.id == attribute.id)
+            .map(attrValue => {
+              let item: AttributeValueType = {} as AttributeValueType;
+              item = attrValue;
+              return item;
+            });
+          attributeArray.push(attributeItem);
+        }
+        categoryComplexData.attributeArray = attributeArray;
+        return categoryComplexData;
+      }))
+    return response;
+  }
+  
+  getModelBasedData(categoryComplexData: CategoryComplexData) {
+    let response = this.httpRequest.getModelBasedValues(categoryComplexData.selectedCategory.id)
       .pipe(map(modelBasedFilters => {
         categoryComplexData.modelBasedFilters = modelBasedFilters;
-        // console.log(categoryComplexData);
         return categoryComplexData;
       }))
     return response;
   }
 
-  modelsRequest() {
-    this.modelsRequestSource.next(true);
-  }
-
-  makeFiltersArray(categoryComplexData: CategoryComplexData): Filter[] {
+  makeFiltersArray(categoryComplexData: CategoryComplexData): Filter[] {1
     this.filtersArray.length = 0;
 
-    let array = categoryComplexData.modelBasedFilters.concat(categoryComplexData.attributeArray);
-  
-    for (let item of array) {
+    let concatArray = categoryComplexData.modelBasedFilters.concat(categoryComplexData.attributeArray);
+
+    for (let attributeData of concatArray) {
       let filter: Filter;
 
-      switch (item.attr.type) {
-        case AttrType.Boolean:
-          filter = new Filter(BooleanFilterComponent, item);
+      switch (attributeData.attribute.type) {
+        case AttrType.BOOLEAN:
+          filter = new Filter(BooleanFilterComponent, attributeData);
           break;
 
-        case AttrType.NumberRange: 
-          filter = new Filter(NumberRangeFilterComponent, item);
+        case AttrType.NUMBER_RANGE: 
+          filter = new Filter(NumberRangeFilterComponent, attributeData);
           break;
 
-        case AttrType.String: 
-          filter = new Filter(StringFilterComponent, item);
+        case AttrType.STRING: 
+          filter = new Filter(StringFilterComponent, attributeData);
           break;
 
-        case AttrType.Number: 
+        case AttrType.NUMBER: 
           console.error("NumberFilter component not implemented");
           continue;
           break;
@@ -168,26 +183,26 @@ export class FiltersHandlerService {
     let paramMap = this.route.snapshot.queryParamMap;
 
     for (let filter of this.filtersArray) {
-      let paramValue = paramMap.get(filter.data.attr.name);
+      let paramValue = paramMap.get(filter.data.attribute.name);
 
       if (paramValue) {
-        switch (filter.data.attr.type) {
-          case AttrType.Boolean:
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.Boolean, values: true};
+        switch (filter.data.attribute.type) {
+          case AttrType.BOOLEAN:
+            this.selectedFilters[filter.data.attribute.name] = {type: AttrType.BOOLEAN, values: true};
             break;
   
-          case AttrType.NumberRange: 
+          case AttrType.NUMBER_RANGE: 
             let range = paramValue.split("-");
             let values = {minValue: Number(range[0]), maxValue: Number(range[1])};
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.NumberRange, values: values};
+            this.selectedFilters[filter.data.attribute.name] = {type: AttrType.NUMBER_RANGE, values: values};
             break;
   
-          case AttrType.String: 
+          case AttrType.STRING: 
             let valueIDs: Set<number> = new Set<number>(JSON.parse("[" + paramValue + "]"));
-            this.selectedFilters[filter.data.attr.name] = {type: AttrType.String, values: valueIDs};
+            this.selectedFilters[filter.data.attribute.name] = {type: AttrType.STRING, values: valueIDs};
             break;
   
-          case AttrType.Number: 
+          case AttrType.NUMBER: 
             console.error("NumberFilter component not implemented");
             continue; 
             break;
@@ -200,6 +215,10 @@ export class FiltersHandlerService {
     }
   }
 
+  modelsRequest() {
+    this.modelsRequestSource.next(true);
+  }
+  
   createFiltersComponents(dynamic: QueryList<ViewContainerRef>) {
     this.filterComponentRefArray = [];
     dynamic.forEach((vcr: ViewContainerRef, i: number) => {
@@ -250,15 +269,15 @@ export class FiltersHandlerService {
     for (const key in this.selectedFilters) {
       const element = this.selectedFilters[key];  
       switch (element.type) {
-        case AttrType.Boolean:
+        case AttrType.BOOLEAN:
           queryParams[key] = String(element.values);
           break;
         
-        case AttrType.NumberRange:
+        case AttrType.NUMBER_RANGE:
           queryParams[key] = `${element.values.minValue}-${element.values.maxValue}`;
           break;
         
-        case AttrType.String:
+        case AttrType.STRING:
           queryParams[key] = [...element.values].join(',');
           break;
   
@@ -276,15 +295,15 @@ export class FiltersHandlerService {
     value: BooleanFilterArg | NumberRangeFilterArg | StringFilterArg) {
     
       switch (type) {
-      case AttrType.Boolean:         
+      case AttrType.BOOLEAN:         
         this.switchBooleanFilter(name, type, value as BooleanFilterArg);
         break;
       
-      case AttrType.String: 
+      case AttrType.STRING: 
         this.switchStringFilter(name, type, value as StringFilterArg);
         break;
       
-      case AttrType.NumberRange: 
+      case AttrType.NUMBER_RANGE: 
         this.switchNumbnerRangeFilter(name, type, value as NumberRangeFilterArg);
         break;
       
@@ -297,7 +316,7 @@ export class FiltersHandlerService {
   
   private switchBooleanFilter(
     name: string, 
-    type: AttrType.Boolean, 
+    type: AttrType.BOOLEAN, 
     value: BooleanFilterArg) {
     if (value) {
       this.selectedFilters[name] = {type: type, values: value};
@@ -308,7 +327,7 @@ export class FiltersHandlerService {
 
   private switchStringFilter(
     name: string, 
-    type: AttrType.String, 
+    type: AttrType.STRING, 
     value: StringFilterArg) {
       if ((name in this.selectedFilters) && ((this.selectedFilters[name] as SelectedStringFilter).values.has(value))) {
         (this.selectedFilters[name] as SelectedStringFilter).values.delete(value);
@@ -326,7 +345,7 @@ export class FiltersHandlerService {
 
   private switchNumbnerRangeFilter(
     name: string, 
-    type: AttrType.NumberRange, 
+    type: AttrType.NUMBER_RANGE, 
     value: NumberRangeFilterArg) {
       if (value.update) {
         this.selectedFilters[name] = {type: type, values: {minValue: value.min, maxValue:value.max}};

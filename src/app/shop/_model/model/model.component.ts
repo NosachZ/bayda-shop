@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { Category, Model } from 'src/app/_data-model/products';
 import { Observable, switchMap, takeUntil, Subject, map, EMPTY } from 'rxjs';
-import { ModelData } from '../../shop-interfaces';
+import { ModelData, ModelType } from '../../shop-interfaces';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 
 
@@ -17,7 +17,7 @@ import { GalleryItem, ImageItem } from 'ng-gallery';
 })
 export class ModelComponent implements OnInit {
 
-  modelData: ModelData = {model: null, categoryChain: []}; 
+  modelData: ModelData = {model: {} as ModelType, categoryChain: []}; 
   galleryImages: GalleryItem[] = [];
   availabilityTitle = "";
 
@@ -52,15 +52,14 @@ export class ModelComponent implements OnInit {
     return this.httpRequest.getModel(modelName)
         .pipe(map(model => {
           let modelData: ModelData = {} as ModelData;
-          modelData.model = model
+          modelData.model = model;
           return modelData;
         }))
   }
 
   getCategoryChain(modelData: ModelData) {
-    // console.log("getCategoryChain, modelData: ",modelData);
     let response: Observable<ModelData> = EMPTY;
-    if (modelData.model /* && modelData.model.categories.length */) {
+    if (modelData.model) {
       response = this.httpRequest.getCategoryChain(modelData.model.categories[0].id)
       .pipe(map(chain => {
         modelData.categoryChain = chain;
@@ -78,8 +77,8 @@ export class ModelComponent implements OnInit {
     ];
     for (let image of imageArray) {
       imageGalleryData.push(new ImageItem({
-        src: 'assets/backend-emul/models_photo/' + image, 
-        thumb: 'assets/backend-emul/models_photo/' + image})
+        src: 'assets/models_photo/' + image, 
+        thumb: 'assets/models_photo/' + image})
       )
     }
     return imageGalleryData;

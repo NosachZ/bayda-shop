@@ -54,7 +54,7 @@
             <p class="specification-title">Характеристики</p>
             <div *ngFor="let char of modelData.model?.values; odd as isOdd" class="specification-row">
                 <span>{{char.attribute.title}}:</span>
-                <span>{{char.value}}</span>
+                <span>{{char.stringValue}}</span>
             </div>
         </div>
     </div>

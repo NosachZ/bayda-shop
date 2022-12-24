@@ -1,8 +1,6 @@
 package com.baydashop.controller;
 
-import com.baydashop.model.Attribute;
 import com.baydashop.model.Category;
-import com.baydashop.repository.AttributeRepository;
 import com.baydashop.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,18 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("Category")
 public class CategoryController {
 
   private final CategoryRepository repository;
-  private final AttributeRepository attrRepository;
 
-  public CategoryController(CategoryRepository repository, AttributeRepository attrRepository) {
+  public CategoryController(CategoryRepository repository) {
     this.repository = repository;
-    this.attrRepository = attrRepository;
   }
 
   @RequestMapping("all")
@@ -62,12 +57,6 @@ public class CategoryController {
     return repository.findByParentCategory(parentId);
   }
 
-  @RequestMapping("{categoriesIds}/attributes")
-  public List<Attribute> attributesByCategories(@PathVariable("categoriesIds") List<Long> categoriesIds) {
-    // List<Long> t = categoriesIds;
-    // Long i = categoriesIds.get(1);
-    return attrRepository.findAttributesByCategoriesId(categoriesIds.get(0));
-  }
 
   /* @RequestMapping("byParentID/")
   public List<Category> entitiesByParentNull() {

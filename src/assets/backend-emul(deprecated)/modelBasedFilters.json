@@ -1,0 +1,81 @@
+[
+    {
+        "attribute": {
+            "id": null,
+            "name": "nalichie",
+            "title": "Наличие",
+            "type": "BOOLEAN",
+            "booleanTypeDescription": "В наличии"
+        },
+        "values": 
+            [
+                {
+                    "id": null,
+                    "attributeId": null,
+                    "stringValue": null,
+                    "numberValue": null,
+                    "booleanValue": false
+                },
+                {
+                    "id": null,
+                    "attributeId": null,
+                    "stringValue": null,
+                    "numberValue": null,
+                    "booleanValue": true
+                }
+            ]
+    },
+    {
+        "attribute": {
+            "id": null,
+            "name": "price",
+            "title": "Цена",
+            "type": "NUMBER_RANGE",
+            "booleanTypeDescription": null
+        },
+        "values": [
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 2366,
+                "booleanValue": null
+            },
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 7357,
+                "booleanValue": null
+            },
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 5266,
+                "booleanValue": null
+            },
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 1567,
+                "booleanValue": null
+            },
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 7577,
+                "booleanValue": null
+            },
+            {
+                "id": null,
+                "attributeId": null,
+                "stringValue": null,
+                "numberValue": 16266,
+                "booleanValue": null
+            }
+        ]
+    }
+]
